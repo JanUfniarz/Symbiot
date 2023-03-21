@@ -42,14 +42,10 @@ public class MainActivity extends FlutterActivity {
                                     break;
 
                                 case "square":
-                                    PyObject res = (connector.callAttr(
+                                    result.success(connector.callAttr(
                                             "square",
                                             arguments.get("value")
-                                    ));
-
-                                    result.success(res.toInt());
-//                                    int res = (int) arguments.get("value") * 2;
-//                                    result.success(res);
+                                    ).toInt());
                                     break;
 
                             }

@@ -43,18 +43,16 @@ class _HomeState extends State<Home> {
           Text(pyRes.toString()),
           ElevatedButton(
             onPressed: () async {
-              var arguments = <String, dynamic>{
+              var arguments = <String, dynamic> {
                 "value" : value,
               };
-              print("val: $value");
-              int temp = await channel.invokeMethod("square", arguments);
-              print("temp: $temp");
-              setState(() {
-                pyRes = temp;
-                print("seStete");
-                print("pyRes: $pyRes");
-              });
 
+              int temp = await channel.invokeMethod(
+                  "square",
+                  arguments
+              );
+
+              setState(() => pyRes = temp);
             },
             child: Text("test"),
           ),
