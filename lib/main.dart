@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:iron_man_ai_try_5/palette.dart';
+
+import 'message.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -22,39 +25,94 @@ class _HomeState extends State<Home> {
       "com.flutter.main/Channel"
   );
 
-  int value = 0;
-  int pyRes = 0;
+  String prompt = "";
+  List<Message> messages = [];
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Palette.background,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-                hintText: 'Balance',
-                filled: true,
-                fillColor: Colors.grey
+          SingleChildScrollView(  //! Nie działa
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                children: messages,
+              ),
             ),
-            keyboardType: TextInputType.number,
-            onChanged: (text) => value = int.parse(text),
           ),
-          Text(pyRes.toString()),
-          ElevatedButton(
-            onPressed: () async {
-              var arguments = <String, dynamic> {
-                "value" : value,
-              };
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+            child: SizedBox(
+              height: 200,
+              child: Container(
+                color: Palette.main,
+                child: Center(
+                  child: Row(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 2,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Prompt',
+                              filled: true,
+                              fillColor: Palette.background,
+                            ),
+                            onChanged: (text) => prompt = text,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: SizedBox(
+                          width: 90,
+                          height: 50,
+                          child: ElevatedButton(
+                           onPressed: () async {
 
-              int temp = await channel.invokeMethod(
-                  "square",
-                  arguments
-              );
+                             Map<String, dynamic> arguments = {
+                               "prompt" : prompt
+                             };
 
-              setState(() => pyRes = temp);
-            },
-            child: Text("test"),
+                             String response = await channel
+                                 .invokeMethod("respond", arguments);
+
+                             setState(() {
+                               messages.add(Message(
+                                   isResponse: false,
+                                   text: prompt));
+
+                               messages.add(Message(
+                                   isResponse: true,
+                                   text: response));
+                             });
+
+                           },
+                            child: Icon(
+                             Icons.send,
+                             color: Palette.main,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Palette.accent,
+                           ),
+                         ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),

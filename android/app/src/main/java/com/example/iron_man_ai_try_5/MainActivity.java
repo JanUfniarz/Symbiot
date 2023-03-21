@@ -29,7 +29,6 @@ public class MainActivity extends FlutterActivity {
                 .getInstance()
                 .getModule("Connector");
 
-
         new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL)
                 .setMethodCallHandler(
                         (call, result) -> {
@@ -41,11 +40,10 @@ public class MainActivity extends FlutterActivity {
                                     result.notImplemented();
                                     break;
 
-                                case "square":
-                                    result.success(connector.callAttr(
-                                            "square",
-                                            arguments.get("value")
-                                    ).toInt());
+                                case "respond":
+                                    result.success(connector.callAttr(call.method,
+                                            arguments.get("prompt")
+                                    ).toString());
                                     break;
 
                             }
