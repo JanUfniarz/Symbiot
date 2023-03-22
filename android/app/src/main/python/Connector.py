@@ -3,7 +3,7 @@
 #first prompt
 import openai
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 # inicjalizacja zmiennej globalnej
 global_output = ""
@@ -30,7 +30,7 @@ def gpt_text_davinci_003p1():
 #next prompt
 import openai
 
-openai.api_key = "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"
+
 
 # inicjalizacja zmiennej globalnej
 global_output = ""
