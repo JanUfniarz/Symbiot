@@ -26,89 +26,107 @@ class _HomeState extends State<Home> {
   );
 
   String prompt = "";
-  List<Message> messages = [];
+  List<Widget> messages = [];
 
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Palette.main,
+        centerTitle: true,
+        title: Text("Venom",
+          style: TextStyle(
+            color: Palette.accent
+          ),
+        ),
+      ),
       backgroundColor: Palette.background,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
+        //mainAxisAlignment: MainAxisAlignment.end,
+        //crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SingleChildScrollView(  //! Nie działa
-            scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: messages,
+          SizedBox(
+            height: 570,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: messages,
+                ),
               ),
             ),
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
-            ),
-            child: SizedBox(
-              height: 200,
-              child: Container(
-                color: Palette.main,
-                child: Center(
-                  child: Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 2,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: 'Prompt',
-                              filled: true,
-                              fillColor: Palette.background,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              child: SizedBox(
+                height: 200,
+                child: Container(
+                  color: Palette.main,
+                  child: Center(
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(
+                          flex: 2,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Prompt',
+                                filled: true,
+                                fillColor: Palette.background,
+                              ),
+                              onChanged: (text) => prompt = text,
                             ),
-                            onChanged: (text) => prompt = text,
                           ),
                         ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          width: 90,
-                          height: 50,
-                          child: ElevatedButton(
-                           onPressed: () async {
+                        Flexible(
+                          flex: 1,
+                          child: SizedBox(
+                            width: 90,
+                            height: 50,
+                            child: ElevatedButton(
+                             onPressed: () async {
 
-                             Map<String, dynamic> arguments = {
-                               "prompt" : prompt
-                             };
+                               Map<String, dynamic> arguments = {
+                                 "prompt" : prompt
+                               };
 
-                             String response = await channel
-                                 .invokeMethod("respond", arguments);
+                               String response = await channel
+                                   .invokeMethod("respond", arguments);
 
-                             setState(() {
-                               messages.add(Message(
-                                   isResponse: false,
-                                   text: prompt));
+                               setState(() {
+                                 messages.add(Message(
+                                     isResponse: false,
+                                     text: prompt));
 
-                               messages.add(Message(
-                                   isResponse: true,
-                                   text: response));
-                             });
+                                 Message last = Message(
+                                     isResponse: true,
+                                     text: response);
 
-                           },
-                            child: Icon(
-                             Icons.send,
-                             color: Palette.main,
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Palette.accent,
+                                 messages.add(last);
+                               });
+
+                             },
+                              child: Icon(
+                               Icons.send,
+                               color: Palette.main,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Palette.accent,
+                             ),
                            ),
-                         ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
