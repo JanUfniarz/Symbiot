@@ -28,6 +28,11 @@ class _HomeState extends State<Home> {
   String prompt = "";
   List<Widget> messages = [];
 
+  Future<String> _response(arguments) async {
+    String r = await channel
+        .invokeMethod("respond", arguments);
+    return r;
+}
 
   @override
   Widget build(BuildContext context) {
@@ -107,11 +112,9 @@ class _HomeState extends State<Home> {
                                      isResponse: false,
                                      text: prompt));
 
-                                 Message last = Message(
+                                 messages.add(Message(
                                      isResponse: true,
-                                     text: response);
-
-                                 messages.add(last);
+                                     text: response););
                                });
 
                              },
@@ -136,4 +139,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+
 }

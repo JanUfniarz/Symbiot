@@ -1,21 +1,21 @@
-%pip install openai
 
 #first prompt
 import openai
 
 openai.api_key = "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"
-
+'''
 def respond(prompt):
-     
-     return "text"
-
+    prompt=prompt
+    x=gpt_text_davinci_003p1(prompt)
+    return x
+'''
 # inicjalizacja zmiennej globalnej
 global_output = ""
 
-def gpt_text_davinci_003p1():
+def gpt_text_davinci_003p1(prompt):
     global global_output
 
-    prompt = input("Enter your first prompt: ")
+    prompt = prompt
     response = openai.Completion.create(
         engine='text-davinci-003',
         prompt=prompt,
@@ -32,17 +32,16 @@ def gpt_text_davinci_003p1():
     return output
 
 #next prompt
-import openai
 
 
 
 # inicjalizacja zmiennej globalnej
 global_output = ""
 
-def gpt_text_davinci_003p2():
+def gpt_text_davinci_003p2(prompt):
     global global_output
 
-    prompt = global_output+' '+input("Enter your next prompt: ")
+    prompt = global_output+' '+prompt
     print(prompt)
     response = openai.Completion.create(
         engine='text-davinci-003',
@@ -58,14 +57,19 @@ def gpt_text_davinci_003p2():
     return output
 
 #sukces
-def gpt_text_davinci_003_context_history():
-      #global output_history
+def respond(prompt):
+    '''
+      prompt=prompt
+      global output_history
       history={}
       if len(global_output) == 0:
-            p1=gpt_text_davinci_003p1()
+            p1=gpt_text_davinci_003p1(prompt)
             history[len(history)] = p1
             return p1
       else:
-            p2=gpt_text_davinci_003p2()
+            p2=gpt_text_davinci_003p2(prompt)
             history[len(history)] = p2
             return p2
+    '''
+
+    return prompt
