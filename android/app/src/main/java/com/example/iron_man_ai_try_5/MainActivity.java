@@ -29,6 +29,8 @@ public class MainActivity extends FlutterActivity {
                 .getInstance()
                 .getModule("Connector");
 
+                
+
         new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL)
                 .setMethodCallHandler(
                         (call, result) -> {
