@@ -27,9 +27,9 @@ public class MainActivity extends FlutterActivity {
 
         PyObject connector = Python
                 .getInstance()
-                .getModule("Connector");
+                .getModule("Connector.py");
 
-        connector.callAttr("gpt_text_davinci_003_context_history");
+        //connector.callAttr("gpt_text_davinci_003_context_history");
                 
 
         new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL)

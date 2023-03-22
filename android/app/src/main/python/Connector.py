@@ -5,6 +5,10 @@ import openai
 
 openai.api_key = "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"
 
+def respond(prompt):
+     
+     return "text"
+
 # inicjalizacja zmiennej globalnej
 global_output = ""
 
