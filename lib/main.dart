@@ -114,7 +114,7 @@ class _HomeState extends State<Home> {
 
                                  messages.add(Message(
                                      isResponse: true,
-                                     text: response););
+                                     text: response));
                                });
 
                              },

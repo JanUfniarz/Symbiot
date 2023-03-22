@@ -1,7 +1,7 @@
 #first prompt
 import openai
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 # inicjalizacja zmiennej globalnej
 global_output = ""
