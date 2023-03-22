@@ -1,16 +1,11 @@
-
 #first prompt
 import openai
 
-openai.api_key = "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"
-'''
-def respond(prompt):
-    prompt=prompt
-    x=gpt_text_davinci_003p1(prompt)
-    return x
-'''
+openai.api_key = "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"
+
 # inicjalizacja zmiennej globalnej
 global_output = ""
+history={}
 
 def gpt_text_davinci_003p1(prompt):
     global global_output
@@ -32,6 +27,7 @@ def gpt_text_davinci_003p1(prompt):
     return output
 
 #next prompt
+import openai
 
 
 
@@ -42,7 +38,6 @@ def gpt_text_davinci_003p2(prompt):
     global global_output
 
     prompt = global_output+' '+prompt
-    print(prompt)
     response = openai.Completion.create(
         engine='text-davinci-003',
         prompt=prompt,
@@ -56,20 +51,14 @@ def gpt_text_davinci_003p2(prompt):
 
     return output
 
-#sukces
 def respond(prompt):
-    '''
+      #global output_history
       prompt=prompt
-      global output_history
-      history={}
       if len(global_output) == 0:
             p1=gpt_text_davinci_003p1(prompt)
             history[len(history)] = p1
             return p1
-      else:
+      else:      
             p2=gpt_text_davinci_003p2(prompt)
             history[len(history)] = p2
             return p2
-    '''
-
-    return prompt
