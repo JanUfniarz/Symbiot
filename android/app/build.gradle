@@ -26,6 +26,12 @@ apply plugin: 'com.chaquo.python'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+dependencies {
+    implementation 'io.github.cdimascio:dotenv-java:2.2.0'
+    // other dependencies...
+}
+
+
 android {
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion

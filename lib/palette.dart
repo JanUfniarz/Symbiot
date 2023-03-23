@@ -5,4 +5,6 @@ class Palette {
   static Color main = Color(0xff0d2231);
   static Color accent = Color(0xff53d46b);
   static Color fontLight = Color(0xffe3edf5);
+  static Color resCard = Color(0xff1d3d53);
+
 }

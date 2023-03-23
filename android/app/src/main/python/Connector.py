@@ -1,11 +1,18 @@
 #first prompt
 import openai
+import os
 
-openai.api_key = "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"
+#api_kay = os.environ['OPENAI_API_KEY']
+
+openai.api_key = ""
 
 # inicjalizacja zmiennej globalnej
 global_output = ""
 history={}
+
+def initialize(apiKey):
+    openai.api_key = apiKey
+
 
 def gpt_text_davinci_003p1(prompt):
     global global_output

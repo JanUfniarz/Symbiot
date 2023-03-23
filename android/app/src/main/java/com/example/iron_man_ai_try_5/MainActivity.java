@@ -12,6 +12,7 @@ import java.util.Map;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class MainActivity extends FlutterActivity {
 
@@ -25,9 +26,14 @@ public class MainActivity extends FlutterActivity {
             Python.start(new AndroidPlatform(this));
         }
 
+        Dotenv dotenv = Dotenv.configure().load();
+        String apiKey =  dotenv.get("OPENAI_API_KEY");
+
         PyObject connector = Python
                 .getInstance()
                 .getModule("Connector");
+
+        connector.callAttr("initialize", apiKey);
 
         new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL)
                 .setMethodCallHandler(

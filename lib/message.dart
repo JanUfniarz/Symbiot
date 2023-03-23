@@ -18,7 +18,7 @@ class _MessageState extends State<Message> {
   Widget build(BuildContext context) {
     if (widget.isResponse) {
       return Card(
-        color: Palette.background,
+        color: Palette.resCard,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -27,7 +27,7 @@ class _MessageState extends State<Message> {
                 style: TextStyle(
                   color: Palette.accent,
                   fontSize: 20,
-                  backgroundColor: Palette.background,
+                  backgroundColor: Palette.resCard,
                 ),
               ),
             ),
