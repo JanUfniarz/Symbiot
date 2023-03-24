@@ -10,8 +10,8 @@ openai.api_key = ""
 global_output = ""
 history={}
 
-def initialize(apiKey):
-    openai.api_key = apiKey
+# def initialize(apiKey):
+#     openai.api_key = apiKey
 
 
 def gpt_text_davinci_003p1(prompt):
