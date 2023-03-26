@@ -70,8 +70,8 @@ class _HomeState extends State<Home> {
             alignment: Alignment.bottomCenter,
             child: ClipRRect(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
               ),
               child: SizedBox(
                 height: 200,

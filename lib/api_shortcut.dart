@@ -27,13 +27,16 @@ class ApiShortcut extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           SizedBox(height: 100),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Api Key',
-              filled: true,
-              fillColor: Palette.background,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Api Key',
+                filled: true,
+                fillColor: Palette.background,
+              ),
+              onChanged: (text) => apiKey = text,
             ),
-            onChanged: (text) => apiKey = text,
           ),
           SizedBox(
             width: 90,

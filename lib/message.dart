@@ -16,45 +16,39 @@ class _MessageState extends State<Message> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isResponse) {
-      return Card(
-        color: Palette.background,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Flexible(
-              child: Text("${widget.text}",
-                style: TextStyle(
-                  color: Palette.accent,
-                  fontSize: 20,
-                  backgroundColor: Palette.background,
+
+    return Card(
+      elevation: 0,
+      color: Palette.background,
+      child: Row(
+        mainAxisAlignment: widget.isResponse
+              ? MainAxisAlignment.start
+              : MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          //SizedBox(width: widget.isResponse ? 0 : 100),
+          Flexible(
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(4),
+                topRight: Radius.circular(4),
+              ),
+              child: Container(
+                color: widget.isResponse ? Palette.response : Palette.prompt,
+                child: Text("${widget.text}",
+                  textAlign: widget.isResponse ? TextAlign.start : TextAlign.end,
+                  style: TextStyle(
+                    color: widget.isResponse ? Palette.fontLight : Palette.accent,
+                    fontSize: 20,
+                    backgroundColor: Colors.transparent,
+                  ),
                 ),
               ),
             ),
-            SizedBox(width: 100),
-          ],
-        ),
-      );
-    } else {
-      return Card(
-        color: Palette.background,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            SizedBox(width: 100),
-            Flexible(
-              child: Text("${widget.text}",
-                textAlign: TextAlign.end,
-                style: TextStyle(
-                  color: Palette.main,
-                  fontSize: 20,
-                  backgroundColor: Palette.background,
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
+          ),
+          //SizedBox(width: widget.isResponse ? 0: 100),
+        ],
+      ),
+    );
   }
 }
