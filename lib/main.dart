@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:iron_man_ai_try_5/api_shortcut.dart';
 import 'package:iron_man_ai_try_5/palette.dart';
 
 import 'message.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: "/home",
+    initialRoute: "/api",
     routes: {
       "/home" : (context) => Home(),
+      "/api" : (context) => ApiShortcut(),
     },
   ));
 }
@@ -41,7 +43,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: Palette.main,
         centerTitle: true,
-        title: Text("Venom",
+        title: Text("Symbiot",
           style: TextStyle(
             color: Palette.accent
           ),
