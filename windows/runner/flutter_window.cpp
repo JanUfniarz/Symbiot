@@ -4,15 +4,19 @@
 
 #include "flutter/generated_plugin_registrant.h"
 
+// To MethodChannel
 #include <flutter/binary_messenger.h>
 #include <flutter/standard_method_codec.h>
 #include <flutter/method_channel.h>
 #include <flutter/method_result_functions.h>
 
+// To map conversion
 #include <any>
 #include <map>
 #include <string>
 #include <flutter/flutter_view.h>
+
+// To python
 
 FlutterWindow::FlutterWindow(const flutter::DartProject& project)
     : project_(project) {}
@@ -48,9 +52,6 @@ std::map<std::string, std::any> methodCallToMap(const flutter::MethodCall<flutte
     }
     return result;
 }
-
-
-
 // ===========================================
 
 // ===========================================
