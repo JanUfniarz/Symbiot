@@ -54,8 +54,6 @@ END
 // remains consistent on all systems.
 IDI_APP_ICON            ICON                    "resources\\app_icon.ico"
 
-// Added pybind11
-IDI_PYTHON_INCLUDE_PATH    RCDATA                  "include"
 
 /////////////////////////////////////////////////////////////////////////////
 //

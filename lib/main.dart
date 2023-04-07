@@ -7,7 +7,7 @@ import 'message.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: "/home",
+    initialRoute: "/api",
     routes: {
       "/home" : (context) => Home(),
       "/api" : (context) => ApiShortcut(),
@@ -29,12 +29,6 @@ class _HomeState extends State<Home> {
 
   String prompt = "";
   List<Widget> messages = [];
-
-  Future<String> _response(arguments) async {
-    String r = await channel
-        .invokeMethod("respond", arguments);
-    return r;
-}
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +112,6 @@ class _HomeState extends State<Home> {
                                      isResponse: true,
                                      text: response));
                                });
-
                              },
                               child: Icon(
                                Icons.send,

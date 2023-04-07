@@ -57,7 +57,7 @@ public class MainActivity extends FlutterActivity {
                                             connector.callAttr(             // Result of method in Connector
                                                     call.method,            // Name of method
                                                     arguments.get("prompt") // Prompt taken from arguments map
-                                    ).toString());                          // In form of string
+                                            ).toString());                  // In form of string
                                     break;
 
                                 // Method to set an API key
