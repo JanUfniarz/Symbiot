@@ -17,6 +17,7 @@
 #include <flutter/flutter_view.h>
 
 // To python
+#include <Python.h>
 
 FlutterWindow::FlutterWindow(const flutter::DartProject& project)
     : project_(project) {}
@@ -54,9 +55,34 @@ std::map<std::string, std::any> methodCallToMap(const flutter::MethodCall<flutte
 }
 // ===========================================
 
+std::string pyObjectToString(PyObject* obj) {
+    // Check if the object is a Unicode string
+    if (PyUnicode_Check(obj)) {
+        // Convert the Unicode string to a UTF-8 encoded C string
+        const char* utf8Str = PyUnicode_AsUTF8(obj);
+        if (utf8Str != nullptr) {
+            return std::string(utf8Str);
+        }
+    }
+    // If the object is not a Unicode string, get its string representation
+    PyObject* strObj = PyObject_Str(obj);
+    if (strObj == nullptr) {
+        return "";
+    }
+    // Convert the string representation to a UTF-8 encoded C string
+    const char* utf8Str = PyUnicode_AsUTF8(strObj);
+    if (utf8Str == nullptr) {
+        Py_DECREF(strObj);
+        return "";
+    }
+    std::string result = std::string(utf8Str);
+    Py_DECREF(strObj);
+    return result;
+}
+
 // ===========================================
 // MethodCannel
-void initMethodChannel(flutter::FlutterEngine* flutter_instance) {
+void initMethodChannel(flutter::FlutterEngine* flutter_instance, PyObject* connector) {
     // name your channel
     const static std::string channel_name("com.flutter.main/Channel");
 
@@ -66,23 +92,53 @@ void initMethodChannel(flutter::FlutterEngine* flutter_instance) {
             &flutter::StandardMethodCodec::GetInstance());
 
     channel->SetMethodCallHandler(
-        [](const flutter::MethodCall<>& call, 
-          std::unique_ptr<flutter::MethodResult<>> result) {
+        [connector](const flutter::MethodCall<>& call,
+            std::unique_ptr<flutter::MethodResult<>> result) {
 
-            std::map<std::string, std::any> arguments = methodCallToMap(call);
+                std::map<std::string, std::any> arguments = methodCallToMap(call);
 
-            // cheack method name called from dart
-            if (call.method_name().compare("respond") == 0) {
-            // do whate ever you want
+                // cheack method name called from dart
+                if (call.method_name().compare("respond") == 0) {
+                    // do whate ever you want
 
-            std::string res = std::any_cast<std::string>(arguments.at("prompt"));
+                    std::string prompt = std::any_cast<std::string>(arguments.at("prompt"));
 
-            result->Success(res);
-            }
-            else {
-                result->NotImplemented();
-            }
-          }
+                    if (connector) {
+                        PyObject* my_function = PyObject_GetAttrString(connector, "respond");
+
+                        if (my_function && PyCallable_Check(my_function)) {
+                            PyObject* args = PyUnicode_FromString(prompt.c_str());// Przygotowanie argumentów funkcji
+                            PyObject* resFromPy = PyObject_CallObject(my_function, args); // Wywołanie funkcji
+
+                            // Sprawdzenie wyniku i przetworzenie go w zależności od oczekiwanego typu
+                            if (resFromPy) {
+                                // Przetworzenie wyniku np. jako int, float, string, itp.
+                                // ...
+
+                                std::string resToDart = pyObjectToString(resFromPy);
+                                result->Success(resToDart);
+                                Py_DECREF(resFromPy); // Zwolnienie obiektu wyniku
+                            }
+                            else {
+                                // Obsługa błędu
+                                // ...
+                                result->Error("function error");
+                            }
+
+                            Py_DECREF(my_function); // Zwolnienie obiektu funkcji
+                            Py_DECREF(args); // Zwolnienie obiektu argumentów
+                        }
+                        
+                    } else {
+
+                        // Obsługa błędu
+                        // ...
+                        result->Error("connector error");
+                    }
+                }else {
+                    result->NotImplemented();
+                }
+        }
   );
 }
 // ===========================================
@@ -91,6 +147,12 @@ bool FlutterWindow::OnCreate() {
   if (!Win32Window::OnCreate()) {
     return false;
   }
+
+  // Inicjalizacja interpretera Pythona
+  Py_Initialize();
+
+  // Zaimportowanie modułu Pythona
+  PyObject* connector = PyImport_ImportModule("android/app/src/main/python/Connector.py");
 
   RECT frame = GetClientArea();
 
@@ -105,9 +167,9 @@ bool FlutterWindow::OnCreate() {
   RegisterPlugins(flutter_controller_->engine());
   // ===========================================
   // initialize method channel here 
-    initMethodChannel(flutter_controller_->engine());
+  initMethodChannel(flutter_controller_->engine(), connector);
 
-    //?run_loop_->RegisterFlutterInstance(flutter_controller_->engine());
+  //?run_loop_->RegisterFlutterInstance(flutter_controller_->engine());
   // ===========================================
   SetChildContent(flutter_controller_->view()->GetNativeWindow());
 
@@ -145,6 +207,9 @@ FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
       flutter_controller_->engine()->ReloadSystemFonts();
       break;
   }
+
+    // Zakończenie interpretera Pythona
+    Py_Finalize();
 
   return Win32Window::MessageHandler(hwnd, message, wparam, lparam);
 }

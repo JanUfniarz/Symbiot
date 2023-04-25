@@ -7,7 +7,7 @@ import 'message.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: "/api",
+    initialRoute: "/home",
     routes: {
       "/home" : (context) => Home(),
       "/api" : (context) => ApiShortcut(),
