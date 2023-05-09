@@ -9,13 +9,14 @@ void main() {
   runApp(MaterialApp(
     initialRoute: "/home",
     routes: {
-      "/home" : (context) => Home(),
+      "/home" : (context) => const Home(),
       "/api" : (context) => ApiShortcut(),
     },
   ));
 }
 
 class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
           Align(
             alignment: Alignment.bottomCenter,
             child: ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
               ),
@@ -77,7 +78,7 @@ class _HomeState extends State<Home> {
                         Flexible(
                           flex: 2,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: TextField(
                               decoration: InputDecoration(
                                 hintText: 'Prompt',
@@ -113,13 +114,13 @@ class _HomeState extends State<Home> {
                                      text: response));
                                });
                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Palette.accent,
+                             ),
                               child: Icon(
                                Icons.send,
                                color: Palette.main,
                               ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Palette.accent,
-                             ),
                            ),
                           ),
                         ),

@@ -3,10 +3,10 @@ import 'package:iron_man_ai_try_5/palette.dart';
 
 class Message extends StatefulWidget {
 
-  bool isResponse;
-  String text;
+  final bool isResponse;
+  final String text;
 
-  Message({required this.isResponse, required this.text});
+  const Message({super.key, required this.isResponse, required this.text});
 
   @override
   State<Message> createState() => _MessageState();
@@ -29,13 +29,13 @@ class _MessageState extends State<Message> {
           //SizedBox(width: widget.isResponse ? 0 : 100),
           Flexible(
             child: ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(4),
                 topRight: Radius.circular(4),
               ),
               child: Container(
                 color: widget.isResponse ? Palette.response : Palette.prompt,
-                child: Text("${widget.text}",
+                child: Text(widget.text,
                   textAlign: widget.isResponse ? TextAlign.start : TextAlign.end,
                   style: TextStyle(
                     color: widget.isResponse ? Palette.fontLight : Palette.accent,

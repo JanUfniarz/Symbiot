@@ -10,6 +10,8 @@ class ApiShortcut extends StatelessWidget {
   
   String? apiKey;
 
+  ApiShortcut({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +28,9 @@ class ApiShortcut extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          SizedBox(height: 100),
+          const SizedBox(height: 100),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Api Key',
@@ -53,16 +55,16 @@ class ApiShortcut extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, "/home");
               
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Palette.accent,
+              ),
               child: Icon(
                 Icons.done,
                 color: Palette.main,
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Palette.accent,
-              ),
             ),
           ),
-          SizedBox(height: 100),
+          const SizedBox(height: 100),
         ],
       ),
     );

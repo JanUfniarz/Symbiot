@@ -107,8 +107,10 @@ void initMethodChannel(flutter::FlutterEngine* flutter_instance, PyObject* conne
                         PyObject* my_function = PyObject_GetAttrString(connector, "respond");
 
                         if (my_function && PyCallable_Check(my_function)) {
-                            PyObject* args = PyUnicode_FromString(prompt.c_str());// Przygotowanie argumentów funkcji
-                            PyObject* resFromPy = PyObject_CallObject(my_function, args); // Wywołanie funkcji
+                            // Przygotowanie argumentów funkcji
+                            PyObject* args = PyUnicode_FromString(prompt.c_str());
+                            // Wywołanie funkcji
+                            PyObject* resFromPy = PyObject_CallObject(my_function, args); 
 
                             // Sprawdzenie wyniku i przetworzenie go w zależności od oczekiwanego typu
                             if (resFromPy) {
@@ -152,7 +154,10 @@ bool FlutterWindow::OnCreate() {
   Py_Initialize();
 
   // Zaimportowanie modułu Pythona
-  PyObject* connector = PyImport_ImportModule("android/app/src/main/python/Connector.py");
+  PyObject* connector = PyImport_ImportModule("Tester");
+
+  //FILE* connector = fopen("Tester.py", "r");
+  //PyRun_SimpleFile(connector, "Tester.py");
 
   RECT frame = GetClientArea();
 
@@ -185,6 +190,12 @@ void FlutterWindow::OnDestroy() {
     flutter_controller_ = nullptr;
   }
 
+
+  //fclose(connector)
+
+  // Zakończenie interpretera Pythona
+  Py_Finalize();
+
   Win32Window::OnDestroy();
 }
 
@@ -207,9 +218,6 @@ FlutterWindow::MessageHandler(HWND hwnd, UINT const message,
       flutter_controller_->engine()->ReloadSystemFonts();
       break;
   }
-
-    // Zakończenie interpretera Pythona
-    Py_Finalize();
 
   return Win32Window::MessageHandler(hwnd, message, wparam, lparam);
 }
