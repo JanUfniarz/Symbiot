@@ -55,6 +55,12 @@ std::map<std::string, std::any> methodCallToMap(const flutter::MethodCall<flutte
 }
 // ===========================================
 
+/*
+        input_file.close();
+    }
+    else {
+        std::cerr << "Nie można otworzyć pliku " << filename << std::endl;
+        */
 std::string pyObjectToString(PyObject* obj) {
     // Check if the object is a Unicode string
     if (PyUnicode_Check(obj)) {
@@ -82,9 +88,17 @@ std::string pyObjectToString(PyObject* obj) {
 
 // ===========================================
 // MethodCannel
-void initMethodChannel(flutter::FlutterEngine* flutter_instance, PyObject* connector) {
+void initMethodChannel(flutter::FlutterEngine* flutter_instance/*, PyObject* connector*/) {
     // name your channel
     const static std::string channel_name("com.flutter.main/Channel");
+
+    Py_Initialize();
+
+    /*
+    PyObject* pName, * pModule;
+    pName = PyUnicode_FromString((char*)"Tester.py");
+    pModule = PyImport_Import(pName);
+    */
 
     auto channel =
         std::make_unique<flutter::MethodChannel<>>(
@@ -92,7 +106,7 @@ void initMethodChannel(flutter::FlutterEngine* flutter_instance, PyObject* conne
             &flutter::StandardMethodCodec::GetInstance());
 
     channel->SetMethodCallHandler(
-        [connector](const flutter::MethodCall<>& call,
+        [/*connector*/pModule](const flutter::MethodCall<>& call,
             std::unique_ptr<flutter::MethodResult<>> result) {
 
                 std::map<std::string, std::any> arguments = methodCallToMap(call);
@@ -100,9 +114,62 @@ void initMethodChannel(flutter::FlutterEngine* flutter_instance, PyObject* conne
                 // cheack method name called from dart
                 if (call.method_name().compare("respond") == 0) {
                     // do whate ever you want
+                    /*
+                    * implementacja kodu z chatGTP przez chatGtp
+                    *
+                    std::string prompt = std::any_cast<std::string>(arguments.at("prompt"));
+
+                    std::string pyResLine = "res = Tester.respond('" + prompt + "')";
+
+                    PyRun_SimpleString(pyResLine.c_str());
+
+                    PyObject* pLocals = PyEval_GetLocals();
+                    if (pLocals) {
+                        PyObject* pDict = PyDict_New();
+                        if (pDict) {
+                            PyDict_Merge(pDict, PyDict_New(), 0);
+                            PyDict_Merge(pDict, pLocals, 1);
+
+                            PyObject* pResult = PyDict_GetItemString(pDict, "res");
+                            std::string re = pyObjectToString(pResult);
+                            result->Success(re);
+
+                            Py_DECREF(pDict);
+                        }
+                        else {
+                            result->Error("Failed to create dictionary for PyEval_GetLocals()");
+                        }
+                    }
+                    else {
+                        result->Error("Failed to get locals from PyEval_GetLocals()");
+                    }*/
 
                     std::string prompt = std::any_cast<std::string>(arguments.at("prompt"));
 
+
+                    //opcja z komendami
+
+                    std::string pyResLine = "res = Tester.respond('" + prompt + "')";
+
+                    PyRun_SimpleString(pyResLine.c_str());
+
+                    PyObject* pResult = pyDict.GetItemString(PyEval_GetLocals(), "res");
+                    std::string re = pyObjectToString(pResult);
+                    result->Success(re);
+
+
+                    //PyObject* pFunc/*, * pArgs, * pValue* */ ;
+                    //pFunc = PyObject_GetAttrString(pModule, (char*)"respond");
+                    //pArgs = PyTuple_Pack(1, PyUnicode_FromString((char*) prompt.c_str()));
+                    //pValue = PyObject_CallObject(pFunc, pArgs);
+                    //auto res = _PyUnicode_AsString(pValue);
+
+                    PyErr_Print();
+
+                    //result->Success("prompt");
+
+                    /*
+                    * opcja pierwsza
                     if (connector) {
                         PyObject* my_function = PyObject_GetAttrString(connector, "respond");
 
@@ -110,7 +177,7 @@ void initMethodChannel(flutter::FlutterEngine* flutter_instance, PyObject* conne
                             // Przygotowanie argumentów funkcji
                             PyObject* args = PyUnicode_FromString(prompt.c_str());
                             // Wywołanie funkcji
-                            PyObject* resFromPy = PyObject_CallObject(my_function, args); 
+                            PyObject* resFromPy = PyObject_CallObject(my_function, args);
 
                             // Sprawdzenie wyniku i przetworzenie go w zależności od oczekiwanego typu
                             if (resFromPy) {
@@ -130,13 +197,15 @@ void initMethodChannel(flutter::FlutterEngine* flutter_instance, PyObject* conne
                             Py_DECREF(my_function); // Zwolnienie obiektu funkcji
                             Py_DECREF(args); // Zwolnienie obiektu argumentów
                         }
-                        
+
                     } else {
 
                         // Obsługa błędu
                         // ...
-                        result->Error("connector error");
+                        result->Error("connector error", "huj");
                     }
+                    */
+
                 }else {
                     result->NotImplemented();
                 }
@@ -151,10 +220,19 @@ bool FlutterWindow::OnCreate() {
   }
 
   // Inicjalizacja interpretera Pythona
-  Py_Initialize();
+  //Py_Initialize();
 
   // Zaimportowanie modułu Pythona
-  PyObject* connector = PyImport_ImportModule("Tester");
+  //PyObject* connector = PyImport_ImportModule("./Tester");
+
+  /*
+  PyObject* pName, * connector;
+  pName = PyUnicode_FromString((char*)"Tester");
+  connector = PyImport_Import(pName);
+  */
+
+  //PyErr_Print();
+  //PyRun_SimpleString("import Tester");
 
   //FILE* connector = fopen("Tester.py", "r");
   //PyRun_SimpleFile(connector, "Tester.py");
@@ -171,10 +249,10 @@ bool FlutterWindow::OnCreate() {
   }
   RegisterPlugins(flutter_controller_->engine());
   // ===========================================
-  // initialize method channel here 
-  initMethodChannel(flutter_controller_->engine(), connector);
+  //initialize method channel here
+  initMethodChannel(flutter_controller_->engine()/*, connector*/);
 
-  //?run_loop_->RegisterFlutterInstance(flutter_controller_->engine());
+  //run_loop_->RegisterFlutterInstance(flutter_controller_->engine());
   // ===========================================
   SetChildContent(flutter_controller_->view()->GetNativeWindow());
 

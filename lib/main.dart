@@ -7,10 +7,12 @@ import 'message.dart';
 
 void main() {
   runApp(MaterialApp(
+    //? initialRoute: Platform.isAndroid ? "/home" : "/windows",
     initialRoute: "/home",
     routes: {
       "/home" : (context) => const Home(),
       "/api" : (context) => ApiShortcut(),
+      //? "/windows" : (context) => WindowsHome(),
     },
   ));
 }
@@ -30,6 +32,26 @@ class _HomeState extends State<Home> {
 
   String prompt = "";
   List<Widget> messages = [];
+
+void send() async {
+
+  Map<String, dynamic> arguments = {
+    "prompt" : prompt
+  };
+
+  String response = await channel
+      .invokeMethod("respond", arguments);
+
+  setState(() {
+  messages.add(Message(
+  isResponse: false,
+  text: prompt));
+
+  messages.add(Message(
+  isResponse: true,
+  text: response));
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -79,13 +101,21 @@ class _HomeState extends State<Home> {
                           flex: 2,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Prompt',
-                                filled: true,
-                                fillColor: Palette.background,
+                            child: RawKeyboardListener(
+                              focusNode: FocusNode(),
+                              onKey: (RawKeyEvent event) {
+                                if (event.logicalKey == LogicalKeyboardKey.enter) {
+                                  send();
+                                }
+                              },
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: 'Prompt',
+                                  filled: true,
+                                  fillColor: Palette.background,
+                                ),
+                                onChanged: (text) => prompt = text,
                               ),
-                              onChanged: (text) => prompt = text,
                             ),
                           ),
                         ),
@@ -95,25 +125,7 @@ class _HomeState extends State<Home> {
                             width: 90,
                             height: 50,
                             child: ElevatedButton(
-                             onPressed: () async {
-
-                               Map<String, dynamic> arguments = {
-                                 "prompt" : prompt
-                               };
-
-                               String response = await channel
-                                   .invokeMethod("respond", arguments);
-
-                               setState(() {
-                                 messages.add(Message(
-                                     isResponse: false,
-                                     text: prompt));
-
-                                 messages.add(Message(
-                                     isResponse: true,
-                                     text: response));
-                               });
-                             },
+                             onPressed: () => send(),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Palette.accent,
                              ),
