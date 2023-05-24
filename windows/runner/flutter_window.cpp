@@ -106,7 +106,7 @@ void initMethodChannel(flutter::FlutterEngine* flutter_instance/*, PyObject* con
             &flutter::StandardMethodCodec::GetInstance());
 
     channel->SetMethodCallHandler(
-        [/*connector*/pModule](const flutter::MethodCall<>& call,
+        [/*connector, pModule*/](const flutter::MethodCall<>& call,
             std::unique_ptr<flutter::MethodResult<>> result) {
 
                 std::map<std::string, std::any> arguments = methodCallToMap(call);
@@ -151,11 +151,11 @@ void initMethodChannel(flutter::FlutterEngine* flutter_instance/*, PyObject* con
 
                     std::string pyResLine = "res = Tester.respond('" + prompt + "')";
 
-                    PyRun_SimpleString(pyResLine.c_str());
+                    //PyRun_SimpleString(pyResLine.c_str());
 
-                    PyObject* pResult = pyDict.GetItemString(PyEval_GetLocals(), "res");
-                    std::string re = pyObjectToString(pResult);
-                    result->Success(re);
+                    //PyObject* pResult = pyDict.GetItemString(PyEval_GetLocals(), "res");
+                    //std::string re = pyObjectToString(pResult);
+                    result->Success(prompt);
 
 
                     //PyObject* pFunc/*, * pArgs, * pValue* */ ;
@@ -166,7 +166,6 @@ void initMethodChannel(flutter::FlutterEngine* flutter_instance/*, PyObject* con
 
                     PyErr_Print();
 
-                    //result->Success("prompt");
 
                     /*
                     * opcja pierwsza

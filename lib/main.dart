@@ -8,7 +8,7 @@ import 'message.dart';
 void main() {
   runApp(MaterialApp(
     //? initialRoute: Platform.isAndroid ? "/home" : "/windows",
-    initialRoute: "/home",
+    initialRoute: "/api",
     routes: {
       "/home" : (context) => const Home(),
       "/api" : (context) => ApiShortcut(),
@@ -30,27 +30,34 @@ class _HomeState extends State<Home> {
       "com.flutter.main/Channel"
   );
 
+  bool cenSend = true;
+
   String prompt = "";
   List<Widget> messages = [];
 
 void send() async {
+  if (cenSend) {
+    Map<String, dynamic> arguments = {
+      "prompt": prompt
+    };
 
-  Map<String, dynamic> arguments = {
-    "prompt" : prompt
-  };
+    cenSend = false;
 
-  String response = await channel
-      .invokeMethod("respond", arguments);
+    String response = await channel
+        .invokeMethod("respond", arguments);
 
-  setState(() {
-  messages.add(Message(
-  isResponse: false,
-  text: prompt));
+    cenSend = true;
 
-  messages.add(Message(
-  isResponse: true,
-  text: response));
-  });
+    setState(() {
+      messages.add(Message(
+          isResponse: false,
+          text: prompt));
+
+      messages.add(Message(
+          isResponse: true,
+          text: response));
+    });
+  }
 }
 
   @override
