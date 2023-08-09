@@ -3,37 +3,15 @@ from flask.views import MethodView
 
 app = Flask(__name__)
 
-class ExampleView(MethodView):
+class HelloWorldView(MethodView):
     def get(self):
         response = {
-            'message': 'This is a GET request example.'
+            'message': 'Hello, World!'
         }
         return jsonify(response)
 
-    def post(self):
-        data = request.json
-        response = {
-            'message': 'This is a POST request example.',
-            'received_data': data
-        }
-        return jsonify(response)
-
-    def put(self):
-        data = request.json
-        response = {
-            'message': 'This is a PUT request example.',
-            'received_data': data
-        }
-        return jsonify(response)
-
-    def delete(self):
-        response = {
-            'message': 'This is a DELETE request example.'
-        }
-        return jsonify(response)
-
-example_view = ExampleView.as_view('example_view')
-app.add_url_rule('/example', view_func=example_view, methods=['GET', 'POST', 'PUT', 'DELETE'])
+hello_world_view = HelloWorldView.as_view('hello_world_view')
+app.add_url_rule('/hello', view_func=hello_world_view, methods=['GET'])
 
 if __name__ == '__main__':
     app.run()
