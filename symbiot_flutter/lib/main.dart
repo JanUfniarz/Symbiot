@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:symbiot_flutter/first_connector.dart';
+import 'package:symbiot_flutter/home_view.dart';
 
 void main() {
-  runApp();
+
+  runApp(MaterialApp(
+    home: HomeView(
+      connector: FirstConnector(),
+    ),
+  ));
 }
