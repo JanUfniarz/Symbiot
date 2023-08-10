@@ -9,12 +9,9 @@ class FirstConnector {
 
   FirstConnector();
 
-  Future<dynamic> readData(
-      ) async {
+  Future<dynamic> readData() async {
     final response = await http.get(Uri.parse(url),
     );
-
-    print(utf8.decode(response.bodyBytes));
 
     if (response.statusCode != 200)
       throw Exception('Failed to load data from server');

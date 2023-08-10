@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/first_connector.dart';
 
@@ -16,17 +14,11 @@ class _HomeViewState extends State<HomeView> {
 
   String? name;
 
-  // Future<dynamic> fetchData() async =>
-  //     await widget.connector.readData();
-
-
   @override
   void initState() {
-    widget.connector.readData().then((value) {
-      print("val: $value");
-      print("mes: ${value["message"]}");
-      setState(() => name = value["message"]);
-    });
+    widget.connector.readData().then((value) =>
+      setState(() => name = value["message"])
+    );
     super.initState();
   }
 
