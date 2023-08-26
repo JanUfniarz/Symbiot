@@ -48,8 +48,9 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
             .createData(argument)
             .then((value) => setState(
                 () {
-              message = value["command"];
-              execute = value["execute"];
+              // message = value["command"];
+              // execute = value["execute"];
+                  message = value["arg"];
             }
         ));
 

@@ -25,6 +25,7 @@ class OperationController:
             # return jsonify(
             #     {"command": command,
             #      "execute": execute})
+            return jsonify({"arg": arg})
 
         @app.route(path + "/", methods=["DELETE"])
         def guide_delete():

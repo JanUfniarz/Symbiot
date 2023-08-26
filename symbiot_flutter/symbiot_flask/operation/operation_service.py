@@ -26,7 +26,9 @@ class OperationService:
         dir_database()
         from e import E
 
-        self.dao.add(E("dupa"))
+        print("service, create: " + nord_star)
+
+        self.dao.add(E(nord_star))
 
         # operation = Operation(0, "", "", "", "", "", "")
 

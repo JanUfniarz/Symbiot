@@ -14,6 +14,10 @@ class OperationDAO:
         return self._db
 
     def add(self, entity):
+        if self._db is None:
+            raise Exception('db not provided to add')
+        print("dao, add: " + entity.name)
         self._db.session.add(entity)
+        self._db.session.commit()
 
 
