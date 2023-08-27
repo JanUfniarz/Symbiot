@@ -20,4 +20,6 @@ class OperationDAO:
         self._db.session.add(entity)
         self._db.session.commit()
 
-
+    def read(self):
+        from .e import E
+        return self._db.session.query(E).all()

@@ -12,6 +12,10 @@ def dir_database():
                 '..', 'database')))
 
 
+dir_database()
+from e import E
+
+
 class OperationService:
     def __init__(self, gpt_connector, ps_command_generator, dao):
         self.gpt_connector = gpt_connector
@@ -19,12 +23,9 @@ class OperationService:
         self.dao = dao
 
     def create(self, nord_star):
-
         # command = self.ps_command_generator.save_to_file(
         #     self.gpt_connector.respond(nord_star)
         # )
-        dir_database()
-        from e import E
 
         print("service, create: " + nord_star)
 
@@ -32,12 +33,14 @@ class OperationService:
 
         # operation = Operation(0, "", "", "", "", "", "")
 
-
         # kalibracja kompasu
-
-
-
 
         # zapisanie ścieżki
 
         # return command, True
+
+    def operation_data(self):
+        data = self.dao.read()
+        for e in data:
+            print(f"e -> id: {e.id} name: {e.name}")
+        return data

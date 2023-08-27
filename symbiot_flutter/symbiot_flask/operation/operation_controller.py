@@ -1,3 +1,5 @@
+import json
+
 from flask import jsonify
 
 
@@ -10,7 +12,9 @@ class OperationController:
 
         @app.route(path + "/<string:arg>", methods=["GET"])
         def get_operation(arg):
-            return jsonify({"message": arg})
+            return json.dumps(
+                [e.to_dict() for e
+                 in service.operation_data()])
 
         @app.route(path + "/", methods=["PUT"])
         def update_operation():

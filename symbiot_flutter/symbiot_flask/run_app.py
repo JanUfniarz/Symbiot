@@ -1,23 +1,22 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 
-from operation.operation_controller import OperationController
-from operation.operation_service import OperationService
 from api.gpt_connector import GPTConnector
 from components.ps_command_generator import PSCommandGenerator
+from database.e import db as e_db
 from database.operation_dao import OperationDAO
+from operation.operation_controller import OperationController
+from operation.operation_service import OperationService
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     'postgresql://postgres:postgres@localhost:5432/symbiot'
-db = SQLAlchemy(app)
+e_db.init_app(app)
 
 if __name__ == '__main__':
     # with app.app_context():
-    #     db.create_all()
-
-    dao = OperationDAO(db)
+    #     e_db.drop_all()
+    #     e_db.create_all()
 
     operation_division = OperationController(
         app,
@@ -25,7 +24,7 @@ if __name__ == '__main__':
         OperationService(
             GPTConnector(),
             PSCommandGenerator(),
-            dao
+            OperationDAO(e_db)
         )
     )
 
