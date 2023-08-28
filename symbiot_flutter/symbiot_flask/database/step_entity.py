@@ -10,7 +10,7 @@ class Step(db.Model):
     __tablename__ = 'steps'
 
     # + -> next | - -> previous
-    branches = (ARRAY(db.Integer()))
+    branches = (ARRAY(db.Integer())) # TODO: poprzedni id
     level = (ARRAY(db.Integer()))
 
     def __init__(self, branches, level):

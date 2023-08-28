@@ -14,3 +14,5 @@ class ScriptContainer(OperationDAO().db):
 
     def __init__(self, branches, path, big_o_notation, status, ):
         self.branches = branches
+        self.path = path
+        self.big_o_notation = big_o_notation

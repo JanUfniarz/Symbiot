@@ -1,15 +1,3 @@
-# import os
-# import sys
-#
-#
-# sys.path.append(
-#     os.path.abspath(
-#         os.path.join(
-#             os.path.dirname(__file__),
-#             '..')))
-#
-# from run_app import db
-
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()

@@ -1,18 +1,12 @@
-# from .operation_entity import Operation
+import os
+import sys
 
+sys.path.append(
+    os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            '..', 'database')))
 
-def dir_database():
-    import os
-    import sys
-
-    sys.path.append(
-        os.path.abspath(
-            os.path.join(
-                os.path.dirname(__file__),
-                '..', 'database')))
-
-
-dir_database()
 from e import E
 
 

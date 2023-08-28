@@ -1,27 +1,28 @@
-from operation_dao import OperationDAO
+from flask_sqlalchemy import SQLAlchemy
 
-db = OperationDAO().db
+db = SQLAlchemy()
 
 
 class Operation(db.Model):
     __tablename__ = 'operations'
 
-    op_id = db.Column(
+    id = db.Column(
         db.Integer,
-        primary_key=True,
-    )
-
+        primary_key=True,)
     wish = db.Column(db.Text)
     nord_star = db.Column(db.Text)
     leaf_summary_status = db.Column(db.Text)
+    status = db.Column(db.String)
+    name = db.Column(db.String)
+    body = db.Column(db.Text)
+    containers = db.relationship(
+        "ContainerEntity", backref="operations", lazy=True)
 
-    def __init__(self, wish, nord_star, links,
-                 leaf_summary_status, steps, script_containers, body,):
+    def __init__(self, name, wish, containers, body,):
 
-        self.script_containers = script_containers
-        self.leaf_summary_status = leaf_summary_status
+        self.name = name
+        self.containers = containers
         self.wish = wish
-        self.nord_star = nord_star
+        self.nord_star = wish
         self.status = "CREATION_STARTED"
-        self.steps = steps
         self.body = body
