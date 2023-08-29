@@ -20,22 +20,20 @@ class ContainerEntity(db.Model, Container):
         "O(N^2)", "O(N^3)", "O(2^N)", "O(N!)",
         "API"
     ), nullable=True)
+    # "<index><type><data>"
     inputs = db.Column(ARRAY(db.String))
-    outputs = db.Column(ARRAY(db.String), nullable=True)
+    outputs = db.Column(ARRAY(db.String))
     body = db.Column(db.Text, nullable=True)
     status = db.Column(db.String)
     operation_id = db.Column(db.Integer, db.ForeignKey("operations.id"))
 
-    def __init__(self, type_, inputs, path=None, previous=None, body=None):
-        if type_ == "script" and path is not None:
+    def __init__(self, type_, inputs, big_o=None,  **kwargs):
+        if type_ == "script" and kwargs.get("path", None) is None:
             raise ValueError("Script need a path")
 
-        if type_ == "step" and body is None:
+        if type_ == "step" and kwargs.get("body", None) is None:
             raise ValueError("Step need a body")
 
-        self.previous = previous
-        self.path = path
-        self.inputs = inputs
+        super().__init__(self, inputs, **kwargs)
         self.type_ = type_
-        self.body = body
-        self.status = ""
+        self.big_o = big_o
