@@ -23,3 +23,6 @@ class OperationDAO:
     def read(self):
         from .e import E
         return self._db.session.query(E).all()
+
+    def get_container_by_id(self, id_):
+        self._db.session.query().all()

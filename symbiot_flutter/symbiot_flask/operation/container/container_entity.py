@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
 
-from container import Container
+from .container import Container
 
 db = SQLAlchemy()
 
@@ -11,14 +11,14 @@ class ContainerEntity(db.Model, Container):
 
     id = db.Column(db.Integer, primary_key=True)
     type_ = db.Column(db.Enum(
-        "script", "step"
+        "script", "step", name="type"
     ))
     previous = db.Column(db.Integer, nullable=True)
     path = db.Column(db.String, nullable=True)
     big_o = db.Column(db.Enum(
         "O(1)", "O(logN)", "O(N)", "O(NlogN)",
         "O(N^2)", "O(N^3)", "O(2^N)", "O(N!)",
-        "API"
+        "API", name="big_o"
     ), nullable=True)
     # "<index><type><data>"
     inputs = db.Column(ARRAY(db.String))

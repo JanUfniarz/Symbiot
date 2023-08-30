@@ -1,13 +1,13 @@
-import os
-import sys
-
-sys.path.append(
-    os.path.abspath(
-        os.path.join(
-            os.path.dirname(__file__),
-            '..', 'database')))
-
-from e import E
+# import os
+# import sys
+#
+# sys.path.append(
+#     os.path.abspath(
+#         os.path.join(
+#             os.path.dirname(__file__),
+#             '..', 'database')))
+#
+# from e import E
 
 
 class OperationService:
@@ -23,7 +23,7 @@ class OperationService:
 
         print("service, create: " + nord_star)
 
-        self.dao.add(E(nord_star))
+        # self.dao.add(E(nord_star))
 
         # operation = Operation(0, "", "", "", "", "", "")
 

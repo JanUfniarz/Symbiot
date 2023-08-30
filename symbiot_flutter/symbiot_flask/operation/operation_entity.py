@@ -1,6 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
+from operation.container.container_entity import db
 
-db = SQLAlchemy()
+db = db
 
 
 class Operation(db.Model):
