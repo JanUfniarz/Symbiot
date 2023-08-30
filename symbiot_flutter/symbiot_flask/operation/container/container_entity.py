@@ -34,6 +34,6 @@ class ContainerEntity(db.Model, Container):
         if type_ == "step" and kwargs.get("body", None) is None:
             raise ValueError("Step need a body")
 
-        super().__init__(self, inputs, **kwargs)
+        super().__init__(inputs=inputs, **kwargs)
         self.type_ = type_
         self.big_o = big_o

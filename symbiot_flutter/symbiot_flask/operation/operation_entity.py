@@ -11,14 +11,14 @@ class Operation(db.Model):
         primary_key=True,)
     wish = db.Column(db.Text)
     nord_star = db.Column(db.Text)
-    leaf_summary_status = db.Column(db.Text)
+    leaf_summary_status = db.Column(db.Text, nullable=True)
     status = db.Column(db.String)
     name = db.Column(db.String)
     body = db.Column(db.Text)
     containers = db.relationship(
         "ContainerEntity", backref="operations", lazy=True)
 
-    def __init__(self, name, wish, containers, body,):
+    def __init__(self, name, wish, containers, body, ):
 
         self.name = name
         self.containers = containers

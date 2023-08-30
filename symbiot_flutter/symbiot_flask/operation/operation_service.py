@@ -1,13 +1,5 @@
-# import os
-# import sys
-#
-# sys.path.append(
-#     os.path.abspath(
-#         os.path.join(
-#             os.path.dirname(__file__),
-#             '..', 'database')))
-#
-# from e import E
+from .operation_entity import Operation
+from .container.container_entity import ContainerEntity
 
 
 class OperationService:
@@ -23,7 +15,12 @@ class OperationService:
 
         print("service, create: " + nord_star)
 
-        # self.dao.add(E(nord_star))
+        self.dao.add_operation(Operation("operacja dupa",
+                               "chcę sprawdzić czy dodawanie działa",
+                               [ContainerEntity("step",
+                                                ["0/int/1", "1/str/dupa"],
+                                                body="treść rozmowy z gpt")],
+                               "nie wiem co w sumie"))
 
         # operation = Operation(0, "", "", "", "", "", "")
 

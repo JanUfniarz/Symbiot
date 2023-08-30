@@ -16,8 +16,8 @@ operation_db.init_app(app)
 
 if __name__ == '__main__':
     # with app.app_context():
-    #     db.drop_all()
-    #     db.create_all()
+    #     operation_db.drop_all()
+    #     operation_db.create_all()
 
     operation_division = OperationController(
         app,

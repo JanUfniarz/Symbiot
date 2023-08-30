@@ -13,16 +13,12 @@ class OperationDAO:
         print("database distributed")
         return self._db
 
-    def add(self, entity):
+    def add_operation(self, operation):
         if self._db is None:
             raise Exception('db not provided to add')
-        print("dao, add: " + entity.name)
-        self._db.session.add(entity)
+        print("dao, add: " + operation.name)
+        self._db.session.add(operation)
         self._db.session.commit()
-
-    def read(self):
-        from .e import E
-        return self._db.session.query(E).all()
 
     def get_container_by_id(self, id_):
         self._db.session.query().all()
