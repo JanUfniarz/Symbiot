@@ -15,12 +15,13 @@ class OperationService:
 
         print("service, create: " + nord_star)
 
-        self.dao.add_operation(Operation("operacja dupa",
-                               "chcę sprawdzić czy dodawanie działa",
-                               [ContainerEntity("step",
-                                                ["0/int/1", "1/str/dupa"],
-                                                body="treść rozmowy z gpt")],
-                               "nie wiem co w sumie"))
+        self.dao.add_operation(
+            Operation("operacja dupa",
+                      "chcę sprawdzić czy dodawanie działa",
+                      [ContainerEntity("step",
+                                       ["0/int/1", "1/str/dupa"],
+                                       body="treść rozmowy z gpt")],
+                      "nie wiem co w sumie"))
 
         # operation = Operation(0, "", "", "", "", "", "")
 

@@ -20,7 +20,6 @@ class ContainerEntity(db.Model, Container):
         "O(N^2)", "O(N^3)", "O(2^N)", "O(N!)",
         "API", name="big_o"
     ), nullable=True)
-    # "<index><type><data>"
     inputs = db.Column(ARRAY(db.String))
     outputs = db.Column(ARRAY(db.String))
     body = db.Column(db.Text, nullable=True)
