@@ -9,14 +9,9 @@ class FirstConnector {
 
   FirstConnector();
 
-  Future<dynamic> readData(String? argument) async {
+  Future<dynamic> readData() async {
 
-    if (argument == null) {
-      print("No argument");
-      return;
-    }
-
-    final response = await http.get(Uri.parse("$url/$argument"));
+    final response = await http.get(Uri.parse(url));
 
     print(response.body);
 

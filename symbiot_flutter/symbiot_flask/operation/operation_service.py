@@ -4,7 +4,7 @@ from .container.container_entity import ContainerEntity
 
 class OperationService:
     def __init__(self, gpt_connector, ps_command_generator,
-                 dao, container_factory):
+                 dao):
         self.gpt_connector = gpt_connector
         self.ps_command_generator = ps_command_generator
         self.dao = dao
@@ -34,7 +34,4 @@ class OperationService:
         # return command, True
 
     def operation_data(self):
-        data = self.dao.read()
-        for e in data:
-            print(f"e -> id: {e.id} name: {e.name}")
-        return data
+        return self.dao.get_all_operations()

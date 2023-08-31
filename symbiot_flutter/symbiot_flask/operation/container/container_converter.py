@@ -1,7 +1,7 @@
-from container import Container
-from step_container import StepContainer
-from script_container import ScriptContainer
-from container_entity import ContainerEntity
+from .container import Container
+from .step_container import StepContainer
+from .script_container import ScriptContainer
+from .container_entity import ContainerEntity
 
 
 class ContainerConverter:

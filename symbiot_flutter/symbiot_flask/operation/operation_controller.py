@@ -10,11 +10,12 @@ class OperationController:
         self.path = path
         self.service = service
 
-        @app.route(path + "/<string:arg>", methods=["GET"])
-        def get_operation(arg):
-            return json.dumps(
-                [e.to_dict() for e
-                 in service.operation_data()])
+        @app.route(path + "/", methods=["GET"])
+        def get_operation():
+            operations_dicts = [op.__dict__ for op in service.operation_data()]
+            for op in operations_dicts:
+                op.pop("_sa_instance_state")
+            return jsonify(operations_dicts)
 
         @app.route(path + "/", methods=["PUT"])
         def update_operation():

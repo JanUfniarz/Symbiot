@@ -30,7 +30,7 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
 
       case 0: /// GET
         await widget.connector
-            .readData(argument)
+            .readData()
             .then((value) => print(value)
                 // (value) => setState(
                 //         () => message = value["message"]
