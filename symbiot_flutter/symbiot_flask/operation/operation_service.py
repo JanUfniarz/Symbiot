@@ -3,7 +3,8 @@ from .container.container_entity import ContainerEntity
 
 
 class OperationService:
-    def __init__(self, gpt_connector, ps_command_generator, dao):
+    def __init__(self, gpt_connector, ps_command_generator,
+                 dao, container_factory):
         self.gpt_connector = gpt_connector
         self.ps_command_generator = ps_command_generator
         self.dao = dao
@@ -19,7 +20,8 @@ class OperationService:
             Operation("operacja dupa",
                       "chcę sprawdzić czy dodawanie działa",
                       [ContainerEntity("step",
-                                       ["0/int/1", "1/str/dupa"],
+                                       ["0<@bridge>int<@bridge>1",
+                                        "1<@bridge>str<@bridge>dupa"],
                                        body="treść rozmowy z gpt")],
                       "nie wiem co w sumie"))
 

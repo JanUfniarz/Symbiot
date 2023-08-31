@@ -25,7 +25,7 @@ if __name__ == '__main__':
         OperationService(
             GPTConnector(),
             PSCommandGenerator(),
-            OperationDAO(operation_db)
+            OperationDAO(operation_db),
         )
     )
 

@@ -1,11 +1,12 @@
 from operation.container.container_entity import db
-
+from operation.container.container_converter import ContainerConverter
 db = db
+
+converter = ContainerConverter()
 
 
 class Operation(db.Model):
     __tablename__ = 'operations'
-
     id = db.Column(
         db.Integer,
         primary_key=True,)
@@ -15,14 +16,30 @@ class Operation(db.Model):
     status = db.Column(db.String)
     name = db.Column(db.String)
     body = db.Column(db.Text)
-    containers = db.relationship(
+    _containers = db.relationship(
         "ContainerEntity", backref="operations", lazy=True)
 
     def __init__(self, name, wish, containers, body, ):
 
         self.name = name
-        self.containers = containers
+        self._containers = containers
         self.wish = wish
         self.nord_star = wish
         self.status = "CREATION_STARTED"
         self.body = body
+
+    @property
+    def containers(self):
+        containers = [converter.from_entity(entity)
+                      for entity in self._containers]
+
+        for container in containers:
+            if isinstance(container.previous, int):
+                for it in containers:
+                    if container.previous == it.id_:
+                        container.previous = it.id_
+
+        return containers
+
+    def add_container(self, new):
+        self._containers.append(converter.to_entity(new))
