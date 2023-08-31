@@ -1,6 +1,6 @@
 class Container:
     def __init__(self, inputs, id_=None, previous=None, path=None,
-                 outputs=None, body=None, status=""):
+                 outputs=None, body=None, status="", **ignored):
         self.id = id_
         self.previous = previous
         self.path = path
@@ -8,3 +8,13 @@ class Container:
         self.outputs = outputs if outputs is not None else []
         self.body = body
         self.status = status
+
+    def to_dict(self):
+        res = self.__dict__.copy()
+        res["inputs"] = list(map(
+            lambda i: i.__dict__.copy(),
+            self.inputs))
+        res["outputs"] = list(map(
+            lambda o: o.__dict__.copy(),
+            self.outputs))
+        return res

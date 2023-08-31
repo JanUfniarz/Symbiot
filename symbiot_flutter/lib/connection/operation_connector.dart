@@ -11,7 +11,7 @@ class FirstConnector {
 
   Future<dynamic> readData() async {
 
-    final response = await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse("$url/"));
 
     print(response.body);
 

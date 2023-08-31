@@ -43,3 +43,11 @@ class Operation(db.Model):
 
     def add_container(self, new):
         self._containers.append(converter.to_entity(new))
+
+    def to_dict(self):
+        res = self.__dict__.copy()
+        res.pop("_sa_instance_state")
+        res["containers"] = list(map(
+            lambda c: c.to_dict(),
+            self.containers))
+        return res

@@ -12,18 +12,22 @@ class ContainerConverter:
         outputs = None if entity.outputs is None else \
             [Bridge(output_) for output_ in entity]
 
+        args = entity.__dict__
+        args.pop("inputs")
+        args.pop("outputs")
+
         if entity.type_ == "step":
             return StepContainer(
                 inputs,
                 outputs=outputs,
                 id_=entity.id,
-                **entity.__dict__)
+                **args)
         elif entity.type_ == "script":
             return ScriptContainer(
                 inputs,
                 outputs=outputs,
                 id_=entity.id,
-                **entity.__dict__)
+                **args)
 
     @staticmethod
     def to_entity(container) -> ContainerEntity:

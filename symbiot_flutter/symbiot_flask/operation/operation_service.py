@@ -33,5 +33,5 @@ class OperationService:
 
         # return command, True
 
-    def operation_data(self):
+    def operations_data(self):
         return self.dao.get_all_operations()
