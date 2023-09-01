@@ -17,4 +17,6 @@ class Container:
         res["outputs"] = list(map(
             lambda o: o.__dict__.copy(),
             self.outputs))
+        if isinstance(res["previous"], Container):
+            res["previous"] = res["previous"]["id_"]
         return res

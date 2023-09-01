@@ -11,15 +11,22 @@ class OperationModel {
   List<ContainerModel> containers;
   
   OperationModel(dynamic json):
-    id = json["id"],
-    wish = json["wish"],
-    nordStar = json["nord_star"],
-    leafSummaryStatus = json["leaf_summary_status"],
-    status = json["status"],
-    name = json["name"],
-    body = json["body"],
-    containers = List.generate(
-        (json["containers"] as List<dynamic>).length,
-            (index) => ContainerModel(json["containers"][index])
-    );
+        id = json["id"],
+        wish = json["wish"],
+        nordStar = json["nord_star"],
+        leafSummaryStatus = json["leaf_summary_status"],
+        status = json["status"],
+        name = json["name"],
+        body = json["body"],
+        containers = List.generate(
+            (json["containers"] as List<dynamic>).length,
+                (index) => ContainerModel(
+                    json["containers"][index],
+                    (json["containers"] as List<dynamic>)
+                        .firstWhere(
+                            (element) => json["containers"][index]["previous"]
+                                == element["id"]
+                    )
+                )
+        );
 }
