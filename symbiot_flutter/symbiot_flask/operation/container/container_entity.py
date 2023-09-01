@@ -21,7 +21,7 @@ class ContainerEntity(db.Model, Container):
         "API", name="big_o"
     ), nullable=True)
     inputs = db.Column(ARRAY(db.String))
-    outputs = db.Column(ARRAY(db.String))
+    outputs = db.Column(ARRAY(db.String), nullable=True)
     body = db.Column(db.Text, nullable=True)
     status = db.Column(db.String)
     operation_id = db.Column(db.Integer, db.ForeignKey("operations.id"))
