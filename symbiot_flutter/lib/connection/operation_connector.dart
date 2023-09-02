@@ -4,10 +4,10 @@ import "dart:convert";
 
 import "package:http/http.dart" as http;
 
-class FirstConnector {
+class OperationConnector {
   final String url = "http://127.0.0.1:5000/operation";
 
-  FirstConnector();
+  OperationConnector();
 
   Future<dynamic> readData() async {
 

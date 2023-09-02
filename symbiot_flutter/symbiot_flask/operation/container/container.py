@@ -1,6 +1,7 @@
 class Container:
     def __init__(self, inputs, id_=None, previous=None, path=None,
-                 outputs=None, body=None, status="", **ignored):
+                 outputs=None, body=None, status="/", **ignored):
+        print("status: " + status)
         self.id = id_
         self.previous = previous
         self.path = path
@@ -10,7 +11,9 @@ class Container:
         self.status = status
 
     def to_dict(self):
+        from . import container_converter as converter
         res = self.__dict__.copy()
+        res["type"] = converter.type_to_string(self)
         res["inputs"] = list(map(
             lambda i: i.__dict__.copy(),
             self.inputs))
@@ -20,3 +23,5 @@ class Container:
         if isinstance(res["previous"], Container):
             res["previous"] = res["previous"]["id_"]
         return res
+
+

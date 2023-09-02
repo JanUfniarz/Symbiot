@@ -13,7 +13,7 @@ class ContainerModel {
         id = json["id"],
         type = ContainerType.values
             .firstWhere(
-                (e) => e.toString() == 'MyEnum.${json["type_"]}'
+                (e) => e.toString() == 'ContainerType.${json["type"]}'
         ),
         path = json["path"],
         bigO = json["bigO"],

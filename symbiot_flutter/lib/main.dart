@@ -14,6 +14,6 @@ import 'tests/api_control_panel.dart';
 
 void main() => runApp(MaterialApp(
   home: ApiControlPanel(
-    connector: FirstConnector(),
+    connector: OperationConnector(),
   ),
 ));

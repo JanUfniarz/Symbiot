@@ -1,8 +1,6 @@
 from operation.container.container_entity import db
-from operation.container.container_converter import ContainerConverter
+import operation.container.container_converter as converter
 db = db
-
-converter = ContainerConverter()
 
 
 class Operation(db.Model):

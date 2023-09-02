@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../connection/operation_connector.dart';
 
 class HomeView extends StatefulWidget {
-  final FirstConnector connector;
+  final OperationConnector connector;
 
   const HomeView({super.key, required this.connector});
 

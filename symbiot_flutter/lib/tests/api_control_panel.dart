@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, curly_braces_in_flow_control_structures
 
 import 'package:flutter/material.dart';
+import 'package:symbiot_flutter/models/operation_model.dart';
 
 import '../connection/command_executor.dart';
 import '../connection/operation_connector.dart';
@@ -11,7 +12,7 @@ class ApiControlPanel extends StatefulWidget {
     required this.connector,
   });
 
-  final FirstConnector connector;
+  final OperationConnector connector;
 
   @override
   State<ApiControlPanel> createState() => _ApiControlPanelState();
@@ -31,10 +32,13 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
       case 0: /// GET
         await widget.connector
             .readData()
-            .then((value) => print(value)
-                // (value) => setState(
-                //         () => message = value["message"]
-                );
+            .then((value) {
+              OperationModel model = OperationModel(value[0]);
+              print("=============");
+              print(model.name);
+              print(model.containers[0].inputs[1]);
+              print("=============");
+            });
 
         break;
 

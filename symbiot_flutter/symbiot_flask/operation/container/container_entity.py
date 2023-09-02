@@ -6,7 +6,7 @@ from .container import Container
 db = SQLAlchemy()
 
 
-class ContainerEntity(db.Model, Container):
+class ContainerEntity(Container, db.Model):
     __tablename__ = 'containers'
 
     id = db.Column(db.Integer, primary_key=True)

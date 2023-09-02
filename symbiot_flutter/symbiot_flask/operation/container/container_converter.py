@@ -1,51 +1,52 @@
-from .container import Container
 from .step_container import StepContainer
 from .script_container import ScriptContainer
 from .container_entity import ContainerEntity
 
 
-class ContainerConverter:
+def type_to_string(container):
+    if type(container) is ContainerEntity:
+        return "entity"
+    elif type(container) is StepContainer:
+        return "step"
+    elif type(container) is ScriptContainer:
+        return "script"
+    else:
+        raise ValueError("Unsupported container type")
 
-    @staticmethod
-    def from_entity(entity) -> Container:
-        inputs = [Bridge(input_) for input_ in entity.inputs]
-        outputs = None if entity.outputs is None else \
-            [Bridge(output_) for output_ in entity]
 
-        args = entity.__dict__
-        args.pop("inputs")
-        args.pop("outputs")
+def from_entity(entity):
+    inputs = [Bridge(input_) for input_ in entity.inputs]
+    outputs = None if entity.outputs is None else \
+        [Bridge(output_) for output_ in entity.outputs]
+    args = entity.__dict__
+    args.pop("inputs")
+    args.pop("outputs")
+    if entity.type_ == "step":
+        return StepContainer(
+            inputs,
+            outputs=outputs,
+            id_=entity.id,
+            **args)
+    elif entity.type_ == "script":
+        return ScriptContainer(
+            inputs,
+            outputs=outputs,
+            id_=entity.id,
+            **args)
 
-        if entity.type_ == "step":
-            return StepContainer(
-                inputs,
-                outputs=outputs,
-                id_=entity.id,
-                **args)
-        elif entity.type_ == "script":
-            return ScriptContainer(
-                inputs,
-                outputs=outputs,
-                id_=entity.id,
-                **args)
 
-    @staticmethod
-    def to_entity(container) -> ContainerEntity:
-        if type(container) is StepContainer:
-            return container
-        elif type(container) is StepContainer:
-            type_ = "step"
-        elif type(container) is ScriptContainer:
-            type_ = "script"
-        else:
-            raise ValueError("Unsupported container type")
+def to_entity(container) -> ContainerEntity:
+    type_ = type_to_string(container)
 
-        return ContainerEntity(
-            type_,
-            inputs=[bridge.format() for bridge in container.inputs],
-            outputs=[bridge.format() for bridge in container.outputs],
-            **container.__dict__
-        )
+    if type_ == "entity":
+        return container
+
+    return ContainerEntity(
+        type_,
+        inputs=[bridge.format() for bridge in container.inputs],
+        outputs=[bridge.format() for bridge in container.outputs],
+        **container.__dict__
+    )
 
 
 class Bridge:
