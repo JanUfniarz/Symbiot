@@ -29,5 +29,3 @@ enum ContainerType {
   script,
   step,
 }
-
-

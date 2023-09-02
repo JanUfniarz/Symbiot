@@ -1,7 +1,6 @@
 class Container:
     def __init__(self, inputs, id_=None, previous=None, path=None,
                  outputs=None, body=None, status="/", **ignored):
-        print("status: " + status)
         self.id = id_
         self.previous = previous
         self.path = path

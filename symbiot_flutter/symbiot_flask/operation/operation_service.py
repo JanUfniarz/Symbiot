@@ -22,7 +22,11 @@ class OperationService:
                       [ContainerEntity("step",
                                        ["0<@bridge>int<@bridge>1",
                                         "1<@bridge>str<@bridge>dupa"],
-                                       body="treść rozmowy z gpt")],
+                                       body="treść rozmowy z gpt"),
+                       ContainerEntity("script",
+                                       ["0<@bridge>list<@bridge>"
+                                        "str<@level1>dupa<@el1>int<@level1>45"],
+                                       path="sciezka/do/skryptu")],
                       "nie wiem co w sumie"))
 
         # operation = Operation(0, "", "", "", "", "", "")

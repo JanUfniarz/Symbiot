@@ -60,7 +60,7 @@ class Bridge:
                 case "list":
                     res = [proper_type(
                         *el.split(f"<@level{self.level}>"))
-                        for el in d.split(f"<@el>{self.level}")]
+                        for el in d.split(f"<@el{self.level}>")]
                     self.level += 1
                     return res
                 # TODO: add support for set and dict
