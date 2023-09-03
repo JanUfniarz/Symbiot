@@ -1,10 +1,11 @@
 from flask import Flask
 
-from api.gpt_connector import GPTConnector
 from components.ps_command_generator import PSCommandGenerator
-from operation.operation_entity import db as operation_db
-from operation.operation_dao import OperationDAO
+from creative_division.creative_service import CreativeService
+
 from operation.operation_controller import OperationController
+from operation.operation_dao import OperationDAO
+from operation.operation_entity import db as operation_db
 from operation.operation_service import OperationService
 
 app = Flask(__name__)
@@ -23,7 +24,7 @@ if __name__ == '__main__':
         app,
         "/operation",
         OperationService(
-            GPTConnector(),
+            CreativeService(),
             PSCommandGenerator(),
             OperationDAO(operation_db),
         )

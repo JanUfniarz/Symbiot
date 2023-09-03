@@ -1,0 +1,2 @@
+class CreativeService:
+    pass
