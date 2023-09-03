@@ -15,12 +15,14 @@ def type_to_string(container):
 
 
 def from_entity(entity):
-    inputs = [Bridge(input_) for input_ in entity.inputs]
+    inputs = [bridge_read(input_) for input_ in entity.inputs]
     outputs = None if entity.outputs is None else \
-        [Bridge(output_) for output_ in entity.outputs]
-    args = entity.__dict__
+        [bridge_read(output_) for output_ in entity.outputs]
+
+    args = entity.__dict__.copy()
     args.pop("inputs")
     args.pop("outputs")
+
     if entity.type_ == "step":
         return StepContainer(
             inputs,
@@ -41,37 +43,19 @@ def to_entity(container) -> ContainerEntity:
     if type_ == "entity":
         return container
 
+    args = container.__dict__.copy()
+    args.pop("inputs")
+    args.pop("outputs")
+
     return ContainerEntity(
         type_,
-        inputs=[bridge.format() for bridge in container.inputs],
-        outputs=[bridge.format() for bridge in container.outputs],
-        **container.__dict__
+        inputs=[bridge_format(bridge) for bridge in container.inputs],
+        outputs=[bridge_format(bridge) for bridge in container.outputs],
+        **args
     )
 
 
-class Bridge:
-    def __init__(self, formatted):
-        def proper_type(t, d):
-            match t:
-                case "str": return d
-                case "int": return int(d)
-                case "bool": return bool(d)
-                case "float": return float(d)
-                case "list":
-                    res = [proper_type(
-                        *el.split(f"<@level{self.level}>"))
-                        for el in d.split(f"<@el{self.level}>")]
-                    self.level += 1
-                    return res
-                # TODO: add support for set and dict
-
-        self.level = 1
-        index, type_, data = formatted.split("<@bridge>")
-        self.index = index
-        self.data = proper_type(type_, data)
-
-    def format(self):
-        """
+"""
         1<b>list<b>
           str<l1>dupa<el1>
           int<l1>1
@@ -84,20 +68,42 @@ class Bridge:
               str<l2>dupa<el2>
               int<l2>52
         """
-        def data_format(d):
-            if isinstance(d, (str, int, bool, float)):
-                return str(d)
-            elif isinstance(d, list):
-                res = f"<@el{self.level}>".join(
-                    [f"{str(type(x))}<level{self.level}>{data_format(x)}"
-                     for x in d])
-                self.level += 1
+
+
+def bridge_format(data):
+    def type_format(d):
+        return str(type(d)) \
+            .replace('<class ', '') \
+            .replace("'", "") \
+            .replace('>', '')
+
+    def format_(d, lev):
+        if isinstance(d, (str, int, bool, float)):
+            return f"{type_format(d)}<@level{lev}>{str(d)}"
+        elif isinstance(d, list):
+            res = f"<@el{lev}>".join(
+                [format_(x, lev+1)
+                 for x in d])
+            return f"{type_format(d)}<@level{lev}>{res}"
+            # TODO: add support for set and dict
+        raise NotImplementedError("Not implemented data type")
+
+    return format_(data, 0)
+
+
+def bridge_read(bridge):
+    def read(b, lev):
+        print(f"lev: {lev}")
+        t, d = b.split(f"<@level{lev}>")
+        match t:
+            case "str": return d
+            case "int": return int(d)
+            case "bool": return bool(d)
+            case "float": return float(d)
+            case "list":
+                res = [read(el, lev+1)
+                       for el in d.split(f"<@el{lev}>")]
                 return res
             # TODO: add support for set and dict
-            raise NotImplementedError("Not implemented data type")
 
-        self.level = 1
-        return "<@bridge>".join([
-            self.index,
-            str(type(self.data)),
-            data_format(self.data)])
+    return read(bridge, 0)

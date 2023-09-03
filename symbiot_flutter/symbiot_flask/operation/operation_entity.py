@@ -17,10 +17,10 @@ class Operation(db.Model):
     _containers = db.relationship(
         "ContainerEntity", backref="operations", lazy=True)
 
-    def __init__(self, name, wish, containers, body, ):
+    def __init__(self, name, wish, body, ):
 
         self.name = name
-        self._containers = containers
+        self._containers = []
         self.wish = wish
         self.nord_star = wish
         self.status = "CREATION_STARTED"
@@ -44,7 +44,8 @@ class Operation(db.Model):
 
     def to_dict(self):
         res = self.__dict__.copy()
-        res.pop("_sa_instance_state")
+        if "_sa_instance_state" in res:
+            res.pop("_sa_instance_state")
         res["containers"] = list(map(
             lambda c: c.to_dict(),
             self.containers))

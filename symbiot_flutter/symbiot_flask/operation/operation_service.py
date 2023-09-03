@@ -1,5 +1,6 @@
+from .container.script_container import ScriptContainer
+from .container.step_container import StepContainer
 from .operation_entity import Operation
-from .container.container_entity import ContainerEntity
 
 
 class OperationService:
@@ -16,21 +17,23 @@ class OperationService:
 
         print("service, create: " + nord_star)
 
-        self.dao.add_operation(
-            Operation("operacja dupa",
-                      "chcę sprawdzić czy dodawanie działa",
-                      [ContainerEntity("step",
-                                       ["0<@bridge>int<@bridge>1",
-                                        "1<@bridge>str<@bridge>dupa"],
-                                       body="treść rozmowy z gpt"),
-                       ContainerEntity("script",
-                                       ["0<@bridge>list<@bridge>"
-                                        "str<@level1>dupa<@el1>int<@level1>45"],
-                                       path="sciezka/do/skryptu",
-                                       previous=1)],
-                      "nie wiem co w sumie"))
+        operation_test = Operation(
+            "operacja dupa",
+            "chcę sprawdzić czy dodawanie działa",
+            "nie wiem co w sumie")
 
-        # operation = Operation(0, "", "", "", "", "", "")
+        operation_test.add_container(
+            StepContainer(
+                [1, "dupa"],
+                body="treść rozmowy z gpt"))
+
+        operation_test.add_container(
+            ScriptContainer(
+                [["dupa", 1], [5.6, True]],
+                path="sciezka/do/skryptu",
+                previous=1))
+
+        self.dao.add_operation(operation_test)
 
         # kalibracja kompasu
 
