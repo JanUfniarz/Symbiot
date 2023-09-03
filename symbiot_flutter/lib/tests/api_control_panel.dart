@@ -37,6 +37,7 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
               print("=============");
               print(model.name);
               print(model.containers[0].inputs[1]);
+              print(model.containers[1].previous.inputs[1]);
               print("=============");
             });
 

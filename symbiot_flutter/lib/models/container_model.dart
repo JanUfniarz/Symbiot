@@ -1,7 +1,7 @@
 class ContainerModel {
   int id;
   ContainerType type;
-  ContainerModel? previous;
+  dynamic previous;
   String? path;
   String? bigO;
   List<dynamic> inputs;
@@ -9,7 +9,7 @@ class ContainerModel {
   String? body;
   String status;
 
-  ContainerModel(dynamic json, this.previous):
+  ContainerModel(dynamic json):
         id = json["id"],
         type = ContainerType.values
             .firstWhere(
@@ -22,7 +22,8 @@ class ContainerModel {
         outputs = (json["outputs"] as List<dynamic>)
             .map((e) => e["data"]).toList(),
         body = json["body"],
-        status = json["status"];
+        status = json["status"],
+        previous = json["previous"];
 }
 
 enum ContainerType {

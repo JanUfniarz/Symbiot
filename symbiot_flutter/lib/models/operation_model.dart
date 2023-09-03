@@ -1,3 +1,6 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'container_model.dart';
 
 class OperationModel {
@@ -19,25 +22,12 @@ class OperationModel {
         name = json["name"],
         body = json["body"],
         containers = (json["containers"] as List<dynamic>)
-            .map((jsonEl) => ContainerModel(jsonEl,
-            (json["containers"] as List<dynamic>)
-                .firstWhere(
-                    (element) => jsonEl["previous"] == element["id"],
-                orElse: () => null
-            ))).toList();
-        
-  
-  
-        // containers = List.generate(
-        //     (json["containers"] as List<dynamic>).length,
-        //         (index) => ContainerModel(
-        //             json["containers"][index],
-        //             (json["containers"] as List<dynamic>)
-        //                 .firstWhere(
-        //                     (element) => json["containers"][index]["previous"]
-        //                         == element["id"],
-        //                 orElse: () => null
-        //             )
-        //         )
-        // );
+            .map((el) => ContainerModel(el))
+            .toList() {
+    for (ContainerModel container in containers)
+      containers.forEach((element) {
+        if (element.id == container.previous)
+          container.previous = element;
+      });
+  }
 }

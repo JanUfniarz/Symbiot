@@ -26,7 +26,8 @@ class OperationService:
                        ContainerEntity("script",
                                        ["0<@bridge>list<@bridge>"
                                         "str<@level1>dupa<@el1>int<@level1>45"],
-                                       path="sciezka/do/skryptu")],
+                                       path="sciezka/do/skryptu",
+                                       previous=1)],
                       "nie wiem co w sumie"))
 
         # operation = Operation(0, "", "", "", "", "", "")

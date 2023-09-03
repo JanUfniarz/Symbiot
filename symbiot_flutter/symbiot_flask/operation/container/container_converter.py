@@ -86,7 +86,7 @@ class Bridge:
         """
         def data_format(d):
             if isinstance(d, (str, int, bool, float)):
-                return str(self.data)
+                return str(d)
             elif isinstance(d, list):
                 res = f"<@el{self.level}>".join(
                     [f"{str(type(x))}<level{self.level}>{data_format(x)}"

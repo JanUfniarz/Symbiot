@@ -34,8 +34,8 @@ class Operation(db.Model):
         for container in containers:
             if isinstance(container.previous, int):
                 for it in containers:
-                    if container.previous == it.id_:
-                        container.previous = it.id_
+                    if container.previous == it.id:
+                        container.previous = it.id
 
         return containers
 
