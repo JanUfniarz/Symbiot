@@ -1,2 +1,4 @@
 class CreativeService:
-    pass
+    def __init__(self, gtp_connector):
+        self.gpt = gtp_connector
+

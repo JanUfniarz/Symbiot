@@ -4,11 +4,17 @@ from .operation_entity import Operation
 
 
 class OperationService:
-    def __init__(self, creative_service, ps_command_generator,
+    def __init__(self, ps_command_generator,
                  operation_dao):
-        self.creative = creative_service
+        self._creative = None
         self.ps_command_generator = ps_command_generator
         self.dao = operation_dao
+
+    def wire_creative_division(self, value):
+        if self._creative is None:
+            self._creative = value
+        else:
+            print("creative division already wired")
 
     def create(self, nord_star):
         # command = self.ps_command_generator.save_to_file(

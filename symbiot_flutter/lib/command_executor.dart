@@ -16,7 +16,8 @@ class CommandExecutor {
         _arguments = ["-c"];
 
 
-  Future<void> runCommand(String? command) async {
+  Future<dynamic> run(String? command,
+      {bool return_ = false}) async {
 
     if (command == null) {
       print("runCommand - No command");
@@ -29,10 +30,12 @@ class CommandExecutor {
     if (result.exitCode == 0) {
       print('Komenda $_executable wykonana poprawnie:');
       print(result.stdout);
+      if (return_) return result.stdout;
+
     } else {
       print('Błąd podczas wykonywania komendy $_executable:');
       print(result.stderr);
+      if (return_) throw Exception(result.stderr);
     }
   }
-
 }

@@ -7,6 +7,7 @@ from operation.operation_controller import OperationController
 from operation.operation_dao import OperationDAO
 from operation.operation_entity import db as operation_db
 from operation.operation_service import OperationService
+from creative_division.gpt.gpt_connector import GPTConnector
 
 app = Flask(__name__)
 
@@ -20,14 +21,17 @@ if __name__ == '__main__':
     #     operation_db.drop_all()
     #     operation_db.create_all()
 
+    creative_division = CreativeService(
+        GPTConnector()),
+
     operation_division = OperationController(
         app,
         "/operation",
         OperationService(
-            CreativeService(),
             PSCommandGenerator(),
-            OperationDAO(operation_db),
-        )
-    )
+            OperationDAO(operation_db)))
+
+    operation_division.service\
+        .wire_creative_division(creative_division)
 
     app.run(debug=True)

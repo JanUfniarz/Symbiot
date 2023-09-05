@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/models/operation_model.dart';
 
-import '../connection/command_executor.dart';
+import '../command_executor.dart';
 import '../connection/operation_connector.dart';
 
 class ApiControlPanel extends StatefulWidget {
@@ -63,7 +63,7 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
 
         if (execute)
           CommandExecutor.powerShell()
-              .runCommand(message);
+              .run(message);
 
         break;
 

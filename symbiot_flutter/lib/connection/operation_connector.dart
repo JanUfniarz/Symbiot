@@ -3,11 +3,12 @@
 import "dart:convert";
 
 import "package:http/http.dart" as http;
+import "package:symbiot_flutter/connection/symbiot_connector.dart";
 
-class OperationConnector {
-  final String url = "http://127.0.0.1:5000/operation";
+class OperationConnector extends SymbiotConnector {
 
-  OperationConnector();
+  OperationConnector():
+    super("operation");
 
   Future<dynamic> readData() async {
 
