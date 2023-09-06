@@ -1,5 +1,5 @@
-from .container.script_container import ScriptContainer
-from .container.step_container import StepContainer
+from .record.script_record import ScriptRecord
+from .record.step_record import StepRecord
 from .operation_entity import Operation
 
 
@@ -28,13 +28,13 @@ class OperationService:
             "chcę sprawdzić czy dodawanie działa",
             "nie wiem co w sumie")
 
-        operation_test.add_container(
-            StepContainer(
+        operation_test.add_record(
+            StepRecord(
                 [1, "dupa"],
                 body="treść rozmowy z gpt"))
 
-        operation_test.add_container(
-            ScriptContainer(
+        operation_test.add_record(
+            ScriptRecord(
                 [["dupa", 1], [5.6, True]],
                 path="sciezka/do/skryptu",
                 previous=1))

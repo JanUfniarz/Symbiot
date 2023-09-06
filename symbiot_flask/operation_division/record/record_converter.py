@@ -1,14 +1,14 @@
-from .step_container import StepContainer
-from .script_container import ScriptContainer
-from .container_entity import ContainerEntity
+from .step_record import StepRecord
+from .script_record import ScriptRecord
+from .record_entity import RecordEntity
 
 
-def type_to_string(container):
-    if type(container) is ContainerEntity:
+def type_to_string(record):
+    if type(record) is RecordEntity:
         return "entity"
-    elif type(container) is StepContainer:
+    elif type(record) is StepRecord:
         return "step"
-    elif type(container) is ScriptContainer:
+    elif type(record) is ScriptRecord:
         return "script"
     else:
         raise ValueError("Unsupported container type")
@@ -24,33 +24,33 @@ def from_entity(entity):
     args.pop("outputs")
 
     if entity.type_ == "step":
-        return StepContainer(
+        return StepRecord(
             inputs,
             outputs=outputs,
             id_=entity.id,
             **args)
     elif entity.type_ == "script":
-        return ScriptContainer(
+        return ScriptRecord(
             inputs,
             outputs=outputs,
             id_=entity.id,
             **args)
 
 
-def to_entity(container) -> ContainerEntity:
-    type_ = type_to_string(container)
+def to_entity(record) -> RecordEntity:
+    type_ = type_to_string(record)
 
     if type_ == "entity":
-        return container
+        return record
 
-    args = container.__dict__.copy()
+    args = record.__dict__.copy()
     args.pop("inputs")
     args.pop("outputs")
 
-    return ContainerEntity(
+    return RecordEntity(
         type_,
-        inputs=[bridge_format(bridge) for bridge in container.inputs],
-        outputs=[bridge_format(bridge) for bridge in container.outputs],
+        inputs=[bridge_format(bridge) for bridge in record.inputs],
+        outputs=[bridge_format(bridge) for bridge in record.outputs],
         **args
     )
 

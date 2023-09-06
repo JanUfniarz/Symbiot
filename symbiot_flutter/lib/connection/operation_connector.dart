@@ -1,4 +1,4 @@
-// ignore_for_file: curly_braces_in_flow_control_structure, curly_braces_in_flow_control_structures, avoid_print
+// ignore_for_file: curly_braces_in_flow_control_structures, avoid_print
 
 import "dart:convert";
 

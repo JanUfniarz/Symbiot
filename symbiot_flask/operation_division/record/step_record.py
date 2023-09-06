@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from .container import Container
+from .record import Record
 
 
-class StepContainer(Container):
+class StepRecord(Record):
     def __init__(self, inputs, **kwargs):
         super().__init__(inputs, **kwargs)
 

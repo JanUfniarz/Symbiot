@@ -1,12 +1,12 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
 
-from .container import Container
+from .record import Record
 
 db = SQLAlchemy()
 
 
-class ContainerEntity(Container, db.Model):
+class RecordEntity(Record, db.Model):
     __tablename__ = 'containers'
 
     id = db.Column(db.Integer, primary_key=True)

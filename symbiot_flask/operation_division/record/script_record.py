@@ -1,7 +1,7 @@
-from .container import Container
+from .record import Record
 
 
-class ScriptContainer(Container):
+class ScriptRecord(Record):
     def __init__(self, inputs, big_o=None,  **kwargs):
         super().__init__(inputs, **kwargs)
         self.big_o = big_o

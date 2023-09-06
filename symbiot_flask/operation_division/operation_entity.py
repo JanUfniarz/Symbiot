@@ -1,5 +1,6 @@
-from operation.container.container_entity import db
-import operation.container.container_converter as converter
+from operation.record.record_entity import db
+import operation.record.record_converter as converter
+
 db = db
 
 
@@ -14,33 +15,33 @@ class Operation(db.Model):
     status = db.Column(db.String)
     name = db.Column(db.String)
     body = db.Column(db.Text)
-    _containers = db.relationship(
-        "ContainerEntity", backref="operations", lazy=True)
+    _records = db.relationship(
+        "RecordEntity", backref="operations", lazy=True)
 
     def __init__(self, name, wish, body, ):
 
         self.name = name
-        self._containers = []
+        self._records = []
         self.wish = wish
         self.nord_star = wish
         self.status = "CREATION_STARTED"
         self.body = body
 
     @property
-    def containers(self):
-        containers = [converter.from_entity(entity)
-                      for entity in self._containers]
+    def records(self):
+        records = [converter.from_entity(entity)
+                   for entity in self._records]
 
-        for container in containers:
-            if isinstance(container.previous, int):
-                for it in containers:
-                    if container.previous == it.id:
-                        container.previous = it.id
+        for record in records:
+            if isinstance(record.previous, int):
+                for it in records:
+                    if record.previous == it.id:
+                        record.previous = it.id
 
-        return containers
+        return records
 
-    def add_container(self, new):
-        self._containers.append(converter.to_entity(new))
+    def add_record(self, new):
+        self._records.append(converter.to_entity(new))
 
     def to_dict(self):
         res = self.__dict__.copy()
@@ -48,5 +49,5 @@ class Operation(db.Model):
             res.pop("_sa_instance_state")
         res["containers"] = list(map(
             lambda c: c.to_dict(),
-            self.containers))
+            self.records))
         return res

@@ -1,4 +1,4 @@
-from .container.container_entity import ContainerEntity
+from .record.record_entity import RecordEntity
 from .operation_entity import Operation
 
 
@@ -25,7 +25,7 @@ class OperationDAO:
         self._db.session.commit()
 
     def get_container_by_id(self, id_):
-        return self._db.session.query(ContainerEntity).get(id_)
+        return self._db.session.query(RecordEntity).get(id_)
 
     def get_all_operations(self):
         return self._db.session.query(Operation).all()

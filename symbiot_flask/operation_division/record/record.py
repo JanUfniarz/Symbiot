@@ -1,4 +1,4 @@
-class Container:
+class Record:
     def __init__(self, inputs, id_=None, previous=None, path=None,
                  outputs=None, body=None, status="/", **ignored):
         self.id = id_
@@ -10,7 +10,7 @@ class Container:
         self.status = status
 
     def to_dict(self):
-        from . import container_converter as converter
+        import record_converter as converter
         res = self.__dict__.copy()
         res["type"] = converter.type_to_string(self)
         res["inputs"] = list(map(
@@ -19,7 +19,7 @@ class Container:
         res["outputs"] = list(map(
             lambda o: o.__dict__.copy(),
             self.outputs))
-        if isinstance(res["previous"], Container):
+        if isinstance(res["previous"], Record):
             res["previous"] = res["previous"]["id_"]
         return res
 
