@@ -1,14 +1,16 @@
 from injector import inject
 
+from symbiot_service import SymbiotService
 from .operation_dao import OperationDAO
 from .record.script_record import ScriptRecord
 from .record.step_record import StepRecord
 from .operation_entity import Operation
 
 
-class OperationService:
+class OperationService(SymbiotService):
     @inject
     def __init__(self, operation_dao: OperationDAO):
+        super().__init__()
         self.dao = operation_dao
 
     def create(self, nord_star):

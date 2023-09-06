@@ -2,9 +2,11 @@ from flask import Flask
 from injector import Injector
 
 from creative_division.creative_division import CreativeDivision
+from mediator import Mediator
 from operation_division.operation_controller import OperationController
 from operation_division.operation_division import OperationDivision
 from operation_division.operation_entity import db as operation_db
+from operation_division.operation_service import OperationService
 
 app = Flask(__name__)
 
@@ -18,23 +20,12 @@ if __name__ == '__main__':
     #     operation_db.drop_all()
     #     operation_db.create_all()
 
-    # creative_division = CreativeService(
-    #     GPTConnector()),
-    #
-    # operation_division = OperationController(
-    #     app,
-    #     "/operation",
-    #     OperationService(
-    #         PSCommandGenerator(),
-    #         OperationDAO(operation_db)))
-    #
-    # operation_division.service\
-    #     .wire_creative_division(creative_division)
-
     symbiot = Injector([
         OperationDivision(app, operation_db),
         CreativeDivision()
     ])
+
+    mediator = Mediator(symbiot)
 
     symbiot.get(OperationController).listen("/operation")
 
