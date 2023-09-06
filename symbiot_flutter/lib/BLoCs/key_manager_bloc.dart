@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:symbiot_flutter/connection/key_connector.dart';
 
 import '../command_executor.dart';
 
 class KeyManager extends ChangeNotifier {
 
   final CommandExecutor _executor;
+  final KeyConnector _connector;
 
   final String _path = "keys.txt";
 
   Map<String, String> _keys = {};
   Map<String, String> get keys => Map.from(_keys);
 
-  KeyManager._private():
-      _executor = CommandExecutor.powerShell();
-  static final KeyManager _instance = KeyManager._private();
-  static KeyManager get instance => _instance;
+  KeyManager(this._executor, this._connector);
 
   void setKey(String name, String value) {
     _keys[name] = value;

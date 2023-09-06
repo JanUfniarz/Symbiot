@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 
 class RecordEntity(Record, db.Model):
-    __tablename__ = 'containers'
+    __tablename__ = 'records'
 
     id = db.Column(db.Integer, primary_key=True)
     type_ = db.Column(db.Enum(

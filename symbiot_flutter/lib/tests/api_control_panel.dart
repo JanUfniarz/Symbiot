@@ -31,7 +31,7 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
 
       case 0: /// GET
         await widget.connector
-            .readData()
+            .getAllOperations()
             .then((value) {
               OperationModel model = OperationModel(value[0]);
               print("=============");
@@ -50,7 +50,7 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
       case 2: /// POST
         bool execute = false;
         await widget.connector
-            .createData(argument)
+            .createOperation(argument)
             .then((value) => setState(
                 () {
               // message = value["command"];
@@ -68,7 +68,7 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
         break;
 
       case 3: /// DELETE
-        widget.connector.deleteData();
+        widget.connector.deleteOperation();
         //TODO .then((value) => null),
         break;
     }

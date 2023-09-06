@@ -6,7 +6,6 @@ from mediator import Mediator
 from operation_division.operation_controller import OperationController
 from operation_division.operation_division import OperationDivision
 from operation_division.operation_entity import db as operation_db
-from operation_division.operation_service import OperationService
 
 app = Flask(__name__)
 

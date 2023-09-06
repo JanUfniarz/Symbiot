@@ -3,26 +3,17 @@
 import "dart:convert";
 
 import "package:http/http.dart" as http;
-import "package:symbiot_flutter/connection/symbiot_connector.dart";
 
-class OperationConnector extends SymbiotConnector {
+import "connection_provider.dart";
 
-  OperationConnector():
-    super("operation");
+class OperationConnector {
 
-  Future<dynamic> readData() async {
+  final String path = "operation";
 
-    final response = await http.get(Uri.parse("$url/"));
+  Future<dynamic> getAllOperations() async =>
+      await ConnectionProvider.get(path);
 
-    print(response.body);
-
-    if (response.statusCode != 200)
-      throw Exception('Failed to load data from server');
-
-    return jsonDecode(utf8.decode(response.bodyBytes));
-  }
-
-  Future<dynamic> createData(
+  Future<dynamic> createOperation(
       String? argument
       ) async {
 
@@ -33,9 +24,9 @@ class OperationConnector extends SymbiotConnector {
 
     final response = await http.post(
         Uri.parse("$url/$argument"),
-        // body: {
+        body: {
 
-        // }
+        }
         );
 
     if (response.statusCode != 200)
@@ -44,7 +35,7 @@ class OperationConnector extends SymbiotConnector {
     return jsonDecode(utf8.decode(response.bodyBytes));
   }
 
-  Future<void> updateData(
+  Future<void> updateOperation(
       // argumenty
       ) async {
 
@@ -61,7 +52,7 @@ class OperationConnector extends SymbiotConnector {
       throw Exception('Failed to update data');
   }
 
-  Future<void> deleteData() async {
+  Future<void> deleteOperation() async {
     final response = await http.delete(
       Uri.parse(url),
     );

@@ -14,6 +14,7 @@ class OperationBloc extends ChangeNotifier {
 
   OperationModel? _model;
 
-  Future<void> loadData() async => _connector!.readData()
-        .then((value) => _model = OperationModel(value));
+  Future<void> loadData() async =>
+      _connector!.getAllOperations()
+          .then((value) => _model = OperationModel(value));
 }
