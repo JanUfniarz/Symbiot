@@ -1,5 +1,5 @@
-from operation.record.record_entity import db
-import operation.record.record_converter as converter
+from operation_division.record.record_entity import db
+import operation_division.record.record_converter as converter
 
 db = db
 

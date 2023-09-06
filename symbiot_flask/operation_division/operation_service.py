@@ -1,20 +1,15 @@
+from injector import inject
+
+from .operation_dao import OperationDAO
 from .record.script_record import ScriptRecord
 from .record.step_record import StepRecord
 from .operation_entity import Operation
 
 
 class OperationService:
-    def __init__(self, ps_command_generator,
-                 operation_dao):
-        self._creative = None
-        self.ps_command_generator = ps_command_generator
+    @inject
+    def __init__(self, operation_dao: OperationDAO):
         self.dao = operation_dao
-
-    def wire_creative_division(self, value):
-        if self._creative is None:
-            self._creative = value
-        else:
-            print("creative division already wired")
 
     def create(self, nord_star):
         # command = self.ps_command_generator.save_to_file(

@@ -1,29 +1,33 @@
 import json
 
-from flask import jsonify
+from flask import jsonify, Flask
+from injector import inject
+
+from .operation_service import OperationService
 
 
 class OperationController:
 
-    def __init__(self, app, path, service):
+    @inject
+    def __init__(self, app: Flask, service: OperationService):
         self.app = app
-        self.path = path
         self.service = service
 
-        @app.route(path + "/", methods=["GET"])
+    def listen(self, path):
+        @self.app.route(path + "/", methods=["GET"])
         def get_operation():
             return jsonify(list(map(
                 lambda op: op.to_dict(),
-                service.operations_data())))
+                self.service.operations_data())))
 
-        @app.route(path + "/", methods=["PUT"])
+        @self.app.route(path + "/", methods=["PUT"])
         def update_operation():
             pass
 
-        @app.route(path + '/<string:arg>', methods=["POST"])
+        @self.app.route(path + '/<string:arg>', methods=["POST"])
         def add_operation(arg):
 
-            service.create(arg)
+            self.service.create(arg)
             # command, execute = service.create(arg)
             #
             # return jsonify(
@@ -31,6 +35,6 @@ class OperationController:
             #      "execute": execute})
             return jsonify({"arg": arg})
 
-        @app.route(path + "/", methods=["DELETE"])
+        @self.app.route(path + "/", methods=["DELETE"])
         def guide_delete():
             pass
