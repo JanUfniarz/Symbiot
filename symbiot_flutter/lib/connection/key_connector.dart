@@ -8,5 +8,6 @@ class KeyConnector {
   void provideKeys(Map<String, String> keys) =>
       ConnectionProvider.post(path, body: keys);
 
-
+  void clearKey(String name) =>
+      ConnectionProvider.delete(path, pathArgument: name);
 }
