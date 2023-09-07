@@ -33,11 +33,9 @@ class KeyManager extends ChangeNotifier {
           el!.split("=")[0], el.split("=")[1]
       ))));
 
-  void saveKeys() {
-    String content = "";
-    _keys.forEach((name, key) => content += "<$name=$key>");
-    _executor.run(
-        "Set-Content -Path $_path -Value $content"
-    );
-  }
+  void saveKeys() => _executor.run(
+      "Set-Content -Path $_path -Value ${
+          _keys.entries.map(
+                  (en) => "<${en.key}=${en.value}>"
+          ).join()}");
 }

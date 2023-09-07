@@ -1,9 +1,5 @@
 // ignore_for_file: curly_braces_in_flow_control_structures, avoid_print
 
-import "dart:convert";
-
-import "package:http/http.dart" as http;
-
 import "connection_provider.dart";
 
 class OperationConnector {
@@ -14,50 +10,17 @@ class OperationConnector {
       await ConnectionProvider.get(path);
 
   Future<dynamic> createOperation(
-      String? argument
-      ) async {
+      String? argument) async {
 
-    if (argument == null) {
-      print("No argument");
-      return;
-    }
+    if (argument == null)
+      throw Exception("No argument");
 
-    final response = await http.post(
-        Uri.parse("$url/$argument"),
-        body: {
-
-        }
-        );
-
-    if (response.statusCode != 200)
-      throw Exception('Failed to post data to server');
-
-    return jsonDecode(utf8.decode(response.bodyBytes));
-  }
-
-  Future<void> updateOperation(
-      // argumenty
-      ) async {
-
-    final response = await http.put(
-        Uri.parse(//"$url/$id"
-          url
-        ),
-        //body: {
-
-        //}
+    return ConnectionProvider.post(path,
+        pathArgument: argument,
     );
-
-    if (response.statusCode != 200)
-      throw Exception('Failed to update data');
   }
 
-  Future<void> deleteOperation() async {
-    final response = await http.delete(
-      Uri.parse(url),
-    );
+  Future<void> updateOperation() async {}
 
-    if (response.statusCode != 200)
-      throw Exception('Failed to delete data');
-  }
+  Future<void> deleteOperation() async {}
 }
