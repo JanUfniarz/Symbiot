@@ -2,6 +2,7 @@ from flask import Flask
 from injector import Injector
 
 from creative_division.creative_division import CreativeDivision
+from creative_division.keys_controller import KeysController
 from mediator import Mediator
 from operation_division.operation_controller import OperationController
 from operation_division.operation_division import OperationDivision
@@ -21,11 +22,12 @@ if __name__ == '__main__':
 
     symbiot = Injector([
         OperationDivision(app, operation_db),
-        CreativeDivision()
+        CreativeDivision(app)
     ])
 
     mediator = Mediator(symbiot)
 
     symbiot.get(OperationController).listen("/operation")
+    symbiot.get(KeysController).listen("/key")
 
     app.run(debug=True)

@@ -23,13 +23,15 @@ import 'tests/api_control_panel.dart';
 //   ),
 // ));
 
-void main() => runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider<KeyManager>.value(
-          value: KeyManager(
-              CommandExecutor.powerShell(),
-              KeyConnector()
-          )
-      ),
-    ],
-    child: const MaterialApp(home: KeysView())));
+void main() {
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<KeyManager>.value(
+            value: KeyManager(
+                CommandExecutor.powerShell(),
+                KeyConnector()
+            )
+        ),
+      ],
+      child: const MaterialApp(home: KeysView())));
+}
