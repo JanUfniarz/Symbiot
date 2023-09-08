@@ -47,10 +47,9 @@ class GPTConnector:
         # global output_history
         prompt = prompt
         if len(self.output) == 0:
-            p1 = self.gpt_text_davinci_003p1(prompt)
-            self.history[len(self.history)] = p1
-            return p1
+            p = self.gpt_text_davinci_003p1(prompt)
         else:
-            p2 = self.gpt_text_davinci_003p2(prompt)
-            self.history[len(self.history)] = p2
-            return p2
+            p = self.gpt_text_davinci_003p2(prompt)
+
+        self.history[-1] = p
+        return p
