@@ -4,7 +4,7 @@ import 'package:symbiot_flutter/widgets/symbiot_text_field.dart';
 
 import '../BLoCs/key_manager_bloc.dart';
 import '../palette.dart';
-import '../widgets/button.dart';
+import '../widgets/bordered_button.dart';
 
 class KeysView extends StatelessWidget {
   const KeysView({super.key});
@@ -48,14 +48,14 @@ class KeysView extends StatelessWidget {
                          const SizedBox(width: 100),
                          Row(
                             children: bloc.keys[keyNames[index]] != null
-                                ? <Button>[
-                              Button(
+                                ? <BorderedButton>[
+                              BorderedButton(
                                 onTap: () => bloc.clear(keyNames[index]),
                                 icon: Icons.delete,
                                 text: "Delete",
                                 primaryColor: Palette.delete,
                               ),
-                              Button(
+                              BorderedButton(
                                   onTap: () => bloc.showKey(
                                       context, keyNames[index]
                                   ),
@@ -73,7 +73,7 @@ class KeysView extends StatelessWidget {
                                 },
                               )
                                   : const SizedBox(),
-                              Button(
+                              BorderedButton(
                                   onTap: () => bloc.indexToAdd == index
                                       ? bloc.setKey(keyNames[index])
                                       : bloc.showTextfield(index),

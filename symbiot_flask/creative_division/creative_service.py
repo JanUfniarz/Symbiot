@@ -11,5 +11,10 @@ class CreativeService(SymbiotService):
         self.gpt = gtp_connector
 
     def distribute_keys(self, open_ai=None):
+        def check_clear(key):
+            if key == "clear":
+                key = None
+            return key
+
         if open_ai is not None:
-            self.gpt.set_api_key(open_ai)
+            self.gpt.set_api_key(check_clear(open_ai))

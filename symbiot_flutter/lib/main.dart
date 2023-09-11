@@ -6,6 +6,7 @@ import 'package:symbiot_flutter/symbiot_app.dart';
 import 'package:symbiot_flutter/views/keys_view.dart';
 
 import 'BLoCs/key_manager_bloc.dart';
+import 'BLoCs/operation_bloc.dart';
 import 'connection/operation_connector.dart';
 import 'tests/api_control_panel.dart';
 
@@ -24,9 +25,16 @@ import 'tests/api_control_panel.dart';
 //   ),
 // ));
 
-void main() => runApp(SymbiotApp(
-  keyManager: KeyManager(
-    CommandExecutor.powerShell(),
-    KeyConnector(),
-  ),
-));
+void main() {
+
+  KeyManager.getInstance(
+    connector: KeyConnector(),
+    executor: CommandExecutor.powerShell(),
+  ).distribute();
+
+  OperationBloc.getInstance(
+    connector: OperationConnector(),
+  ); // TODO: get
+
+  runApp(MaterialApp(home: SymbiotApp()));
+}

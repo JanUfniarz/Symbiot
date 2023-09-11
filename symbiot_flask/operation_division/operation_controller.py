@@ -27,13 +27,16 @@ class OperationController:
         @self.app.route(path + '/<string:arg>', methods=["POST"])
         def add_operation(arg):
 
-            self.service.create(arg)
+            # self.service.create(arg)
             # command, execute = service.create(arg)
             #
             # return jsonify(
             #     {"command": command,
             #      "execute": execute})
-            return jsonify({"arg": arg})
+            # return jsonify({"arg": arg})
+            return jsonify({
+                "message": self.service.mediator("creative").gpt.respond(arg)
+            })
 
         @self.app.route(path + "/", methods=["DELETE"])
         def guide_delete():

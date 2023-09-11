@@ -1,6 +1,6 @@
-class ContainerModel {
+class RecordModel {
   int id;
-  ContainerType type;
+  RecordType type;
   dynamic previous;
   String? path;
   String? bigO;
@@ -9,9 +9,9 @@ class ContainerModel {
   String? body;
   String status;
 
-  ContainerModel(dynamic json):
+  RecordModel(dynamic json):
         id = json["id"],
-        type = ContainerType.values
+        type = RecordType.values
             .firstWhere(
                 (e) => e.toString() == 'ContainerType.${json["type"]}'
         ),
@@ -26,7 +26,7 @@ class ContainerModel {
         previous = json["previous"];
 }
 
-enum ContainerType {
+enum RecordType {
   script,
   step,
 }

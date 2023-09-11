@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../palette.dart';
 
-class Button extends StatelessWidget {
-  const Button({
+class BorderedButton extends StatelessWidget {
+  const BorderedButton({
     super.key,
     required this.onTap,
     primaryColor,

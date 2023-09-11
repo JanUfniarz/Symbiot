@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/palette.dart';
 
-import 'button.dart';
+import 'bordered_button.dart';
 
 class KeyPopup extends StatelessWidget {
 
@@ -24,7 +24,7 @@ class KeyPopup extends StatelessWidget {
       content: Text(apiKey, style: _textStyle),
       backgroundColor: Palette.background,
       actions: <Widget>[
-        Button(
+        BorderedButton(
           text: "close",
           icon: Icons.close,
           primaryColor: Palette.accent,

@@ -36,8 +36,8 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
               OperationModel model = OperationModel(value[0]);
               print("=============");
               print(model.name);
-              print(model.containers[0].inputs[1]);
-              print(model.containers[1].previous.inputs[1]);
+              print(model.records[0].inputs[1]);
+              print(model.records[1].previous.inputs[1]);
               print("=============");
             });
 
@@ -55,7 +55,7 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
                 () {
               // message = value["command"];
               // execute = value["execute"];
-                  message = value["arg"];
+                  message = value["message"];
             }
         ));
 

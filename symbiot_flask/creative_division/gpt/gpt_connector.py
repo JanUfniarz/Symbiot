@@ -45,6 +45,7 @@ class GPTConnector:
 
     def respond(self, prompt):
         # global output_history
+        print("respond")
         prompt = prompt
         if len(self.output) == 0:
             p = self.gpt_text_davinci_003p1(prompt)

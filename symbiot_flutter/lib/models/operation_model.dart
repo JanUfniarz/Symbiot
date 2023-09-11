@@ -1,7 +1,7 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
-import 'container_model.dart';
+import 'record_model.dart';
 
 class OperationModel {
   int id;
@@ -11,7 +11,7 @@ class OperationModel {
   String status;
   String name;
   String body;
-  List<ContainerModel> containers;
+  List<RecordModel> records;
   
   OperationModel(dynamic json):
         id = json["id"],
@@ -21,13 +21,13 @@ class OperationModel {
         status = json["status"],
         name = json["name"],
         body = json["body"],
-        containers = (json["containers"] as List<dynamic>)
-            .map((el) => ContainerModel(el))
+        records = (json["records"] as List<dynamic>)
+            .map((el) => RecordModel(el))
             .toList() {
-    for (ContainerModel container in containers)
-      containers.forEach((element) {
-        if (element.id == container.previous)
-          container.previous = element;
+    for (RecordModel record in records)
+      records.forEach((element) {
+        if (element.id == record.previous)
+          record.previous = element;
       });
   }
 }

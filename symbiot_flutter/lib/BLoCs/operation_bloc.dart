@@ -5,12 +5,17 @@ import '../models/operation_model.dart';
 
 class OperationBloc extends ChangeNotifier {
 
+  OperationConnector? _connector;
+
   OperationBloc._private();
   static final OperationBloc _instance = OperationBloc._private();
-  static OperationBloc get instance => _instance;
 
-  OperationConnector? _connector;
-  set connector(OperationConnector value) => _connector = value;
+  static OperationBloc getInstance({
+    OperationConnector? connector
+  }) {
+    _instance._connector ??= connector;
+    return _instance;
+  }
 
   OperationModel? _model;
 

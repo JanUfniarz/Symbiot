@@ -6,8 +6,8 @@ import '../widgets/key_popup.dart';
 
 class KeyManager extends ChangeNotifier {
 
-  final CommandExecutor _executor;
-  final KeyConnector _connector;
+  CommandExecutor? _executor;
+  KeyConnector? _connector;
 
   final String _path = "keys.txt";
 
@@ -18,7 +18,17 @@ class KeyManager extends ChangeNotifier {
 
   String? newKey;
 
-  KeyManager(this._executor, this._connector);
+  KeyManager._private();
+  static final KeyManager _instance = KeyManager._private();
+
+  static KeyManager getInstance({
+    KeyConnector? connector,
+    CommandExecutor? executor,
+  }) {
+    _instance._connector ??= connector;
+    _instance._executor ??= executor;
+    return _instance;
+  }
 
   void setKey(String name) {
     _keys[name] = newKey!;
@@ -26,16 +36,17 @@ class KeyManager extends ChangeNotifier {
     newKey = null;
     notifyListeners();
     _saveKeys();
+    distribute();
   }
 
   void distribute() async {
     await _getKeys();
-    _connector.provideKeys(keys);
+    _connector!.provideKeys(keys);
     notifyListeners();
   }
 
   void clear(String name) {
-    _connector.clearKey(name);
+    _connector!.clearKey(name);
     _keys.remove(name);
     notifyListeners();
     _saveKeys();
@@ -56,7 +67,7 @@ class KeyManager extends ChangeNotifier {
   );
 
     Future<void> _getKeys() async =>
-        await _executor.run(
+        await _executor!.run(
             "Get-Content $_path",
             return_: true
         ).then((content) => _keys = Map
@@ -67,7 +78,7 @@ class KeyManager extends ChangeNotifier {
             el!.split("=")[0], el.split("=")[1]
         ))));
 
-    void _saveKeys() => _executor.run(
+    void _saveKeys() => _executor!.run(
         "Set-Content -Path $_path -Value \"${
             _keys.entries.map(
                     (en) => "<${en.key}=${en.value}>"
