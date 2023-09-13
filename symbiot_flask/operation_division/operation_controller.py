@@ -35,7 +35,7 @@ class OperationController:
             #      "execute": execute})
             # return jsonify({"arg": arg})
             return jsonify({
-                "message": self.service.mediator("creative").gpt.respond(arg)
+                "message": next(self.service.mediator("creative").gpt.respond(arg))
             })
 
         @self.app.route(path + "/", methods=["DELETE"])
