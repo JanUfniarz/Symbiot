@@ -24,14 +24,12 @@ class Purview:
 
     @classmethod
     def get_functions(cls):
-        functions = []
-        for name, method in cls.__dict__.items():
-            if callable(method) and getattr(method, 'purview', True):
-                method_info = {
-                    "name": name,
-                    "description": method.__doc__,
-                    "parameters": json.loads(
-                        getattr(method, 'parameters', '{}'))
-                }
-                functions.append(method_info)
-        return json.dumps(functions, indent=4)
+        return json.dumps([{
+            "name": name,
+            "description": method.__doc__,
+            "parameters": json.loads(
+                getattr(method, 'parameters', '{}'))
+        } for name, method in cls.__dict__.items()
+            if callable(method)
+            and getattr(method, 'purview', True)],
+            indent=4)
