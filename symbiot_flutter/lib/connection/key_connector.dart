@@ -1,13 +1,13 @@
 // ignore_for_file: curly_braces_in_flow_control_structures, avoid_print
 
-import "package:symbiot_flutter/connection/connection_provider.dart";
+import "package:symbiot_flutter/connection/http_facade.dart";
 
 class KeyConnector {
   final String path = "key";
 
   void provideKeys(Map<String, String> keys) =>
-      ConnectionProvider.post(path, body: keys);
+      HTTPFacade.post(path, body: keys);
 
   void clearKey(String name) =>
-      ConnectionProvider.delete(path, pathArgument: name);
+      HTTPFacade.delete(path, pathArgument: name);
 }

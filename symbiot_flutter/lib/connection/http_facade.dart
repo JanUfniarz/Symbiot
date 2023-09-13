@@ -3,7 +3,7 @@
 import "dart:convert";
 import "package:http/http.dart" as http;
 
-class ConnectionProvider {
+class HTTPFacade {
   static final Map<String, String> _headers = {
     'Content-Type': "application/json; charset=UTF-8",
   };

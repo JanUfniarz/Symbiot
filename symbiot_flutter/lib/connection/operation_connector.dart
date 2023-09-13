@@ -1,13 +1,13 @@
 // ignore_for_file: curly_braces_in_flow_control_structures, avoid_print
 
-import "connection_provider.dart";
+import "http_facade.dart";
 
 class OperationConnector {
 
   final String path = "operation";
 
   Future<dynamic> getAllOperations() async =>
-      await ConnectionProvider.get(path);
+      await HTTPFacade.get(path);
 
   Future<dynamic> createOperation(
       String? argument) async {
@@ -15,7 +15,7 @@ class OperationConnector {
     if (argument == null)
       throw Exception("No argument");
 
-    return ConnectionProvider.post(path,
+    return HTTPFacade.post(path,
         pathArgument: argument,
     );
   }
