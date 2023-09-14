@@ -18,11 +18,11 @@ class KeysController:
             self.service.distribute_keys(
                 open_ai=keys["openAI"])
             print(keys["openAI"])
-            return jsonify({"message": "Keys are delivered to server"})
+            return jsonify(dict(message="Keys are delivered to server"))
 
         @self.app.route(path + "/<string:name>", methods=['DELETE'])
         def clear_key(name):
             self.service.distribute_keys(
                 open_ai="clear" if name == "openAI" else None
             )
-            return jsonify({"message": f"{name} key removed"})
+            return jsonify(dict(message=f"{name} key removed"))

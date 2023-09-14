@@ -4,10 +4,9 @@ from operation_division.operation_service import OperationService
 
 class Mediator:
     def __init__(self, symbiot):
-        self._services = {
-            "operation": symbiot.get(OperationService),
-            "creative": symbiot.get(CreativeService),
-        }
+        self._services = dict(
+            operation=symbiot.get(OperationService),
+            creative=symbiot.get(CreativeService))
         for service in self._services.values():
             service.set_mediator(self)
 
