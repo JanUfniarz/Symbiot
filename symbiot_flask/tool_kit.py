@@ -4,7 +4,7 @@ import json
 class ToolKit:
 
     @staticmethod
-    def tool_function(description, parameters):
+    def tool_function(description, parameters=None):
         # parameters are (type, name, description, required)
         def decorator(func):
             func.purview = True
@@ -12,12 +12,13 @@ class ToolKit:
             func.parameters = json.dumps(dict(
                 type="object",
                 properties={
-                    param[1]: dict(
-                        type=param[0],
-                        description=param[2]
+                    param["name"]: dict(
+                        type=param["type"],
+                        description=param["description"]
                     ) for param in parameters
-                }, required=[param[1] for param in parameters
-                             if param[2]]))
+                }, required=[param["name"] for param in parameters
+                             if param["required"]])) \
+                if parameters is not None else None
             return func
         return decorator
 
