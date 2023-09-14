@@ -2,6 +2,7 @@ from injector import inject
 
 from symbiot_service import SymbiotService
 from .gpt.gpt_connector import GPTConnector
+import client_division.gpt.client_step_converter as converter
 
 
 class ClientService(SymbiotService):
@@ -18,3 +19,9 @@ class ClientService(SymbiotService):
 
         if open_ai is not None:
             self.gpt.set_api_key(check_clear(open_ai))
+
+    @staticmethod
+    def generate_client(step):
+        return converter.to_client(step)
+    # TODO: add other ways to create
+
