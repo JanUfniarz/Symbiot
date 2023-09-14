@@ -4,7 +4,7 @@ from symbiot_service import SymbiotService
 from .gpt.gpt_connector import GPTConnector
 
 
-class CreativeService(SymbiotService):
+class ClientService(SymbiotService):
     @inject
     def __init__(self, gtp_connector: GPTConnector):
         super().__init__()

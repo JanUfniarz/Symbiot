@@ -1,4 +1,4 @@
-from creative_division.creative_service import CreativeService
+from client_division.client_service import ClientService
 from operation_division.operation_service import OperationService
 
 
@@ -6,7 +6,7 @@ class Mediator:
     def __init__(self, symbiot):
         self._services = dict(
             operation=symbiot.get(OperationService),
-            creative=symbiot.get(CreativeService))
+            client=symbiot.get(ClientService))
         for service in self._services.values():
             service.set_mediator(self)
 

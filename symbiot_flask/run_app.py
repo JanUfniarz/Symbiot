@@ -1,8 +1,8 @@
 from flask import Flask
 from injector import Injector
 
-from creative_division.creative_division import CreativeDivision
-from creative_division.keys_controller import KeysController
+from client_division.client_division import ClientDivision
+from client_division.keys_controller import KeysController
 from mediator import Mediator
 from operation_division.operation_controller import OperationController
 from operation_division.operation_division import OperationDivision
@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     symbiot = Injector([
         OperationDivision(app, operation_db),
-        CreativeDivision(app)
+        ClientDivision(app)
     ])
 
     mediator = Mediator(symbiot)

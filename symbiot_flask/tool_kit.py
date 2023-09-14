@@ -22,7 +22,7 @@ class ToolKit:
         return decorator
 
     @classmethod
-    def get_access(
+    def access(
             cls, excluded: list = None,
             to_specific: list = None):
         def include(name):

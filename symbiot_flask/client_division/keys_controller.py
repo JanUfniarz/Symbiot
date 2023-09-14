@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from injector import inject
 
-from creative_division.creative_service import CreativeService
+from client_division.client_service import CreativeService
 
 
 class KeysController:
