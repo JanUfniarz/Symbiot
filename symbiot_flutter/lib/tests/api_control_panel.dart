@@ -68,6 +68,7 @@ class _ApiControlPanelState extends State<ApiControlPanel> {
         break;
 
       case 3: /// DELETE
+        print("del");
         widget.connector.deleteOperation();
         //TODO .then((value) => null),
         break;

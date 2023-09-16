@@ -39,5 +39,8 @@ class OperationController:
             })
 
         @self.app.route(path + "/", methods=["DELETE"])
-        def guide_delete():
-            pass
+        def delete_operation():
+            print("start")
+            self.service.mediator("client").calling_test()
+            print("end")
+            return jsonify({"message": "git"})

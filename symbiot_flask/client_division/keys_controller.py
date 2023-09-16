@@ -1,12 +1,12 @@
 from flask import Flask, request, jsonify
 from injector import inject
 
-from client_division.client_service import CreativeService
+from client_division.client_service import ClientService
 
 
 class KeysController:
     @inject
-    def __init__(self, app: Flask, service: CreativeService):
+    def __init__(self, app: Flask, service: ClientService):
         self.app = app
         self.service = service
 

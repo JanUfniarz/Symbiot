@@ -1,5 +1,6 @@
 from client_division.gpt.gpt_client import GPTClient
 from operation_division.record.step_record import StepRecord
+from tool_kit import ToolKit
 
 
 class ClientBuilder:
@@ -12,9 +13,10 @@ class ClientBuilder:
         return self
 
     def build(self):
+        print("client built\n===============\n" + str(self._client.__dict__))
         return self._client
 
-    def add_messages(self, step: StepRecord):
+    def add_step(self, step: StepRecord):
         self._null_check()
 
         messages = []
@@ -30,10 +32,14 @@ class ClientBuilder:
         self._client.messages = messages
         return self
 
-    def add_access(self, access, call="auto"):
+    def add_access(self, tool_kit: ToolKit):
         self._null_check()
-        self._client.functions = access
-        self._client.function_call = call
+        self._client.functions = tool_kit.access
+        self._client.function_call = tool_kit.forced \
+            if tool_kit.forced == "auto" \
+            or tool_kit.forced == "none" \
+            else {"name": tool_kit.forced}
+        self._client.tool_kit = tool_kit
         return self
 
     def set_params(self, model: str = None,

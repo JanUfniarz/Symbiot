@@ -22,5 +22,5 @@ class OperationConnector {
 
   Future<void> updateOperation() async {}
 
-  Future<void> deleteOperation() async {}
+  Future<void> deleteOperation() async => HTTPFacade.delete(path);
 }
