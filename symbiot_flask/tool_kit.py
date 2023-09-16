@@ -2,12 +2,20 @@ import json
 
 
 class ToolKit:
-    def __init__(self, forced: str = "auto", excluded: list = None):
+    def __init__(self,
+                 forced: str = "auto",
+                 excluded: list = None,
+                 component=None):
         self._forced = forced
         self.excluded = excluded if excluded is not None else []
+        self.component = component
 
     @property
     def forced(self):
+        if self.component is not None \
+            and self.component.forced != "auto" \
+                and self.component.forced != "none":
+            return self.component.forced
         return self._forced
 
     # noinspection PyUnresolvedReferences
@@ -68,7 +76,7 @@ class ToolKit:
 
     @property
     def access(self):
-        return [dict(
+        access = [dict(
             name=name,
             description=method.__doc__,
             parameters=json.loads(getattr(method, 'parameters', '{}')))
@@ -76,3 +84,22 @@ class ToolKit:
             if callable(method)
             and getattr(method, 'accessible', False)
             and name not in self.excluded]
+        if self.component is not None:
+            component_access = self.component.access
+            match self.component.forced:
+                case "auto": return component_access + access
+                case "none": return access
+                case _: return component_access
+        return access
+
+    def execute(self, call):
+        name = call["name"]
+        args = json.loads(call["arguments"])
+        if hasattr(self, name) \
+                and callable(getattr(self, name)):
+            method = getattr(self, name)
+            return method(**args)
+        elif self.component is not None:
+            return self.component.execute(call)
+        else:
+            raise Exception("Unknown function")

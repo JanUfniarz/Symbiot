@@ -37,7 +37,7 @@ class GPTClient:
         response = openai.ChatCompletion.create(**self._to_dict())
         self.messages.append(dict(role="assistant", content=response))
         if "function_call" in response["choices"][0]["message"]:
-            output = self._call_function(
+            output = self.tool_kit.execute(
                 response["choices"][0]["message"]["function_call"])
             if output:
                 self.messages.append(
@@ -51,13 +51,3 @@ class GPTClient:
             del res["function_call"]
         del res["tool_kit"]
         return res
-
-    def _call_function(self, call):
-        name = call["name"]
-        args = json.loads(call["arguments"])
-        if hasattr(self.tool_kit, name) \
-                and callable(getattr(self.tool_kit, name)):
-            method = getattr(self.tool_kit, name)
-            return method(**args)
-        else:
-            raise Exception("Unknown function")
