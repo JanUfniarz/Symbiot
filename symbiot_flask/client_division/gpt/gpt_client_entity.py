@@ -14,6 +14,7 @@ class GPTClientEntity(db.Model):
     n = db.Column(db.Integer)
     max_tokens = db.Column(db.Integer)
     system_prompts = db.Column(ARRAY(db.String))
+    step_id = db.Column(db.Integer, db.ForeignKey("records.id"))
 
     def __init__(self, client: GPTClient):
         self.model = client.model
@@ -26,4 +27,3 @@ class GPTClientEntity(db.Model):
             for val in client.messages
             if val["role"] == "system"
         ]
-

@@ -1,9 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
 
 from database_provider import db
 from .record import Record
-
 
 
 class RecordEntity(Record, db.Model):
@@ -25,6 +23,8 @@ class RecordEntity(Record, db.Model):
     body = db.Column(db.Text, nullable=True)
     status = db.Column(db.String)
     operation_id = db.Column(db.Integer, db.ForeignKey("operations.id"))
+    client = db.relationship(
+        "GPTClientEntity", backref="gpt_clients", lazy="True")
 
     def __init__(self, type_, inputs, big_o=None,  **kwargs):
         if type_ == "script" and kwargs.get("path", None) is None:

@@ -37,5 +37,3 @@ class ClientService(SymbiotService):
         # client = GPTClient()
         response = client.chat("write anything and print it using method")
         print(f"response: {response}")
-
-

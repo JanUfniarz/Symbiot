@@ -18,8 +18,8 @@ db.init_app(app)
 
 if __name__ == '__main__':
     # with app.app_context():
-    #     operation_db.drop_all()
-    #     operation_db.create_all()
+    #     db.drop_all()
+    #     db.create_all()
 
     SymbiotDivision.app = app
     SymbiotDivision.db = db

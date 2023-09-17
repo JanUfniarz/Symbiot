@@ -18,7 +18,6 @@ class ToolKit:
             return self.component.forced
         return self._forced
 
-    # noinspection PyUnresolvedReferences
     @forced.setter
     def forced(self, value):
         if hasattr(self, value):
@@ -32,7 +31,6 @@ class ToolKit:
     def auto_call(self) -> bool:
         return self._forced == "auto"
 
-    # noinspection PyUnresolvedReferences
     @auto_call.setter
     def auto_call(self, value: bool):
         if value:
