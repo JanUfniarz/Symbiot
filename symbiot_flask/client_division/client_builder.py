@@ -1,3 +1,6 @@
+from injector import inject
+
+from client_division.client_factory import ClientFactory
 from client_division.gpt.gpt_client import GPTClient
 from operation_division.record.step_record import StepRecord
 from tool_kit import ToolKit
@@ -5,14 +8,25 @@ from tool_kit import ToolKit
 
 class ClientBuilder:
 
-    def __init__(self):
+    @inject
+    def __init__(self, factory: ClientFactory):
         self._client = None
+        self._factory = factory
 
-    def new(self, client: GPTClient):
+    def from_(self, client: GPTClient):
         self._client = client
         return self
 
+    def new(self, type_: str, name: str = None):
+        if type_ == "gpt":
+            if name:
+                self._client = self._factory.gpt(name)
+            else:
+                self._client = GPTClient()
+        return self
+
     def build(self):
+        self._null_check()
         print("client built\n===============\n" + str(self._client.__dict__))
         return self._client
 
@@ -58,6 +72,7 @@ class ClientBuilder:
 
     def _null_check(self):
         if not self._client:
-            raise Exception("No client, use new() first")
+            raise Exception("No client, "
+                            "use new() or from_() first")
 
     # Idea: zrobić zapis klienta do bazy danych z relacją do stepu

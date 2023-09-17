@@ -13,7 +13,7 @@ class ToolKit:
     @property
     def forced(self):
         if self.component is not None \
-            and self.component.forced != "auto" \
+                and self.component.forced != "auto" \
                 and self.component.forced != "none":
             return self.component.forced
         return self._forced
@@ -42,6 +42,36 @@ class ToolKit:
                 self._forced = "none"
             else:
                 print("auto_call already off")
+
+    @property
+    def access(self):
+        access = [dict(
+            name=name,
+            description=method.__doc__,
+            parameters=json.loads(getattr(method, 'parameters', '{}')))
+            for name, method in self.__class__.__dict__.items()
+            if callable(method)
+            and getattr(method, 'accessible', False)
+            and name not in self.excluded]
+        if self.component is not None:
+            component_access = self.component.access
+            match self.component.forced:
+                case "auto": return component_access + access
+                case "none": return access
+                case _: return component_access
+        return access
+
+    def execute(self, call):
+        name = call["name"]
+        args = json.loads(call["arguments"])
+        if hasattr(self, name) \
+                and callable(getattr(self, name)):
+            method = getattr(self, name)
+            return method(**args)
+        elif self.component is not None:
+            return self.component.execute(call)
+        else:
+            raise Exception("Unknown function")
 
     @staticmethod
     def tool_function(description, parameters=None):
@@ -73,33 +103,3 @@ class ToolKit:
                              if param["required"]]))
             return func
         return decorator
-
-    @property
-    def access(self):
-        access = [dict(
-            name=name,
-            description=method.__doc__,
-            parameters=json.loads(getattr(method, 'parameters', '{}')))
-            for name, method in self.__class__.__dict__.items()
-            if callable(method)
-            and getattr(method, 'accessible', False)
-            and name not in self.excluded]
-        if self.component is not None:
-            component_access = self.component.access
-            match self.component.forced:
-                case "auto": return component_access + access
-                case "none": return access
-                case _: return component_access
-        return access
-
-    def execute(self, call):
-        name = call["name"]
-        args = json.loads(call["arguments"])
-        if hasattr(self, name) \
-                and callable(getattr(self, name)):
-            method = getattr(self, name)
-            return method(**args)
-        elif self.component is not None:
-            return self.component.execute(call)
-        else:
-            raise Exception("Unknown function")

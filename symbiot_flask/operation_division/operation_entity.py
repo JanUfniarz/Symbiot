@@ -1,7 +1,5 @@
-from operation_division.record.record_entity import db
 import operation_division.record.record_converter as converter
-
-db = db
+from database_provider import db
 
 
 class Operation(db.Model):

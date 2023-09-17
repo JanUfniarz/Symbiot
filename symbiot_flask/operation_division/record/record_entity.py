@@ -1,9 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
 
+from database_provider import db
 from .record import Record
 
-db = SQLAlchemy()
 
 
 class RecordEntity(Record, db.Model):

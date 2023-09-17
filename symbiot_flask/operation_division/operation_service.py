@@ -1,7 +1,7 @@
 from injector import inject
 
 from symbiot_service import SymbiotService
-from .operation_dao import OperationDAO
+from .operation_repository import OperationRepository
 from .record.script_record import ScriptRecord
 from .record.step_record import StepRecord
 from .operation_entity import Operation
@@ -9,7 +9,7 @@ from .operation_entity import Operation
 
 class OperationService(SymbiotService):
     @inject
-    def __init__(self, operation_dao: OperationDAO):
+    def __init__(self, operation_dao: OperationRepository):
         super().__init__()
         self.dao = operation_dao
 
@@ -36,7 +36,7 @@ class OperationService(SymbiotService):
                 path="sciezka/do/skryptu",
                 previous=1))
 
-        self.dao.add_operation(operation_test)
+        self.dao.save(operation_test)
 
         # kalibracja kompasu
 
@@ -45,4 +45,4 @@ class OperationService(SymbiotService):
         # return command, True
 
     def operations_data(self):
-        return self.dao.get_all_operations()
+        return self.dao.get_all()

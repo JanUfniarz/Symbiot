@@ -3,14 +3,18 @@ from injector import inject
 from symbiot_service import SymbiotService
 from client_division.client_builder import ClientBuilder
 from .gpt.gpt_client import GPTClient
+from .gpt.gpt_client_repository import GPTClientRepository
 from .test_tk import TestTK
 
 
 class ClientService(SymbiotService):
     @inject
-    def __init__(self, client_builder: ClientBuilder):
+    def __init__(self,
+                 client_builder: ClientBuilder,
+                 client_repository: GPTClientRepository):
         super().__init__()
         self.builder = client_builder
+        self.repository = client_repository
 
     @staticmethod
     def distribute_keys(open_ai=None):
@@ -29,7 +33,7 @@ class ClientService(SymbiotService):
         print("client")
         tk = TestTK()
         tk.forced = "method"
-        client = self.builder.new(GPTClient()).add_access(tk).build()
+        client = self.builder.new("gpt").add_access(tk).build()
         # client = GPTClient()
         response = client.chat("write anything and print it using method")
         print(f"response: {response}")
