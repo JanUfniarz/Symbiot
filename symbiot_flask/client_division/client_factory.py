@@ -1,4 +1,4 @@
 class ClientFactory:
 
-    def gpt(self, name: str):
+    def gpt(self, template: str):
         pass

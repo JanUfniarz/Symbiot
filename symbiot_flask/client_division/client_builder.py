@@ -2,6 +2,7 @@ from injector import inject
 
 from client_division.client_factory import ClientFactory
 from client_division.gpt.gpt_client import GPTClient
+from client_division.gpt.gpt_client_entity import GPTClientEntity
 from operation_division.record.step_record import StepRecord
 from tool_kit import ToolKit
 
@@ -17,10 +18,10 @@ class ClientBuilder:
         self._client = client
         return self
 
-    def new(self, type_: str, name: str = None):
+    def new(self, type_: str, template: str = None):
         if type_ == "gpt":
-            if name:
-                self._client = self._factory.gpt(name)
+            if template:
+                self._client = self._factory.gpt(template)
             else:
                 self._client = GPTClient()
         return self
@@ -29,6 +30,17 @@ class ClientBuilder:
         self._null_check()
         print("client built\n===============\n" + str(self._client.__dict__))
         return self._client
+
+    def entity_data(self,
+                    entity: GPTClientEntity,
+                    sys_prompts=True):
+        params = entity.__dict__.copy()
+        prompts = params.pop("system_prompts")
+        self.set_params(**params)
+        if sys_prompts:
+            self._client.messages += list(map(lambda prompt: dict(
+                role="system", content=prompt), prompts))
+        return self
 
     def add_step(self, step: StepRecord):
         self._null_check()
