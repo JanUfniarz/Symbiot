@@ -8,11 +8,9 @@ import 'package:symbiot_flutter/widgets/bordered_button.dart';
 import 'package:symbiot_flutter/widgets/symbiot_navigation_bar.dart';
 import 'package:symbiot_flutter/widgets/symbiot_scaffold.dart';
 
-import 'BLoCs/key_manager_bloc.dart';
-import 'BLoCs/operation_bloc.dart';
-import 'command_executor.dart';
-import 'connection/key_connector.dart';
 import 'connection/operation_connector.dart';
+import 'managers/key_manager.dart';
+import 'managers/operation_manager.dart';
 
 class SymbiotApp extends StatefulWidget {
   final List<ChangeNotifierProvider> providers;
@@ -21,8 +19,8 @@ class SymbiotApp extends StatefulWidget {
     ChangeNotifierProvider<KeyManager>.value(
       value: KeyManager.getInstance(),
     ),
-    ChangeNotifierProvider<OperationBloc>.value(
-        value: OperationBloc.getInstance(),
+    ChangeNotifierProvider<OperationManager>.value(
+        value: OperationManager.getInstance(),
     ),
   ];
 

@@ -55,7 +55,7 @@ class ClientBuilder:
             messages.append(dict(
                 role="assistant",
                 content=el.split("<@res>")[1]))
-        self._client.messages = messages
+        self._client.messages += messages
         return self
 
     def add_access(self, tool_kit: ToolKit):
@@ -86,5 +86,3 @@ class ClientBuilder:
         if not self._client:
             raise Exception("No client, "
                             "use new() or from_() first")
-
-    # Idea: zrobić zapis klienta do bazy danych z relacją do stepu

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../connection/operation_connector.dart';
 import '../models/operation_model.dart';
 
-class OperationBloc extends ChangeNotifier {
+class OperationManager extends ChangeNotifier {
 
   OperationConnector? _connector;
 
-  OperationBloc._private();
-  static final OperationBloc _instance = OperationBloc._private();
+  OperationManager._private();
+  static final OperationManager _instance = OperationManager._private();
 
-  static OperationBloc getInstance({
+  static OperationManager getInstance({
     OperationConnector? connector
   }) {
     _instance._connector ??= connector;

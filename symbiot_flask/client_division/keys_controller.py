@@ -16,7 +16,7 @@ class KeysController:
             keys = request.get_json()
             print("provide")
             self.service.distribute_keys(
-                open_ai=keys["openAI"])
+                open_ai=keys["openAI"] if "openAI" in keys else None)
             print(keys["openAI"])
             return jsonify(dict(message="Keys are delivered to server"))
 

@@ -41,7 +41,7 @@ class KeyManager extends ChangeNotifier {
 
   void distribute() async {
     await _getKeys();
-    _connector!.provideKeys(keys);
+    if (keys.isNotEmpty) _connector!.provideKeys(keys);
     notifyListeners();
   }
 

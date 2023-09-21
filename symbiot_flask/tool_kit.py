@@ -5,17 +5,17 @@ class ToolKit:
     def __init__(self,
                  forced: str = "auto",
                  excluded: list = None,
-                 component=None):
+                 child=None):
         self._forced = forced
         self.excluded = excluded if excluded is not None else []
-        self.component = component
+        self.child = child
 
     @property
     def forced(self):
-        if self.component is not None \
-                and self.component.forced != "auto" \
-                and self.component.forced != "none":
-            return self.component.forced
+        if self.child is not None \
+                and self.child.forced != "auto" \
+                and self.child.forced != "none":
+            return self.child.forced
         return self._forced
 
     @forced.setter
@@ -51,9 +51,9 @@ class ToolKit:
             if callable(method)
             and getattr(method, 'accessible', False)
             and name not in self.excluded]
-        if self.component is not None:
-            component_access = self.component.access
-            match self.component.forced:
+        if self.child is not None:
+            component_access = self.child.access
+            match self.child.forced:
                 case "auto": return component_access + access
                 case "none": return access
                 case _: return component_access
@@ -66,8 +66,8 @@ class ToolKit:
                 and callable(getattr(self, name)):
             method = getattr(self, name)
             return method(**args)
-        elif self.component is not None:
-            return self.component.execute(call)
+        elif self.child is not None:
+            return self.child.execute(call)
         else:
             raise Exception("Unknown function")
 

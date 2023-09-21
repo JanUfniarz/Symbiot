@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/widgets/symbiot_text_field.dart';
 
-import '../BLoCs/key_manager_bloc.dart';
+import '../managers/key_manager.dart';
 import '../palette.dart';
 import '../widgets/bordered_button.dart';
 
@@ -15,7 +15,7 @@ class KeysView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer<KeyManager>(
-    builder: (context, bloc, child) => Padding(
+    builder: (context, manager, child) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: List.generate(
@@ -37,7 +37,7 @@ class KeysView extends StatelessWidget {
                               ),
                             ),
                           ),
-                         bloc.keys[keyNames[index]] != null
+                         manager.keys[keyNames[index]] != null
                               ? const Icon(
                             Icons.done_outline_sharp,
                             color: Palette.primary,
@@ -47,16 +47,16 @@ class KeysView extends StatelessWidget {
                           ),
                          const SizedBox(width: 100),
                          Row(
-                            children: bloc.keys[keyNames[index]] != null
+                            children: manager.keys[keyNames[index]] != null
                                 ? <BorderedButton>[
                               BorderedButton(
-                                onTap: () => bloc.clear(keyNames[index]),
+                                onTap: () => manager.clear(keyNames[index]),
                                 icon: Icons.delete,
                                 text: "Delete",
                                 primaryColor: Palette.delete,
                               ),
                               BorderedButton(
-                                  onTap: () => bloc.showKey(
+                                  onTap: () => manager.showKey(
                                       context, keyNames[index]
                                   ),
                                   text: "Show",
@@ -64,19 +64,19 @@ class KeysView extends StatelessWidget {
                               )
                             ]
                                 : <Widget> [
-                              bloc.indexToAdd == index
+                              manager.indexToAdd == index
                                   ? SymbiotTextField(
-                                onChanged: (text) => bloc.newKey = text,
+                                onChanged: (text) => manager.newKey = text,
                                 onSubmitted: (text) {
-                                  bloc.newKey = text;
-                                  bloc.setKey(keyNames[index]);
+                                  manager.newKey = text;
+                                  manager.setKey(keyNames[index]);
                                 },
                               )
                                   : const SizedBox(),
                               BorderedButton(
-                                  onTap: () => bloc.indexToAdd == index
-                                      ? bloc.setKey(keyNames[index])
-                                      : bloc.showTextfield(index),
+                                  onTap: () => manager.indexToAdd == index
+                                      ? manager.setKey(keyNames[index])
+                                      : manager.showTextfield(index),
                                   text: "Add",
                                   icon: Icons.add
                               )
