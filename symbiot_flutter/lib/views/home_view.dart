@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/widgets/symbiot_text_field.dart';
 
-import '../managers/operation_manager.dart';
+import '../controllers/operation_controller.dart';
 import '../palette.dart';
 
 class HomeView extends StatelessWidget {
@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<OperationManager>(
+    return Consumer<OperationController>(
       builder: (context, bloc, child) =>
           Padding(
             padding: const EdgeInsets.all(10),

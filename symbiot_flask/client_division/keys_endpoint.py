@@ -4,7 +4,7 @@ from injector import inject
 from client_division.client_service import ClientService
 
 
-class KeysController:
+class KeysEndpoint:
     @inject
     def __init__(self, app: Flask, service: ClientService):
         self.app = app
@@ -23,6 +23,5 @@ class KeysController:
         @self.app.route(path + "/<string:name>", methods=['DELETE'])
         def clear_key(name):
             self.service.distribute_keys(
-                open_ai="clear" if name == "openAI" else None
-            )
+                open_ai="clear" if name == "openAI" else None)
             return jsonify(dict(message=f"{name} key removed"))

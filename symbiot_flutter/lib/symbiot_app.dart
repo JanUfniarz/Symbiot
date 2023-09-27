@@ -9,18 +9,18 @@ import 'package:symbiot_flutter/widgets/symbiot_navigation_bar.dart';
 import 'package:symbiot_flutter/widgets/symbiot_scaffold.dart';
 
 import 'connection/operation_connector.dart';
-import 'managers/key_manager.dart';
-import 'managers/operation_manager.dart';
+import 'controllers/key_controller.dart';
+import 'controllers/operation_controller.dart';
 
 class SymbiotApp extends StatefulWidget {
   final List<ChangeNotifierProvider> providers;
 
   SymbiotApp({super.key}): providers = [
-    ChangeNotifierProvider<KeyManager>.value(
-      value: KeyManager.getInstance(),
+    ChangeNotifierProvider<KeyController>.value(
+      value: KeyController.getInstance(),
     ),
-    ChangeNotifierProvider<OperationManager>.value(
-        value: OperationManager.getInstance(),
+    ChangeNotifierProvider<OperationController>.value(
+        value: OperationController.getInstance(),
     ),
   ];
 

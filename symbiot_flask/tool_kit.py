@@ -92,7 +92,6 @@ class ToolKit:
 
             func.accessible = True
             func.__doc__ = description
-            # noinspection PyTypeChecker
             func.parameters = json.dumps(dict(
                 type="object",
                 properties={

@@ -2,10 +2,10 @@ from flask import Flask
 from injector import Injector
 
 from client_division.client_division import ClientDivision
-from client_division.keys_controller import KeysController
+from client_division.keys_endpoint import KeysEndpoint
 from database_provider import db
 from mediator import Mediator
-from operation_division.operation_controller import OperationController
+from operation_division.operation_endpoint import OperationEndpoint
 from operation_division.operation_division import OperationDivision
 from symbiot_division import SymbiotDivision
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     mediator = Mediator(symbiot)
 
-    symbiot.get(OperationController).listen("/operation")
-    symbiot.get(KeysController).listen("/key")
+    symbiot.get(OperationEndpoint).listen("/operation")
+    symbiot.get(KeysEndpoint).listen("/key")
 
     app.run(debug=True)

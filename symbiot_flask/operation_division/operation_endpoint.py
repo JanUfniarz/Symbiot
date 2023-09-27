@@ -6,7 +6,7 @@ from injector import inject
 from .operation_service import OperationService
 
 
-class OperationController:
+class OperationEndpoint:
 
     @inject
     def __init__(self, app: Flask, service: OperationService):

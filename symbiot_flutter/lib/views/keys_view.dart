@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/widgets/symbiot_text_field.dart';
 
-import '../managers/key_manager.dart';
+import '../controllers/key_controller.dart';
 import '../palette.dart';
 import '../widgets/bordered_button.dart';
 
@@ -14,7 +14,7 @@ class KeysView extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) => Consumer<KeyManager>(
+  Widget build(BuildContext context) => Consumer<KeyController>(
     builder: (context, manager, child) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(

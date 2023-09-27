@@ -4,7 +4,7 @@ import 'package:symbiot_flutter/connection/key_connector.dart';
 import '../command_executor.dart';
 import '../widgets/key_popup.dart';
 
-class KeyManager extends ChangeNotifier {
+class KeyController extends ChangeNotifier {
 
   CommandExecutor? _executor;
   KeyConnector? _connector;
@@ -18,10 +18,10 @@ class KeyManager extends ChangeNotifier {
 
   String? newKey;
 
-  KeyManager._private();
-  static final KeyManager _instance = KeyManager._private();
+  KeyController._private();
+  static final KeyController _instance = KeyController._private();
 
-  static KeyManager getInstance({
+  static KeyController getInstance({
     KeyConnector? connector,
     CommandExecutor? executor,
   }) {

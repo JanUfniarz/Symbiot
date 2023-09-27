@@ -6,8 +6,8 @@ import 'package:symbiot_flutter/symbiot_app.dart';
 import 'package:symbiot_flutter/views/keys_view.dart';
 
 import 'connection/operation_connector.dart';
-import 'managers/key_manager.dart';
-import 'managers/operation_manager.dart';
+import 'controllers/key_controller.dart';
+import 'controllers/operation_controller.dart';
 import 'tests/api_control_panel.dart';
 
 // void main() {
@@ -27,12 +27,12 @@ import 'tests/api_control_panel.dart';
 
 void main() {
 
-  KeyManager.getInstance(
+  KeyController.getInstance(
     connector: KeyConnector(),
     executor: CommandExecutor.powerShell(),
   ).distribute();
 
-  OperationManager.getInstance(
+  OperationController.getInstance(
     connector: OperationConnector(),
   ); // TODO: get
 

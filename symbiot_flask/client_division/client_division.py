@@ -7,7 +7,7 @@ from .client_builder import ClientBuilder
 from .client_factory import ClientFactory
 from .client_service import ClientService
 from .gpt.gpt_client_repository import GPTClientRepository
-from .keys_controller import KeysController
+from .keys_endpoint import KeysEndpoint
 
 
 class ClientDivision(SymbiotDivision):
@@ -15,7 +15,7 @@ class ClientDivision(SymbiotDivision):
     def configure(self, binder):
         binder.bind(ClientService, scope=singleton)
         binder.bind(ClientBuilder, scope=singleton)
-        binder.bind(KeysController, scope=singleton)
+        binder.bind(KeysEndpoint, scope=singleton)
         binder.bind(ClientFactory, scope=singleton)
         binder.bind(GPTClientRepository, scope=singleton)
         binder.bind(SQLAlchemy, to=super().db)
