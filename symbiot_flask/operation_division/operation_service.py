@@ -1,6 +1,7 @@
 from injector import inject
 
 from symbiot_service import SymbiotService
+from .operation_builder import OperationBuilder
 from .operation_repository import OperationRepository
 from .record.script_record import ScriptRecord
 from .record.step_record import StepRecord
@@ -9,9 +10,13 @@ from .operation_entity import Operation
 
 class OperationService(SymbiotService):
     @inject
-    def __init__(self, operation_dao: OperationRepository):
+    def __init__(
+            self,
+            operation_dao: OperationRepository,
+            operation_builder: OperationBuilder):
         super().__init__()
         self.dao = operation_dao
+        self.builder = operation_builder
 
     def create(self, nord_star):
         # command = self.ps_command_generator.save_to_file(

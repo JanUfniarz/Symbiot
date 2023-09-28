@@ -33,7 +33,7 @@ class _SymbiotAppState extends State<SymbiotApp> {
 
   Widget _body(int selected) {
     switch (selected) {
-      case 0: return const HomeView();
+      case 0: return HomeView();
       case 1: return const KeysView();
       case 2: return const SettingsView();
       default: throw Exception("Wrong selected value");
@@ -53,21 +53,12 @@ class _SymbiotAppState extends State<SymbiotApp> {
               onSelect: (index) => setState(
                       () => selected = index),
             ),
-            //? ======= test ============
-            // TODO: remove when not needed
+
             const SizedBox(height: 20),
-            BorderedButton(
-              onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => ApiControlPanel(
-                          connector: OperationConnector()
-                      )
-                  )
-              ),
-              icon: Icons.api_outlined,
-              text: "Control\nPanel",
-            ),
-            //? =========================
+
+            // TODO: remove on prod
+            const ApiControlPanelButton(),
+
             _body(selected),
           ],
         ),

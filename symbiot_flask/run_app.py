@@ -17,6 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 db.init_app(app)
 
 if __name__ == '__main__':
+    """uncomment to rebuild database"""
     # with app.app_context():
     #     db.drop_all()
     #     db.create_all()
@@ -26,8 +27,7 @@ if __name__ == '__main__':
 
     symbiot = Injector([
         OperationDivision(),
-        ClientDivision()
-    ])
+        ClientDivision()])
 
     mediator = Mediator(symbiot)
 

@@ -28,13 +28,16 @@ class CommandExecutor {
     );
 
     if (result.exitCode == 0) {
-      print('Komenda $_executable wykonana poprawnie:');
-      print(result.stdout);
+      print('Command $_executable executed correctly:'
+          '\ncommand: $command'
+          '\noutput: ${result.stdout}');
+
       if (return_) return result.stdout;
 
     } else {
-      print('Błąd podczas wykonywania komendy $_executable:');
-      print(result.stderr);
+      print('Error executing command $_executable:'
+          '\ncommand: $command'
+          '\noutput: ${result.stderr}');
       if (return_) throw Exception(result.stderr);
     }
   }

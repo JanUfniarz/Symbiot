@@ -15,7 +15,7 @@ class KeysView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Consumer<KeyController>(
-    builder: (context, manager, child) => Padding(
+    builder: (context, controller, child) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: List.generate(
@@ -37,7 +37,7 @@ class KeysView extends StatelessWidget {
                               ),
                             ),
                           ),
-                         manager.keys[keyNames[index]] != null
+                          controller.keys[keyNames[index]] != null
                               ? const Icon(
                             Icons.done_outline_sharp,
                             color: Palette.primary,
@@ -47,16 +47,16 @@ class KeysView extends StatelessWidget {
                           ),
                          const SizedBox(width: 100),
                          Row(
-                            children: manager.keys[keyNames[index]] != null
+                            children: controller.keys[keyNames[index]] != null
                                 ? <BorderedButton>[
                               BorderedButton(
-                                onTap: () => manager.clear(keyNames[index]),
+                                onTap: () => controller.clear(keyNames[index]),
                                 icon: Icons.delete,
                                 text: "Delete",
                                 primaryColor: Palette.delete,
                               ),
                               BorderedButton(
-                                  onTap: () => manager.showKey(
+                                  onTap: () => controller.showKey(
                                       context, keyNames[index]
                                   ),
                                   text: "Show",
@@ -64,19 +64,19 @@ class KeysView extends StatelessWidget {
                               )
                             ]
                                 : <Widget> [
-                              manager.indexToAdd == index
+                              controller.indexToAdd == index
                                   ? SymbiotTextField(
-                                onChanged: (text) => manager.newKey = text,
+                                onChanged: (text) => controller.newKey = text,
                                 onSubmitted: (text) {
-                                  manager.newKey = text;
-                                  manager.setKey(keyNames[index]);
+                                  controller.newKey = text;
+                                  controller.setKey(keyNames[index]);
                                 },
                               )
                                   : const SizedBox(),
                               BorderedButton(
-                                  onTap: () => manager.indexToAdd == index
-                                      ? manager.setKey(keyNames[index])
-                                      : manager.showTextfield(index),
+                                  onTap: () => controller.indexToAdd == index
+                                      ? controller.setKey(keyNames[index])
+                                      : controller.showTextfield(index),
                                   text: "Add",
                                   icon: Icons.add
                               )

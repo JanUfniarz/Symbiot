@@ -5,6 +5,27 @@ import 'package:symbiot_flutter/models/operation_model.dart';
 
 import '../command_executor.dart';
 import '../connection/operation_connector.dart';
+import '../widgets/bordered_button.dart';
+
+class ApiControlPanelButton extends StatelessWidget {
+  const ApiControlPanelButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BorderedButton(
+      onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => ApiControlPanel(
+                  connector: OperationConnector()
+              )
+          )
+      ),
+      icon: Icons.api_outlined,
+      text: "Control\nPanel",
+    );
+  }
+}
+
 
 class ApiControlPanel extends StatefulWidget {
   const ApiControlPanel({

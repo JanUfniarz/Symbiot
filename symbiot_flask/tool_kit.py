@@ -52,11 +52,10 @@ class ToolKit:
             and getattr(method, 'accessible', False)
             and name not in self.excluded]
         if self.child is not None:
-            component_access = self.child.access
             match self.child.forced:
-                case "auto": return component_access + access
+                case "auto": return self.child.access + access
                 case "none": return access
-                case _: return component_access
+                case _: return self.child.access
         return access
 
     def execute(self, call):
