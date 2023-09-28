@@ -19,8 +19,7 @@ class OperationCard extends StatelessWidget {
   final void Function()? refresh;
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
+  Widget build(BuildContext context) => InkWell(
 
       onTap: () async {
         if (onTap == null) return;
@@ -69,5 +68,4 @@ class OperationCard extends StatelessWidget {
         ),
       ),
     );
-  }
 }

@@ -6,7 +6,7 @@ class OperationConnector {
 
   final String path = "operation";
 
-  Future<dynamic> getAllOperations() async =>
+  Future<List<dynamic>> getAllOperations() async =>
       await HTTPFacade.get(path);
 
   Future<dynamic> createOperation(

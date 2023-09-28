@@ -5,13 +5,14 @@ import 'package:symbiot_flutter/widgets/operations_gallery.dart';
 
 import '../controllers/operation_controller.dart';
 import '../palette.dart';
+import '../widgets/input_bar.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Consumer<OperationController>(
+  Widget build(BuildContext context) =>
+      Consumer<OperationController>(
       builder: (context, bloc, child) =>
           Expanded(
             child: Stack(
@@ -53,40 +54,10 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
 
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 70,
-                      vertical: 20
-                  ),
-                  child: Row(
-                    children: <Widget>[
+                const InputBar(),
 
-                      Flexible(
-                        child: TextField(
-                          decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Palette.accent,
-                            hintText: 'Wpisz wiadomość...',
-                          ),
-                          onChanged: (text) {},
-                          onSubmitted: (text) {},
-                          maxLines: null,
-                        ),
-                      ),
-
-                      IconButton(
-                        iconSize: 30,
-                        color: Palette.primary,
-                        icon: const Icon(Icons.send),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
     );
-  }
 }
