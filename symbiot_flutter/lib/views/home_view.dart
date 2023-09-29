@@ -39,16 +39,16 @@ class HomeView extends StatelessWidget {
                           builder: (context, controller, child) =>
                               OperationsGallery(
                             primary: Palette.accent,
-                            operationsCards: [
+                            operationsCards: List.generate(
+                                controller.models!.length, (index) =>
                               OperationCard(
-                                name: "name",
-                                onTap: () {},
-                                refresh: () {}
-                              )
-                            ],
+                                name: controller.models![index].name,
+                                before: () => controller.pickedIndex = index,
+                                after: () => controller.loadData(),
+                              ),
+                            ),
                           ),
-                        )
-
+                        ),
                       ],
                     ),
                   ),

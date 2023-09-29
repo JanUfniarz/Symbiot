@@ -13,14 +13,12 @@ class RecordModel {
         id = json["id"],
         type = RecordType.values
             .firstWhere(
-                (e) => e.toString() == 'ContainerType.${json["type"]}'
+                (e) => e.toString() == 'RecordType.${json["type"]}'
         ),
         path = json["path"],
         bigO = json["bigO"],
-        inputs = (json["inputs"] as List<dynamic>)
-            .map((e) => e["data"]).toList(),
-        outputs = (json["outputs"] as List<dynamic>)
-            .map((e) => e["data"]).toList(),
+        inputs = (json["inputs"] as List<dynamic>),
+        outputs = (json["outputs"] as List<dynamic>),
         body = json["body"],
         status = json["status"],
         previous = json["previous"];

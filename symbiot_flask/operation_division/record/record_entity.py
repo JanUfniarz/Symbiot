@@ -24,7 +24,7 @@ class RecordEntity(Record, db.Model):
     status = db.Column(db.String)
     operation_id = db.Column(db.Integer, db.ForeignKey("operations.id"))
     client = db.relationship(
-        "GPTClientEntity", backref="gpt_clients", lazy="True")
+        "GPTClientEntity", backref="gpt_clients", lazy=True)
 
     def __init__(self, type_, inputs, big_o=None,  **kwargs):
         if type_ == "script" and kwargs.get("path", None) is None:

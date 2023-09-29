@@ -10,7 +10,7 @@ class OperationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Consumer<OperationController>(
     builder: (context, controller, child) => SymbiotScaffold(
-      tittle: controller.model!.name,
+      tittle: controller.model().name,
     ),
   );
 }

@@ -4,11 +4,9 @@ import 'package:symbiot_flutter/tests/api_control_panel.dart';
 import 'package:symbiot_flutter/views/home_view.dart';
 import 'package:symbiot_flutter/views/keys_view.dart';
 import 'package:symbiot_flutter/views/settings_view.dart';
-import 'package:symbiot_flutter/widgets/bordered_button.dart';
 import 'package:symbiot_flutter/widgets/symbiot_navigation_bar.dart';
 import 'package:symbiot_flutter/widgets/symbiot_scaffold.dart';
 
-import 'connection/operation_connector.dart';
 import 'controllers/key_controller.dart';
 import 'controllers/operation_controller.dart';
 
@@ -33,7 +31,7 @@ class _SymbiotAppState extends State<SymbiotApp> {
 
   Widget _body(int selected) {
     switch (selected) {
-      case 0: return HomeView();
+      case 0: return const HomeView();
       case 1: return const KeysView();
       case 2: return const SettingsView();
       default: throw Exception("Wrong selected value");

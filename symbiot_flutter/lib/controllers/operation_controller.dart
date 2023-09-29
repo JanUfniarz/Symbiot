@@ -17,15 +17,16 @@ class OperationController extends ChangeNotifier {
     return _instance;
   }
 
-  List<OperationModel>? _models;
-  int? pickedID;
+  List<OperationModel>? models;
+  int? pickedIndex;
 
-  OperationModel model() => _models!
-      .firstWhere((el) => el.id == pickedID);
+  OperationModel model() => models!
+      .firstWhere((el) => el.id == pickedIndex);
 
   Future<void> loadData() async =>
       _connector!.getAllOperations()
-          .then((value) => _models = value
+          .then((value) => models = value
           .map((el) => OperationModel(el))
-          .toList());
+          .toList())
+          .then((ig) => notifyListeners());
 }

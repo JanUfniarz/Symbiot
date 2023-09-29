@@ -25,16 +25,16 @@ import 'tests/api_control_panel.dart';
 //   ),
 // ));
 
-void main() {
+void main() async {
 
   KeyController.getInstance(
     connector: KeyConnector(),
     executor: CommandExecutor.powerShell(),
   ).distribute();
 
-  OperationController.getInstance(
+  await OperationController.getInstance(
     connector: OperationConnector(),
-  ); // TODO: get
+  ).loadData();
 
   runApp(MaterialApp(home: SymbiotApp()));
 }

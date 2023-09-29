@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../models/operation_model.dart';
 import '../palette.dart';
 import '../views/operation_view.dart';
 
@@ -8,29 +7,29 @@ class OperationCard extends StatelessWidget {
   const OperationCard({
     super.key,
     required this.name,
-    required this.onTap,
-    required this.refresh,
+    required this.before,
+    required this.after,
   });
   final Color primaryColor = Palette.primary;
 
   final String name;
 
-  final void Function()? onTap;
-  final void Function()? refresh;
+  final void Function()? before;
+  final void Function()? after;
 
   @override
   Widget build(BuildContext context) => InkWell(
 
       onTap: () async {
-        if (onTap == null) return;
-        onTap!();
+        if (before == null) return;
+        before!();
         await Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => const OperationView()
             )
         );
-        refresh!();
+        after!();
       },
 
       child: SizedBox(

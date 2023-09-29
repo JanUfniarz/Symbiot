@@ -1,4 +1,6 @@
 class Record:
+    converter = None
+
     def __init__(self, inputs, id_=None, previous=None, path=None,
                  outputs=None, body=None, status="/", **ignored):
         self.id = id_
@@ -9,18 +11,20 @@ class Record:
         self.body = body
         self.status = status
 
+    @classmethod
+    def set_converter(cls, converter):
+        cls.converter = converter
+
     def to_dict(self):
-        import record_converter as converter
+        # TODO: import record_converter as converter
         res = self.__dict__.copy()
-        res["type"] = converter.type_to_string(self)
+        res["type"] = self.converter.type_to_string(self)
         res["inputs"] = list(map(
-            lambda i: i.__dict__.copy(),
+            lambda i: str(i),
             self.inputs))
         res["outputs"] = list(map(
-            lambda o: o.__dict__.copy(),
+            lambda o: str(o),
             self.outputs))
         if isinstance(res["previous"], Record):
             res["previous"] = res["previous"]["id_"]
         return res
-
-
