@@ -23,7 +23,7 @@ class OperationController extends ChangeNotifier {
   OperationModel model() => models!
       .firstWhere((el) => el.id == pickedIndex);
 
-  Future<void> loadData() async =>
+  Future<void> loadData() async => await
       _connector!.getAllOperations()
           .then((value) => models = value
           .map((el) => OperationModel(el))

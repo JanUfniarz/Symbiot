@@ -1,37 +1,20 @@
 from flask import Flask
-from injector import Injector
 
 from client_division.client_division import ClientDivision
-from client_division.keys_endpoint import KeysEndpoint
 from database_provider import db
-from mediator import Mediator
-from operation_division.operation_endpoint import OperationEndpoint
 from operation_division.operation_division import OperationDivision
-from symbiot_division import SymbiotDivision
+from operation_division.record.record_converter import RecordConverter
+from symbiot_starter import SymbiotStarter
 
-app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-    'postgresql://postgres:postgres@localhost:5432/symbiot'
-
-db.init_app(app)
+app: Flask = Flask(__name__)
 
 if __name__ == '__main__':
-    """uncomment to rebuild database"""
-    # with app.app_context():
-    #     db.drop_all()
-    #     db.create_all()
-
-    SymbiotDivision.app = app
-    SymbiotDivision.db = db
-
-    symbiot = Injector([
-        OperationDivision(),
-        ClientDivision()])
-
-    mediator = Mediator(symbiot)
-
-    symbiot.get(OperationEndpoint).listen("/operation")
-    symbiot.get(KeysEndpoint).listen("/key")
-
-    app.run(debug=True)
+    symbiot: SymbiotStarter = SymbiotStarter().flask(app)\
+        .sql_alchemy(
+        db,
+        'postgresql://postgres:postgres@localhost:5432/symbiot')\
+        .divisions([
+            OperationDivision(),
+            ClientDivision()])\
+        .converters(RecordConverter())\
+        .listen().run()

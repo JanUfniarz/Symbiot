@@ -11,6 +11,13 @@ class OperationView extends StatelessWidget {
   Widget build(BuildContext context) => Consumer<OperationController>(
     builder: (context, controller, child) => SymbiotScaffold(
       tittle: controller.model().name,
+      body: SingleChildScrollView(
+        child: Row(
+          children: const <Widget>[
+
+          ],
+        ),
+      ),
     ),
   );
 }

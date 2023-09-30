@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/tests/api_control_panel.dart';
 import 'package:symbiot_flutter/views/home_view.dart';
 import 'package:symbiot_flutter/views/keys_view.dart';
@@ -7,20 +6,8 @@ import 'package:symbiot_flutter/views/settings_view.dart';
 import 'package:symbiot_flutter/widgets/symbiot_navigation_bar.dart';
 import 'package:symbiot_flutter/widgets/symbiot_scaffold.dart';
 
-import 'controllers/key_controller.dart';
-import 'controllers/operation_controller.dart';
-
 class SymbiotApp extends StatefulWidget {
-  final List<ChangeNotifierProvider> providers;
-
-  SymbiotApp({super.key}): providers = [
-    ChangeNotifierProvider<KeyController>.value(
-      value: KeyController.getInstance(),
-    ),
-    ChangeNotifierProvider<OperationController>.value(
-        value: OperationController.getInstance(),
-    ),
-  ];
+  const SymbiotApp({super.key});
 
   @override
   State<SymbiotApp> createState() => _SymbiotAppState();
@@ -40,26 +27,23 @@ class _SymbiotAppState extends State<SymbiotApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: widget.providers,
-      child: SymbiotScaffold(
-        tittle: SymbiotNavigationBar.labels[selected],
-        body: Column(
-          children: <Widget>[
-            SymbiotNavigationBar(
-              selected: selected,
-              onSelect: (index) => setState(
-                      () => selected = index),
-            ),
+    return SymbiotScaffold(
+      tittle: SymbiotNavigationBar.labels[selected],
+      body: Column(
+        children: <Widget>[
+          SymbiotNavigationBar(
+            selected: selected,
+            onSelect: (index) => setState(
+                    () => selected = index),
+          ),
 
-            const SizedBox(height: 20),
+          const SizedBox(height: 20),
 
-            // TODO: remove on prod
-            const ApiControlPanelButton(),
+          // TODO: remove on prod
+          const ApiControlPanelButton(),
 
-            _body(selected),
-          ],
-        ),
+          _body(selected),
+        ],
       ),
     );
   }
