@@ -83,7 +83,7 @@ class SymbiotStarter:
         for key, value in {
             k: v for k, v in self._endpoints.items()
                 if k not in excluded}.items():
-            self._injector.get(value).listen(f"/{key}")
+            self(value).listen(f"/{key}")
         return self
 
     def run(self):

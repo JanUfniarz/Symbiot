@@ -1,11 +1,8 @@
-import json
-
 import openai
 
 from tool_kit import ToolKit
 
 
-# noinspection PyTypeChecker
 class GPTClient:
     def __init__(
             self,

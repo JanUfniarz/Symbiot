@@ -2,12 +2,10 @@ from injector import inject
 
 from symbiot_service import SymbiotService
 from .operation_builder import OperationBuilder
+from .operation_entity import Operation
 from .operation_repository import OperationRepository
-from .record.record import Record
-from .record.record_converter import RecordConverter
 from .record.script_record import ScriptRecord
 from .record.step_record import StepRecord
-from .operation_entity import Operation
 
 
 class OperationService(SymbiotService):
