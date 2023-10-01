@@ -43,7 +43,11 @@ class HomeView extends StatelessWidget {
                                 controller.models!.length, (index) =>
                               OperationCard(
                                 name: controller.models![index].name,
-                                before: () => controller.pickedIndex = index,
+                                before: () {
+                                  controller.pickedIndex = index;
+                                  print("pickedIndex: ${controller.pickedIndex}"
+                                      "\nmodels: ${controller.models![index].name}");
+                                },
                                 after: () => controller.loadData(),
                               ),
                             ),

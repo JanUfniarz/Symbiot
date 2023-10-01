@@ -13,11 +13,21 @@ from symbiot_division import SymbiotDivision
 
 # noinspection PyTypeChecker
 class SymbiotStarter:
+    _endpoints: dict = dict(
+        operation=OperationEndpoint,
+        key=KeysEndpoint,
+    )
+
     def __init__(self):
         self._injector: Injector = None
         self._mediator: Mediator = None
+        self._record_converter: RecordConverter = None
 
     def __call__(self, cls):
+        if cls is Mediator:
+            return self._mediator
+        if cls is RecordConverter:
+            return self._record_converter
         return self._injector.get(cls)
 
     @property
@@ -56,6 +66,7 @@ class SymbiotStarter:
         return self
 
     def converters(self, record_converter: RecordConverter):
+        self._record_converter = record_converter
         for cls in [Operation, Record]:
             cls.set_converter(record_converter)
         return self
@@ -66,15 +77,11 @@ class SymbiotStarter:
             self._db.create_all()
         return self
 
-    def listen(self, excluded: list = None):
-        endpoints = dict(
-            operation=OperationEndpoint,
-            key=KeysEndpoint,
-        )
+    def listen_all(self, excluded: list = None):
         if not excluded:
             excluded = []
         for key, value in {
-            k: v for k, v in endpoints.items()
+            k: v for k, v in self._endpoints.items()
                 if k not in excluded}.items():
             self._injector.get(value).listen(f"/{key}")
         return self

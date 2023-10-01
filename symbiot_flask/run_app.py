@@ -17,4 +17,4 @@ if __name__ == '__main__':
             OperationDivision(),
             ClientDivision()])\
         .converters(RecordConverter())\
-        .listen().run()
+        .listen_all().run()

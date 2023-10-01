@@ -20,8 +20,8 @@ class OperationController extends ChangeNotifier {
   List<OperationModel>? models;
   int? pickedIndex;
 
-  OperationModel model() => models!
-      .firstWhere((el) => el.id == pickedIndex);
+  OperationModel? get model => models != null && pickedIndex != null
+      ? models![pickedIndex!] : null;
 
   Future<void> loadData() async => await
       _connector!.getAllOperations()
