@@ -1,4 +1,3 @@
-
 class PSCommandGenerator:
     @staticmethod
     def save_to_file(code):
@@ -8,5 +7,3 @@ class PSCommandGenerator:
 
         return f'\"{code}\" | ' \
             f'Set-Content -Path \"{path}\"'
-
-# napisz kod python, który printuje hello world w funkcji

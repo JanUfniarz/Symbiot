@@ -1,5 +1,6 @@
 from flask import Flask
 
+from action_division.action_division import ActionDivision
 from client_division.client_division import ClientDivision
 from database_provider import db
 from operation_division.operation_division import OperationDivision
@@ -15,6 +16,7 @@ if __name__ == '__main__':
         'postgresql://postgres:postgres@localhost:5432/symbiot')\
         .divisions([
             OperationDivision(),
-            ClientDivision()])\
+            ClientDivision(),
+            ActionDivision()])\
         .converters(RecordConverter())\
         .listen_all().run()
