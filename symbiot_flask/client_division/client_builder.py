@@ -28,7 +28,6 @@ class ClientBuilder:
 
     def build(self):
         self._null_check()
-        print("client built\n===============\n" + str(self._client.__dict__))
         return self._client
 
     def entity_data(self,

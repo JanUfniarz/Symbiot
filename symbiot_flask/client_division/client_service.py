@@ -1,5 +1,6 @@
 from injector import inject
 
+from operation_division.record.step_record import StepRecord
 from symbiot_service import SymbiotService
 from client_division.client_builder import ClientBuilder
 from .gpt.gpt_client import GPTClient
@@ -8,13 +9,16 @@ from .test_tk import TestTK
 
 
 class ClientService(SymbiotService):
+
+    # noinspection PyTypeChecker
     @inject
     def __init__(self,
                  client_builder: ClientBuilder,
                  client_repository: GPTClientRepository):
         super().__init__()
-        self.builder = client_builder
-        self.repository = client_repository
+        self.builder: ClientBuilder = client_builder
+        self.repository: GPTClientRepository = client_repository
+        self.active_step: StepRecord = None
 
     @staticmethod
     def distribute_keys(open_ai=None):
@@ -37,3 +41,15 @@ class ClientService(SymbiotService):
         # client = GPTClient()
         response = client.chat("write anything and print it using method")
         print(f"response: {response}")
+
+    def calibrate(self, step: StepRecord, wish: str):
+        client: GPTClient = self.builder.new("gpt", "calibrator").build()
+        step.client = client
+        self.active_step = step
+        self.continue_chat(wish)
+
+    def continue_chat(self, prompt: str):
+        step = self.active_step
+        response = self.active_step.client.chat()
+        step.add_entry(prompt, response)
+        return step.body

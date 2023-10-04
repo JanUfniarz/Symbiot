@@ -1,5 +1,6 @@
 from injector import inject
 
+from client_division.gpt.gpt_client import GPTClient
 from symbiot_service import SymbiotService
 from .operation_builder import OperationBuilder
 from .operation_entity import Operation
@@ -18,30 +19,35 @@ class OperationService(SymbiotService):
         self.dao = operation_dao
         self.builder = operation_builder
 
-    def create(self, nord_star):
+    def create(self, wish):
         # command = self.ps_command_generator.save_to_file(
         #     self.gpt_connector.respond(nord_star)
         # )
 
-        print("service, create: " + nord_star)
+        print("service, create: " + wish)
 
-        operation_test = Operation(
-            "operacja dupa",
-            "chcę sprawdzić czy dodawanie działa",
-            "nie wiem co w sumie")
+        operation = Operation(wish)
+        operation.status = "CALIBRATION"
 
-        operation_test.add_record(
-            StepRecord(
-                [1, "dupa"],
-                body="treść rozmowy z gpt"))
+        self.mediator("client").calibrate(StepRecord([]), wish)
 
-        operation_test.add_record(
-            ScriptRecord(
-                [["dupa", 1], [5.6, True]],
-                path="sciezka/do/skryptu",
-                previous=1))
+        # operation_test = Operation(
+        #     "operacja dupa",
+        #     "chcę sprawdzić czy dodawanie działa",
+        #     "nie wiem co w sumie")
+        #
+        # operation_test.add_record(
+        #     StepRecord(
+        #         [1, "dupa"],
+        #         body="treść rozmowy z gpt"))
+        #
+        # operation_test.add_record(
+        #     ScriptRecord(
+        #         [["dupa", 1], [5.6, True]],
+        #         path="sciezka/do/skryptu",
+        #         previous=1))
 
-        self.dao.save(operation_test)
+        # self.dao.save(operation_test)
 
         # kalibracja kompasu
 

@@ -2,7 +2,7 @@ from client_division.gpt.gpt_client import GPTClient
 
 
 class ClientFactory:
-    def gpt(self, template: str, params: dict = None):
+    def gpt(self, template: str):
         templates = dict(
 
             full_aware=dict(init_messages=[self._sys_prompt("""
@@ -16,6 +16,15 @@ class ClientFactory:
             scripter=dict(init_messages=[self._sys_prompt("""
                 Your role is to create only python code!
             """)], max_tokens=4000),
+
+            calibrator=dict(init_messages=[self._sys_prompt("""
+                You are a senior developer, who has to write script 
+                (or set of scripts) to automate some process.
+                Your current job is to talk to the client, 
+                understand his expectations and ask 
+                him as many questions as you need to
+                start project.   
+            """)])
         )
         return GPTClient(**templates[template])
 

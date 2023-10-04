@@ -1,5 +1,5 @@
 class Record:
-    converter = None
+    _converter = None
 
     def __init__(self, inputs, id_=None, previous=None, path=None,
                  outputs=None, body=None, status="/", **ignored):
@@ -13,12 +13,11 @@ class Record:
 
     @classmethod
     def set_converter(cls, converter):
-        cls.converter = converter
+        cls._converter = converter
 
     def to_dict(self):
-        # TODO: import record_converter as converter
         res = self.__dict__.copy()
-        res["type"] = self.converter.type_to_string(self)
+        res["type"] = self._converter.type_to_string(self)
         res["inputs"] = list(map(
             lambda i: str(i),
             self.inputs))

@@ -14,9 +14,9 @@ class Operation(db.Model):
     body = db.Column(db.Text)
     _records = db.relationship(
         "RecordEntity", backref="operations", lazy=True)
-    converter = None
+    _converter = None
 
-    def __init__(self, name, wish, body):
+    def __init__(self, wish, name="untitled", body=""):
 
         self.name = name
         self._records = []
@@ -27,11 +27,11 @@ class Operation(db.Model):
 
     @classmethod
     def set_converter(cls, converter):
-        cls.converter = converter
+        cls._converter = converter
 
     @property
     def records(self):
-        records = [self.converter.from_entity(entity)
+        records = [self._converter.from_entity(entity)
                    for entity in self._records]
 
         for record in records:
@@ -43,7 +43,7 @@ class Operation(db.Model):
         return records
 
     def add_record(self, new):
-        self._records.append(self.converter.to_entity(new))
+        self._records.append(self._converter.to_entity(new))
 
     def to_dict(self):
         res = self.__dict__.copy()
