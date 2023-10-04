@@ -1,11 +1,8 @@
 from injector import inject
 
-from client_division.gpt.gpt_client import GPTClient
 from symbiot_service import SymbiotService
-from .operation_builder import OperationBuilder
 from .operation_entity import Operation
 from .operation_repository import OperationRepository
-from .record.script_record import ScriptRecord
 from .record.step_record import StepRecord
 
 
@@ -13,11 +10,9 @@ class OperationService(SymbiotService):
     @inject
     def __init__(
             self,
-            operation_repository: OperationRepository,
-            operation_builder: OperationBuilder):
+            operation_repository: OperationRepository):
         super().__init__()
         self.repository = operation_repository
-        self.builder = operation_builder
 
     def create(self, wish):
         # command = self.ps_command_generator.save_to_file(

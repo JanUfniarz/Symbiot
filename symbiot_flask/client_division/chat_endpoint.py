@@ -19,14 +19,17 @@ class ChatEndpoint:
                     request.get_json()["prompt"])})
 
         @self.app.route(path + "/", methods=["POST"])
-        def open_close_chat():
-            request_ = request.get_json()
-            match request_["command"]:
+        def manage_chat():
+            command = request.get_json()["command"]
+            step_id = request.get_json()["id"]
+            match command:
                 case "open":
-                    self.service.open_chat(request_["id"])
+                    self.service.open_chat(step_id)
                 case "close":
-                    self.service.close_chat(request_["id"])
+                    self.service.close_chat(step_id)
                 case _:
                     raise ValueError("Invalid command")
+            return jsonify(
+                {"message": f"chat of step {step_id} {command}"})
 
 

@@ -34,6 +34,7 @@ class ClientService(SymbiotService):
             .repository.get_record_by_id(step_id)
 
     def close_chat(self, step_id):
+        # TODO: implement
         pass
 
     def calibrate(self, step: StepRecord, wish: str):

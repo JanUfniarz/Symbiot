@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from injector import Injector
 
+from client_division.chat_endpoint import ChatEndpoint
 from client_division.keys_endpoint import KeysEndpoint
 from mediator import Mediator
 from operation_division.operation_endpoint import OperationEndpoint
@@ -16,7 +17,7 @@ class SymbiotStarter:
     _endpoints: dict = dict(
         operation=OperationEndpoint,
         key=KeysEndpoint,
-    )
+        chat=ChatEndpoint)
 
     def __init__(self):
         self._injector: Injector = None
