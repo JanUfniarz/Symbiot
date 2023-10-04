@@ -1,11 +1,10 @@
 from injector import inject
 
+from client_division.client_builder import ClientBuilder
 from operation_division.record.step_record import StepRecord
 from symbiot_service import SymbiotService
-from client_division.client_builder import ClientBuilder
 from .gpt.gpt_client import GPTClient
 from .gpt.gpt_client_repository import GPTClientRepository
-from .test_tk import TestTK
 
 
 class ClientService(SymbiotService):
@@ -30,17 +29,12 @@ class ClientService(SymbiotService):
         if open_ai is not None:
             GPTClient.set_api_key(check_clear(open_ai))
 
-    def generate_client(self, step):
-        return self.builder.add_step(step)
+    def open_chat(self, step_id):
+        self.active_step = self.mediator("operation")\
+            .repository.get_record_by_id(step_id)
 
-    def calling_test(self):
-        print("client")
-        tk = TestTK()
-        tk.forced = "method"
-        client = self.builder.new("gpt").add_access(tk).build()
-        # client = GPTClient()
-        response = client.chat("write anything and print it using method")
-        print(f"response: {response}")
+    def close_chat(self, step_id):
+        pass
 
     def calibrate(self, step: StepRecord, wish: str):
         client: GPTClient = self.builder.new("gpt", "calibrator").build()
@@ -49,6 +43,9 @@ class ClientService(SymbiotService):
         self.continue_chat(wish)
 
     def continue_chat(self, prompt: str):
+        if not self.active_step:
+            # TODO: implement
+            raise NotImplementedError("no active step")
         step = self.active_step
         response = self.active_step.client.chat()
         step.add_entry(prompt, response)

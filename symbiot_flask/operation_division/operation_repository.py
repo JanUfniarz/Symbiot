@@ -11,5 +11,5 @@ class OperationRepository(SymbiotRepository):
     def __init__(self, db: SQLAlchemy):
         super().__init__(db, Operation)
 
-    def get_container_by_id(self, id_):
+    def get_record_by_id(self, id_):
         return self._db.session.query(RecordEntity).get(id_)

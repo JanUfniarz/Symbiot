@@ -11,11 +11,9 @@ class OperationEndpoint:
 
     @inject
     def __init__(self, app: Flask,
-                 service: OperationService,
-                 converter: RecordConverter):
+                 service: OperationService):
         self.app = app
         self.service = service
-        self.converter = converter
 
     def listen(self, path):
         @self.app.route(path + "/", methods=["GET"])

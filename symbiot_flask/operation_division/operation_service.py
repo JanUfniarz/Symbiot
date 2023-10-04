@@ -13,10 +13,10 @@ class OperationService(SymbiotService):
     @inject
     def __init__(
             self,
-            operation_dao: OperationRepository,
+            operation_repository: OperationRepository,
             operation_builder: OperationBuilder):
         super().__init__()
-        self.dao = operation_dao
+        self.repository = operation_repository
         self.builder = operation_builder
 
     def create(self, wish):
@@ -28,8 +28,12 @@ class OperationService(SymbiotService):
 
         operation = Operation(wish)
         operation.status = "CALIBRATION"
+        step_1 = StepRecord([])
 
-        self.mediator("client").calibrate(StepRecord([]), wish)
+        operation.add_record(step_1)
+        self.repository.save(operation)
+
+        self.mediator("client").calibrate(step_1, wish)
 
         # operation_test = Operation(
         #     "operacja dupa",
@@ -56,4 +60,4 @@ class OperationService(SymbiotService):
         # return command, True
 
     def operations_data(self):
-        return self.dao.get_all()
+        return self.repository.get_all()
