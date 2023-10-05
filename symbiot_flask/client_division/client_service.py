@@ -43,6 +43,7 @@ class ClientService(SymbiotService):
             NordStarExtractor()
         ).build()
         step.client = client
+        step.add_to_status("calibration")
         self._active_step = step
         self.continue_chat(wish)
 
@@ -54,3 +55,7 @@ class ClientService(SymbiotService):
         response = self._active_step.client.chat()
         step.add_entry(prompt, response)
         return step.body
+
+    def calibration_ended(self, nord_star: str):
+        self._active_step.add_to_status("done")
+        self.mediator("operation").calibration_ended(self._active_step, nord_star)

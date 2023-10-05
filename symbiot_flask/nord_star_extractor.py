@@ -23,4 +23,4 @@ class NordStarExtractor(ToolKit):
             so that based on this summary developers can start working on the project
             """)])
     def extract_nord_star(self, nord_star: str):
-        self.mediator("operation").calibration_ended(nord_star)
+        self.mediator("client").calibration_ended(nord_star)

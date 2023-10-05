@@ -2,7 +2,7 @@ class Record:
     _converter = None
 
     def __init__(self, inputs, id_=None, previous=None, path=None,
-                 outputs=None, body=None, status="/", **ignored):
+                 outputs=None, body=None, status="", **ignored):
         self.id = id_
         self.previous = previous
         self.path = path
@@ -14,6 +14,16 @@ class Record:
     @classmethod
     def inject_converter(cls, converter):
         cls._converter = converter
+
+    @property
+    def current_status(self) -> str:
+        return self.status.split("/")[-1]
+
+    def add_to_status(self, value):
+        self.status += "/" + value
+
+    def in_status(self, value) -> bool:
+        return value in self.status.split("/")
 
     def to_dict(self):
         res = self.__dict__.copy()

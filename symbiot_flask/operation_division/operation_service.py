@@ -54,11 +54,14 @@ class OperationService(SymbiotService):
 
         # return command, True
 
-    def calibration_ended(self, nord_star: str):
-        # TODO: implement
-        pass
+    def calibration_ended(self, step: StepRecord, nord_star: str):
+        for operation in self.operations:
+            if step in operation.records:
+                operation.nord_star = nord_star
+                self._repository.save(operation)
 
-    def operations_data(self):
+    @property
+    def operations(self):
         return self._repository.get_all()
 
     def save_step(self, step: StepRecord):

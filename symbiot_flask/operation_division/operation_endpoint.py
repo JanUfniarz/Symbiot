@@ -20,7 +20,7 @@ class OperationEndpoint:
         def get_operation():
             return jsonify(list(map(
                 lambda op: op.to_dict(),
-                self.service.operations_data())))
+                self.service.operations)))
 
         @self.app.route(path + "/", methods=["PUT"])
         def update_operation():
