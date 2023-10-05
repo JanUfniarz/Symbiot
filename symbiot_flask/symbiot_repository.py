@@ -3,12 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 class SymbiotRepository:
     def __init__(self, database: SQLAlchemy, entity):
-        self._db = database
-        self.entity = entity
+        self.db = database
+        self._entity = entity
 
     def save(self, entity):
-        self._db.session.add(entity)
-        self._db.session.commit()
+        self.db.session.add(entity)
+        self.db.session.commit()
 
     def get_all(self):
-        return self._db.session.query(self.entity).all()
+        return self.db.session.query(self._entity).all()

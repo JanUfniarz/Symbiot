@@ -9,4 +9,3 @@ class GPTClientRepository(SymbiotRepository):
     @inject
     def __init__(self, db: SQLAlchemy):
         super().__init__(db, GPTClientEntity)
-

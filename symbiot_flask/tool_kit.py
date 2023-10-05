@@ -2,6 +2,8 @@ import json
 
 
 class ToolKit:
+    mediator = None
+
     def __init__(self,
                  forced: str = "auto",
                  excluded: list = None,

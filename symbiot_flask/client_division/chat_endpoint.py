@@ -26,10 +26,8 @@ class ChatEndpoint:
                 case "open":
                     self.service.open_chat(step_id)
                 case "close":
-                    self.service.close_chat(step_id)
+                    self.service.close_chat()
                 case _:
                     raise ValueError("Invalid command")
             return jsonify(
                 {"message": f"chat of step {step_id} {command}"})
-
-

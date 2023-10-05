@@ -10,6 +10,7 @@ from operation_division.operation_entity import Operation
 from operation_division.record.record import Record
 from operation_division.record.record_converter import RecordConverter
 from symbiot_division import SymbiotDivision
+from tool_kit import ToolKit
 
 
 # noinspection PyTypeChecker
@@ -53,8 +54,11 @@ class SymbiotStarter:
 
     def divisions(self, divisions: list):
         self._injector = Injector(divisions)
-        self._mediator = Mediator(self._injector)
         return self
+
+    def mediator(self):
+        self._mediator = Mediator(self._injector)
+        ToolKit.mediator = self._mediator
 
     def flask(self, app: Flask):
         self._app = app
@@ -69,7 +73,7 @@ class SymbiotStarter:
     def converters(self, record_converter: RecordConverter):
         self._record_converter = record_converter
         for cls in [Operation, Record]:
-            cls.set_converter(record_converter)
+            cls.inject_converter(record_converter)
         return self
 
     def rebuild_database(self):

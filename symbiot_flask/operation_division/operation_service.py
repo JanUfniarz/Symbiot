@@ -12,7 +12,7 @@ class OperationService(SymbiotService):
             self,
             operation_repository: OperationRepository):
         super().__init__()
-        self.repository = operation_repository
+        self._repository = operation_repository
 
     def create(self, wish):
         # command = self.ps_command_generator.save_to_file(
@@ -26,7 +26,7 @@ class OperationService(SymbiotService):
         step_1 = StepRecord([])
 
         operation.add_record(step_1)
-        self.repository.save(operation)
+        self._repository.save(operation)
 
         self.mediator("client").calibrate(step_1, wish)
 
@@ -54,5 +54,15 @@ class OperationService(SymbiotService):
 
         # return command, True
 
+    def calibration_ended(self, nord_star: str):
+        # TODO: implement
+        pass
+
     def operations_data(self):
-        return self.repository.get_all()
+        return self._repository.get_all()
+
+    def save_step(self, step: StepRecord):
+        self._repository.update_record(step)
+
+    def get_step(self, id_: int):
+        return self._repository.get_record_by_id(id_)

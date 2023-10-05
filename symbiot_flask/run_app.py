@@ -18,5 +18,6 @@ if __name__ == '__main__':
             OperationDivision(),
             ClientDivision(),
             ActionDivision()])\
+        .mediator()\
         .converters(RecordConverter())\
         .listen_all().run()

@@ -26,7 +26,7 @@ class Operation(db.Model):
         self.body = body
 
     @classmethod
-    def set_converter(cls, converter):
+    def inject_converter(cls, converter):
         cls._converter = converter
 
     @property
