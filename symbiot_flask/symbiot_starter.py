@@ -10,7 +10,7 @@ from operation_division.operation_entity import Operation
 from operation_division.record.record import Record
 from operation_division.record.record_converter import RecordConverter
 from symbiot_division import SymbiotDivision
-from tool_kit import ToolKit
+from tool_kits.tool_kit import ToolKit
 
 
 # noinspection PyTypeChecker

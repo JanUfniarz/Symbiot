@@ -1,7 +1,7 @@
 from injector import inject
 
 from client_division.client_builder import ClientBuilder
-from nord_star_extractor import NordStarExtractor
+from tool_kits.nord_star_extractor import NordStarExtractor
 from operation_division.record.step_record import StepRecord
 from symbiot_service import SymbiotService
 from .gpt.gpt_client import GPTClient

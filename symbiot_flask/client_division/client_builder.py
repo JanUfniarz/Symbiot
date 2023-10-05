@@ -4,7 +4,7 @@ from client_division.client_factory import ClientFactory
 from client_division.gpt.gpt_client import GPTClient
 from client_division.gpt.gpt_client_entity import GPTClientEntity
 from operation_division.record.step_record import StepRecord
-from tool_kit import ToolKit
+from tool_kits.tool_kit import ToolKit
 
 
 class ClientBuilder:
