@@ -1,7 +1,6 @@
 from tool_kits.tool_kit import ToolKit
 
 
-# TODO: move it to accurate directory
 # intended for the calibrator
 class NordStarExtractor(ToolKit):
     def __init__(self):

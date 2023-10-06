@@ -14,6 +14,11 @@ class OperationService(SymbiotService):
         super().__init__()
         self._repository = operation_repository
 
+    @property
+    def operations(self):
+        return self._repository.get_all()
+
+    # Endpoint access
     def create(self, wish):
         # command = self.ps_command_generator.save_to_file(
         #     self.gpt_connector.respond(nord_star)
@@ -54,18 +59,27 @@ class OperationService(SymbiotService):
 
         # return command, True
 
-    def calibration_ended(self, step: StepRecord, nord_star: str):
-        for operation in self.operations:
-            if step in operation.records:
-                operation.nord_star = nord_star
-                self._repository.save(operation)
-
-    @property
-    def operations(self):
-        return self._repository.get_all()
-
     def save_step(self, step: StepRecord):
         self._repository.update_record(step)
 
     def get_step(self, id_: int):
         return self._repository.get_record_by_id(id_)
+
+
+def calibration_ended(self, step: StepRecord):
+    for operation in self.operations:
+        if step in operation.records:
+            operation.nord_star = step.outputs[0]
+            self._repository.save(operation)
+    # TODO: go on
+
+
+"""
+        -> client oceniający liczbę potrzebnych kroków
+        if (potrzebne więcej scenariuszy): 
+            -> inny client układający alternatywne scenariusze
+            -> ocena scenariuszy
+        -> utworzenie skryptu
+        -> walidacja skryptu
+        -> zapisanie skryptu u użytkownika
+"""

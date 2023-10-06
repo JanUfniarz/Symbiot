@@ -57,5 +57,6 @@ class ClientService(SymbiotService):
         return step.body
 
     def calibration_ended(self, nord_star: str):
+        self._active_step.outputs.append(nord_star)
         self._active_step.add_to_status("done")
-        self.mediator("operation").calibration_ended(self._active_step, nord_star)
+        self.mediator("operation").calibration_ended(self._active_step)

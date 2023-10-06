@@ -1,10 +1,7 @@
-import json
-
 from flask import jsonify, Flask
 from injector import inject
 
 from .operation_service import OperationService
-from .record.record_converter import RecordConverter
 
 
 class OperationEndpoint:

@@ -59,6 +59,7 @@ class SymbiotStarter:
     def mediator(self):
         self._mediator = Mediator(self._injector)
         ToolKit.mediator = self._mediator
+        return self
 
     def flask(self, app: Flask):
         self._app = app
