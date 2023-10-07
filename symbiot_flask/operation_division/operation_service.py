@@ -69,6 +69,7 @@ class OperationService(SymbiotService):
 def calibration_ended(self, step: StepRecord):
     for operation in self.operations:
         if step in operation.records:
+            operation.name = step.inputs[0]
             operation.nord_star = step.outputs[0]
             self._repository.save(operation)
     # TODO: go on

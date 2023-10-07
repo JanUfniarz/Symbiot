@@ -26,10 +26,20 @@ class ClientBuilder:
                 self._client = GPTClient()
         return self
 
+    def client_required(self, method):
+        def wrapper(*args, **kwargs):
+            if not self._client:
+                raise Exception("No client, "
+                                "use new() or from_() first")
+            return method(*args, **kwargs)
+
+        return wrapper
+
+    @client_required
     def build(self):
-        self._null_check()
         return self._client
 
+    @client_required
     def entity_data(self,
                     entity: GPTClientEntity,
                     sys_prompts=True):
@@ -41,13 +51,12 @@ class ClientBuilder:
                 role="system", content=prompt), prompts))
         return self
 
+    @client_required
     def add_step(self, step: StepRecord):
-        self._null_check()
-
         messages = []
         for el in list(map(lambda entry: entry.split(
                 "<@time>")[1],
-                step.body.split("<@entry>")[1:])):
+                           step.body.split("<@entry>")[1:])):
             messages.append(dict(
                 role="user",
                 content=el.split("<@res>")[0]))
@@ -57,21 +66,21 @@ class ClientBuilder:
         self._client.messages += messages
         return self
 
+    @client_required
     def add_access(self, tool_kit: ToolKit):
-        self._null_check()
         self._client.functions = tool_kit.access
         self._client.function_call = tool_kit.forced \
             if tool_kit.forced == "auto" \
-            or tool_kit.forced == "none" \
+               or tool_kit.forced == "none" \
             else {"name": tool_kit.forced}
         self._client.tool_kit = tool_kit
         return self
 
+    @client_required
     def set_params(self, model: str = None,
                    temperature: float = None,
                    n: int = None,
                    max_tokens: int = None):
-        self._null_check()
         if model is not None:
             self._client.model = model
         if temperature:
@@ -81,7 +90,8 @@ class ClientBuilder:
         if max_tokens is not None:
             self._client.max_tokens = max_tokens
 
-    def _null_check(self):
-        if not self._client:
-            raise Exception("No client, "
-                            "use new() or from_() first")
+    @client_required
+    def add_sys_prompt(self, prompt: str):
+        self._client.messages.append(dict(
+            role="system",
+            content=prompt))

@@ -29,7 +29,10 @@ class GPTClient:
     def set_api_key(api_key):
         openai.api_key = api_key
 
-    def chat(self, message: str, role="user"):
+    def chat(self,
+             message: str,
+             role="user",
+             full_response=False):
         self.messages.append(dict(role=role, content=message))
         response = openai.ChatCompletion.create(**self._to_dict())
         self.messages.append(dict(role="assistant", content=response))
@@ -39,7 +42,9 @@ class GPTClient:
             if output:
                 self.messages.append(
                     dict(role="function", content=output))
-        return response
+        if full_response:
+            return response
+        return response["choices"][0]["message"]["content"]
 
     def _to_dict(self) -> dict:
         res = self.__dict__.copy()

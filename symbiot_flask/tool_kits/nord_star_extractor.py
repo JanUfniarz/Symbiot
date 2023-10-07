@@ -1,10 +1,12 @@
+from client_division.gpt.gpt_client import GPTClient
 from tool_kits.tool_kit import ToolKit
 
 
 # intended for the calibrator
 class NordStarExtractor(ToolKit):
-    def __init__(self):
+    def __init__(self, name_generator: GPTClient):
         super().__init__()
+        self.name_generator = name_generator
 
     @ToolKit.tool_function(
         """
@@ -22,4 +24,5 @@ class NordStarExtractor(ToolKit):
             so that based on this summary developers can start working on the project
             """)])
     def extract_nord_star(self, nord_star: str):
-        self.mediator("client").calibration_ended(nord_star)
+        name = self.name_generator.chat(nord_star)
+        self.mediator("client").calibration_ended(nord_star, name)
