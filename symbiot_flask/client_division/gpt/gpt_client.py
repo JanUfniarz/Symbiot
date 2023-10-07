@@ -33,6 +33,7 @@ class GPTClient:
              message: str,
              role="user",
              full_response=False):
+        result = None
         self.messages.append(dict(role=role, content=message))
         response = openai.ChatCompletion.create(**self._to_dict())
         self.messages.append(dict(role="assistant", content=response))
@@ -42,9 +43,10 @@ class GPTClient:
             if output:
                 self.messages.append(
                     dict(role="function", content=output))
-        if full_response:
-            return response
-        return response["choices"][0]["message"]["content"]
+                result = output
+        else:
+            result = response["choices"][0]["message"]["content"]
+        return response if full_response else result
 
     def _to_dict(self) -> dict:
         res = self.__dict__.copy()
