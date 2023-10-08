@@ -38,14 +38,10 @@ class ClientService(SymbiotService):
         self.mediator("operation").save_step(self._active_step)
         self._active_step = None
 
+    # TAG: calibration
     def calibrate(self, step: StepRecord, wish: str):
-        client: GPTClient = self._builder.new("gpt", "calibrator").add_access(
-            NordStarExtractor(
-                self._builder.new("gpt", "one_value_generator")
-                    .add_sys_prompt("You will be given description of "
-                                    "requirements for a program or script. "
-                                    "Your role is to generate name for this program"
-                                    ))).build()
+        client: GPTClient = self._builder.new("gpt", "calibrator")\
+            .add_access(NordStarExtractor(self._builder))
 
         step.client = client
         step.add_to_status("calibration")
@@ -61,6 +57,7 @@ class ClientService(SymbiotService):
         step.add_entry(prompt, response)
         return step.body
 
+    # TAG: calibration
     def calibration_ended(self, nord_star: str, name: str):
         self._active_step.inputs.append(name)
         self._active_step.outputs.append(nord_star)

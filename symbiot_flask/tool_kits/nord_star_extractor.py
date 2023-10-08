@@ -1,12 +1,15 @@
-from client_division.gpt.gpt_client import GPTClient
 from tool_kits.tool_kit import ToolKit
 
 
-# intended for the calibrator
+# TAG: calibration
 class NordStarExtractor(ToolKit):
-    def __init__(self, name_generator: GPTClient):
+    def __init__(self, client_builder):
         super().__init__()
-        self.name_generator = name_generator
+        self.name_generator = client_builder.new("gpt", "one_value_generator") \
+            .add_sys_prompt("You will be given description of "
+                            "requirements for a program or script. "
+                            "Your role is to generate name for this program"
+                            ).build()
 
     @ToolKit.tool_function(
         """

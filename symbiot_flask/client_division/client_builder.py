@@ -71,7 +71,7 @@ class ClientBuilder:
         self._client.functions = tool_kit.access
         self._client.function_call = tool_kit.forced \
             if tool_kit.forced == "auto" \
-               or tool_kit.forced == "none" \
+            or tool_kit.forced == "none" \
             else {"name": tool_kit.forced}
         self._client.tool_kit = tool_kit
         return self
