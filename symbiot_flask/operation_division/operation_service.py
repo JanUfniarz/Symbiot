@@ -18,8 +18,6 @@ class OperationService(SymbiotService):
     def operations(self):
         return self._repository.get_all()
 
-    # TAG: endpoint access
-    # TAG: calibration
     def create(self, wish):
         # command = self.ps_command_generator.save_to_file(
         #     self.gpt_connector.respond(nord_star)
@@ -66,7 +64,6 @@ class OperationService(SymbiotService):
     def get_step(self, id_: int):
         return self._repository.get_record_by_id(id_)
 
-    # TAG: calibration
     def calibration_ended(self, step: StepRecord):
         for operation in self.operations:
             if step in operation.records:

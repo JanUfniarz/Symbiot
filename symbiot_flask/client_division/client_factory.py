@@ -19,7 +19,6 @@ class ClientFactory:
                 Your role is to create only python code!
             """)], max_tokens=4000),
 
-            # TAG: calibration
             calibrator=dict(init_messages=[self._sys_prompt("""
                 You are a senior developer, who has to write script 
                 (or set of scripts) to automate some process.

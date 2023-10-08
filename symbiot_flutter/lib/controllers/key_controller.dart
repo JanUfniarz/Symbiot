@@ -5,13 +5,13 @@ import '../command_executor.dart';
 import '../widgets/key_popup.dart';
 
 class KeyController extends ChangeNotifier {
-
   CommandExecutor? _executor;
   KeyConnector? _connector;
 
   final String _path = "keys.txt";
 
   Map<String, String> _keys = {};
+
   Map<String, String> get keys => Map.from(_keys);
 
   int? indexToAdd;
@@ -19,6 +19,7 @@ class KeyController extends ChangeNotifier {
   String? newKey;
 
   KeyController._private();
+
   static final KeyController _instance = KeyController._private();
 
   static KeyController getInstance({
@@ -61,26 +62,20 @@ class KeyController extends ChangeNotifier {
   void showKey(BuildContext context, name) => showDialog(
       context: context,
       builder: (BuildContext context) => KeyPopup(
-        name: name,
-        apiKey: keys[name] ?? "No Key",
-      )
-  );
+            name: name,
+            apiKey: keys[name] ?? "No Key",
+          ));
 
-    Future<void> _getKeys() async =>
-        await _executor!.run(
-            "Get-Content $_path",
-            return_: true
-        ).then((content) => _keys = Map
-            .fromEntries(RegExp(r'<(.*?)>')
-            .allMatches(content)
-            .map((match) => match.group(1))
-            .toList().map((el) => MapEntry(
-            el!.split("=")[0], el.split("=")[1]
-        ))));
+  Future<void> _getKeys() async => await _executor!
+      .run("Get-Content $_path", return_: true)
+      .then((content) => _keys = Map.fromEntries(RegExp(r'<(.*?)>')
+          .allMatches(content)
+          .map((match) => match.group(1))
+          .toList()
+          .map((el) => MapEntry(
+      el!.split("=")[0], el.split("=")[1]))));
 
-    void _saveKeys() => _executor!.run(
-        "Set-Content -Path $_path -Value \"${
-            _keys.entries.map(
-                    (en) => "<${en.key}=${en.value}>"
-            ).join()}\"");
+  void _saveKeys() => _executor!.run(
+      "Set-Content -Path $_path -Value \"${_keys.entries
+          .map((en) => "<${en.key}=${en.value}>").join()}\"");
 }

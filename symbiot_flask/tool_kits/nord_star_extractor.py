@@ -1,7 +1,6 @@
 from tool_kits.tool_kit import ToolKit
 
 
-# TAG: calibration
 class NordStarExtractor(ToolKit):
     def __init__(self, client_builder):
         super().__init__()
