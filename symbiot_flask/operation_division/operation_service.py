@@ -69,6 +69,7 @@ class OperationService(SymbiotService):
             if step in operation.records:
                 operation.name = step.inputs[0]
                 operation.nord_star = step.outputs[0]
+                # TODO: operation.status = ""
                 self._repository.save(operation)
         # TODO: go on
 

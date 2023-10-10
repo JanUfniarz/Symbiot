@@ -4,13 +4,13 @@
 import 'record_model.dart';
 
 class OperationModel {
-  int id;
-  String wish;
-  String nordStar;
-  String? leafSummaryStatus;
-  String status;
-  String name;
-  String body;
+  final int id;
+  final String wish;
+  final String nordStar;
+  final String? leafSummaryStatus;
+  final String status;
+  final String name;
+  final String body;
   List<RecordModel> records;
   
   OperationModel(dynamic json):

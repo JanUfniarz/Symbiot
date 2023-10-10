@@ -1,13 +1,13 @@
 class RecordModel {
-  int id;
-  RecordType type;
+  final int id;
+  final RecordType type;
   dynamic previous;
-  String? path;
-  String? bigO;
-  List<dynamic> inputs;
-  List<dynamic>? outputs;
-  String? body;
-  String status;
+  final String? path;
+  final String? bigO;
+  final List<dynamic> inputs;
+  final List<dynamic>? outputs;
+  final String? body;
+  final String status;
 
   RecordModel(dynamic json):
         id = json["id"],
