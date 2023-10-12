@@ -8,5 +8,5 @@ class MessageModel {
 }
 
 enum Role {
-  user, assistant, server,
+  user, assistant, server, error,
 }

@@ -48,11 +48,11 @@ class ClientService(SymbiotService):
         self.continue_chat(wish)
 
     def continue_chat(self, prompt: str):
-        if not self._active_step:
+        step = self._active_step
+        if not step:
             # TODO: implement
             raise NotImplementedError("no active step")
-        step = self._active_step
-        response = self._active_step.client.chat()
+        response = step.client.chat()
         step.add_entry(prompt, response)
         return step.body
 

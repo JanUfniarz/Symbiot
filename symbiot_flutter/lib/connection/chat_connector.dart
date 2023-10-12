@@ -2,17 +2,15 @@
 
 import 'package:symbiot_flutter/connection/http_facade.dart';
 
-import '../models/record_model.dart';
-
 class ChatConnector {
 
   final String path = "chat";
 
   Future<dynamic> manageChat(
-      String action, RecordModel step,
-      ) async => (action != "open" && action != "close")
+      String action, int stepID,
+      ) async => (action == "open" || action == "close")
       ? HTTPFacade.post(path, body: {
-        "command": action, "id": step.id
+        "command": action, "id": stepID
       }) : throw ArgumentError(
       "action must be 'open' or 'close'");
 

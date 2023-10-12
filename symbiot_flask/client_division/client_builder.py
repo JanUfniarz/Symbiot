@@ -26,8 +26,8 @@ class ClientBuilder:
                 self._client = GPTClient()
         return self
 
-    def client_required(self, method):
-        def wrapper(*args, **kwargs):
+    def client_required(self):
+        def wrapper(method, *args, **kwargs):
             if not self._client:
                 raise Exception("No client, "
                                 "use new() or from_() first")

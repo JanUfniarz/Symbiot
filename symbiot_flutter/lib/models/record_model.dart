@@ -6,7 +6,7 @@ class RecordModel {
   final String? bigO;
   final List<dynamic> inputs;
   final List<dynamic>? outputs;
-  final String? body;
+  String? body;
   final String status;
 
   RecordModel(dynamic json):
