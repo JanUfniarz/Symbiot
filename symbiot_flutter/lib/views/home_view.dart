@@ -13,47 +13,46 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Consumer<OperationController>(
-        builder: (context, bloc, child) =>
-          InputBar(
-            child: Container(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: <Widget>[
+        builder: (context, controller, child) =>
+            InputBar(
+              onSend: (text) => controller.newOperation(text),
+              child: Container(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: <Widget>[
 
-                    const Text(
-                      "Type what you want the program to do!",
-                      style: TextStyle(
-                        color: Palette.primary,
-                        fontSize: 30,
-                      ),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    Consumer<OperationController>(
-                      builder: (context, controller, child) =>
-                          OperationsGallery(
-                        primary: Palette.accent,
-                        operationsCards: List.generate(
-                            controller.models!.length, (index) =>
-                          OperationCard(
-                            name: controller.models![index].name,
-                            before: () {
-                              controller.pickedIndex = index;
-                              print("pickedIndex: ${controller.pickedIndex}"
-                                  "\nmodels: ${controller.models![index].name}");
-                            },
-                            after: () => controller.loadData(),
-                          ),
+                      const Text(
+                        "Type what you want the program to do!",
+                        style: TextStyle(
+                          color: Palette.primary,
+                          fontSize: 30,
                         ),
                       ),
-                    ),
-                  ],
+
+                      const SizedBox(height: 20),
+
+                      OperationsGallery(
+                        primary: Palette.accent,
+                        operationsCards: List.generate(
+                          controller.models!.length, (index) =>
+                            OperationCard(
+                              name: controller.models![index].name,
+                              before: () {
+                                controller.pickedIndex = index;
+                                print("pickedIndex: ${controller.pickedIndex}"
+                                    "\nmodels: ${controller.models![index]
+                                    .name}");
+                              },
+                              after: () => controller.loadData(),
+                            ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-    );
+      );
 }

@@ -51,4 +51,7 @@ class OperationController extends ChangeNotifier {
           .map((el) => OperationModel(el))
           .toList())
           .then((ig) => notifyListeners());
+
+  void newOperation(String wish) => _operationConnector!
+      .createOperation(wish);
 }

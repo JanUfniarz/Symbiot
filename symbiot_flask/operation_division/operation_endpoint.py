@@ -1,4 +1,4 @@
-from flask import jsonify, Flask
+from flask import jsonify, Flask, request
 from injector import inject
 
 from .operation_service import OperationService
@@ -14,7 +14,7 @@ class OperationEndpoint:
 
     def listen(self, path):
         @self.app.route(path + "/", methods=["GET"])
-        def get_operation():
+        def get_operations():
             return jsonify(list(map(
                 lambda op: op.to_dict(),
                 self.service.operations)))
@@ -26,10 +26,11 @@ class OperationEndpoint:
             # })
             pass
 
-        @self.app.route(path + '/<string:arg>', methods=["POST"])
-        def add_operation(arg):
-            self.service.create(arg)
-            return jsonify({"message": "git"})
+        @self.app.route(path + '/', methods=["POST"])
+        def add_operation():
+            wish = request.get_json()["wish"]
+            self.service.create(wish)
+            return jsonify({"message": "added operation"})
 
         @self.app.route(path + "/", methods=["DELETE"])
         def delete_operation():

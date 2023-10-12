@@ -7,7 +7,6 @@ import 'package:symbiot_flutter/widgets/symbiot_scaffold.dart';
 
 import '../controllers/operation_controller.dart';
 import '../models/message_model.dart';
-import '../widgets/input_bar.dart';
 
 class ChatView extends StatelessWidget {
   const ChatView({super.key});
@@ -17,9 +16,7 @@ class ChatView extends StatelessWidget {
       Consumer<OperationController>(builder: (context, controller, child) {
         ChatModel chatModel = ChatModel(controller.openedRecord!);
         return SymbiotScaffold(
-            body: Column(children: <Widget>[
-          InputBar(
-            child: Chat(
+            body: Chat(
               messages: List.generate(chatModel.messages.length, (index) {
                 MessageModel messageModel = chatModel.messages[index];
                 return types.TextMessage(
@@ -31,10 +28,8 @@ class ChatView extends StatelessWidget {
                   createdAt: messageModel.time.millisecondsSinceEpoch,
                 );
               }),
-              onSendPressed: (PartialText) {},
-              user: const types.User(id: "user"),2
-            ),
-          )
-        ]));
+              onSendPressed: (text) => controller.chat(text.text),
+              user: const types.User(id: "user"),
+            ));
       });
 }

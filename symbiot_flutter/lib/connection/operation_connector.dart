@@ -16,8 +16,7 @@ class OperationConnector {
       throw Exception("No argument");
 
     return HTTPFacade.post(path,
-        pathArgument: argument,
-    );
+        body: {"wish": argument});
   }
 
   Future<void> updateOperation() async {}

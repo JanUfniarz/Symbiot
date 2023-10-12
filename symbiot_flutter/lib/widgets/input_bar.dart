@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../palette.dart';
 
+// ignore: must_be_immutable
 class InputBar extends StatelessWidget {
   final Widget child;
+  final void Function(String) onSend;
 
-  const InputBar({super.key, required this.child});
+  InputBar({super.key,
+    required this.child,
+    required this.onSend
+  });
+
+  String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +38,8 @@ class InputBar extends StatelessWidget {
                       fillColor: Palette.accent,
                       hintText: 'Wpisz wiadomość...',
                     ),
-                    onChanged: (text) {},
-                    onSubmitted: (text) {},
+                    onChanged: (text) => value = text,
+                    onSubmitted: (text) => onSend(text),
                     maxLines: null,
                   ),
                 ),
@@ -41,7 +48,8 @@ class InputBar extends StatelessWidget {
                   iconSize: 30,
                   color: Palette.primary,
                   icon: const Icon(Icons.send),
-                  onPressed: () {},
+                  onPressed: () => value != null
+                      ? onSend(value!) : null,
                 ),
               ],
             ),
