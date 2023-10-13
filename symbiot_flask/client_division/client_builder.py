@@ -7,6 +7,16 @@ from operation_division.record.step_record import StepRecord
 from tool_kits.tool_kit import ToolKit
 
 
+def client_required(method):
+    def wrapper(self, *args, **kwargs):
+        if not self._client:
+            raise Exception("No client, "
+                            "use new() or from_() first")
+        return method(self, *args, **kwargs)
+
+    return wrapper
+
+
 class ClientBuilder:
 
     @inject
@@ -26,14 +36,14 @@ class ClientBuilder:
                 self._client = GPTClient()
         return self
 
-    def client_required(self):
-        def wrapper(method, *args, **kwargs):
-            if not self._client:
-                raise Exception("No client, "
-                                "use new() or from_() first")
-            return method(*args, **kwargs)
-
-        return wrapper
+    # def client_required(self):
+    #     def wrapper(method, *args, **kwargs):
+    #         if not self._client:
+    #             raise Exception("No client, "
+    #                             "use new() or from_() first")
+    #         return method(*args, **kwargs)
+    #
+    #     return wrapper
 
     @client_required
     def build(self):

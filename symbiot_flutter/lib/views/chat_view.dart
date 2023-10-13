@@ -18,16 +18,21 @@ class ChatView extends StatelessWidget {
         return SymbiotScaffold(
             body: Chat(
               messages: List.generate(chatModel.messages.length, (index) {
+
                 MessageModel messageModel = chatModel.messages[index];
+                String role = messageModel.role
+                    .toString().replaceAll("Role.", "");
+
                 return types.TextMessage(
                   author: types.User(
-                      id: messageModel.role.toString(),
-                      firstName: messageModel.role.toString()),
+                      id: role,
+                      firstName: role
+                  ),
                   id: '',
                   text: messageModel.content,
                   createdAt: messageModel.time.millisecondsSinceEpoch,
                 );
-              }),
+              }).reversed.toList(),
               onSendPressed: (text) => controller.chat(text.text),
               user: const types.User(id: "user"),
             ));

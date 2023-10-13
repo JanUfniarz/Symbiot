@@ -2,7 +2,7 @@ class Record:
     _converter = None
 
     def __init__(self, inputs, id_=None, previous=None, path=None,
-                 outputs=None, body=None, status="", **ignored):
+                 outputs=None, body="", status="", **ignored):
         self.id = id_
         self.previous = previous
         self.path = path
@@ -35,5 +35,5 @@ class Record:
             lambda o: str(o),
             self.outputs))
         if isinstance(res["previous"], Record):
-            res["previous"] = res["previous"]["id_"]
+            res["previous"] = self.previous.id
         return res

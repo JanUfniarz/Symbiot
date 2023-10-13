@@ -28,12 +28,6 @@ class RecordEntity(Record, db.Model):
         lazy=True)
 
     def __init__(self, type_, inputs, big_o=None,  **kwargs):
-        if type_ == "script" and kwargs.get("path", None) is None:
-            raise ValueError("Script need a path")
-
-        if type_ == "step" and kwargs.get("body", None) is None:
-            raise ValueError("Step need a body")
-
         super().__init__(inputs=inputs, **kwargs)
         self.type_ = type_
         self.big_o = big_o

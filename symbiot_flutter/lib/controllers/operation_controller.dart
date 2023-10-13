@@ -39,19 +39,21 @@ class OperationController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> chat(String message) async => await
+  void chat(String message) =>
       _chatConnector!.sendMessage(message)
-          .then((value) => openedRecord!
-          .body = value["step_body"])
-          .then((ig) => notifyListeners());
+          .then((val) => openedRecord!
+          .body = val["step_body"])
+          .whenComplete(() => notifyListeners());
 
   Future<void> loadData() async => await
       _operationConnector!.getAllOperations()
-          .then((value) => models = value
+          .then((val) => models = val
           .map((el) => OperationModel(el))
-          .toList())
-          .then((ig) => notifyListeners());
+          .toList(), onError: (er) => print(
+          "error loading operation data $er"))
+          .whenComplete(() => notifyListeners());
 
-  void newOperation(String wish) => _operationConnector!
-      .createOperation(wish);
+  void newOperation(String wish) => 
+      _operationConnector!.createOperation(wish)
+          .whenComplete(() => loadData());
 }

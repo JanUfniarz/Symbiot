@@ -38,7 +38,7 @@ class Operation(db.Model):
             if isinstance(record.previous, int):
                 for it in records:
                     if record.previous == it.id:
-                        record.previous = it.id
+                        record.previous = it
 
         return records
 
