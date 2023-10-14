@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:symbiot_flutter/symbiot_app.dart';
 
 import '../connection/chat_connector.dart';
 import '../connection/operation_connector.dart';
 import '../models/operation_model.dart';
 import '../models/record_model.dart';
+import '../views/chat_view.dart';
+import '../views/operation_view.dart';
 
 class OperationController extends ChangeNotifier {
 
@@ -23,34 +26,39 @@ class OperationController extends ChangeNotifier {
   }
 
   List<OperationModel>? models;
-  int? pickedIndex;
-  int? openedRecordID;
+  int? _pickedModelID;
 
-  OperationModel? get model => models != null && pickedIndex != null
-      ? models![pickedIndex!] : null;
+  OperationModel? get model => models != null && _pickedModelID != null
+      ? models!.firstWhere((el) => el.id == _pickedModelID) : null;
 
-  RecordModel? get openedRecord => models != null && openedRecordID != null
-      ? model!.records.firstWhere(
-          (element) => element.id == openedRecordID) : null;
+  RecordModel record(int id) => model!.records.firstWhere((el) => el.id == id);
 
-  void openChat(int stepID) {
-    openedRecordID = stepID;
-    _chatConnector!.manageChat("open", stepID);
-    notifyListeners();
+  void openOperation(int id, BuildContext context) {
+    _pickedModelID = id;
+    SymbiotApp.push(
+        context, const OperationView()
+    ).whenComplete(() => loadData());
   }
 
-  void chat(String message) =>
+  void openChat(int stepID, BuildContext context) {
+    _chatConnector!.manageChat("open", stepID);
+    SymbiotApp.push(
+        context, ChatView(stepID))
+        .whenComplete(
+            () => _chatConnector!.manageChat("close", stepID)
+                .whenComplete(() => notifyListeners()));
+  }
+
+  void chat(String message, int id) =>
       _chatConnector!.sendMessage(message)
-          .then((val) => openedRecord!
-          .body = val["step_body"])
+          .then((val) => record(id).body = val["step_body"])
           .whenComplete(() => notifyListeners());
 
   Future<void> loadData() async => await
       _operationConnector!.getAllOperations()
           .then((val) => models = val
           .map((el) => OperationModel(el))
-          .toList(), onError: (er) => print(
-          "error loading operation data $er"))
+          .toList())
           .whenComplete(() => notifyListeners());
 
   void newOperation(String wish) => 

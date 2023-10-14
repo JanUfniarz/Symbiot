@@ -11,6 +11,8 @@ import '../widgets/symbiot_scaffold.dart';
 class OperationView extends StatelessWidget {
   const OperationView({super.key});
 
+
+
   @override
   Widget build(BuildContext context) => Consumer<OperationController>(
         builder: (context, controller, child) => SymbiotScaffold(
@@ -42,16 +44,10 @@ class OperationView extends StatelessWidget {
                           children: List.generate(
                               controller.model!.records.length,
                               (index) => InkWell(
-                                    onTap: () {
-                                      controller.openChat(
-                                          controller.model!.records[index].id);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const ChatView()
-                                          ));
-                                    },
+                                    onTap: () => controller.openChat(
+                                        controller.model!.records[index].id,
+                                        context
+                                    ),
                                     child: Card(
                                       child: Padding(
                                         padding: const EdgeInsets.all(20),

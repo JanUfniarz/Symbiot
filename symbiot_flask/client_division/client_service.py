@@ -40,7 +40,7 @@ class ClientService(SymbiotService):
 
     def calibrate(self, step: StepRecord, wish: str):
         client: GPTClient = self._builder.new("gpt", "calibrator")\
-            .add_access(NordStarExtractor(self._builder))
+            .add_access(NordStarExtractor(self._builder)).build()
 
         step.client = client
         step.add_to_status("calibration")

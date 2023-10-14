@@ -9,6 +9,10 @@ import 'package:symbiot_flutter/widgets/symbiot_scaffold.dart';
 class SymbiotApp extends StatefulWidget {
   const SymbiotApp({super.key});
 
+  static Future<dynamic> push(BuildContext context, Widget view) =>
+      Navigator.push(context, MaterialPageRoute(
+          builder: (context) => view));
+
   @override
   State<SymbiotApp> createState() => _SymbiotAppState();
 }

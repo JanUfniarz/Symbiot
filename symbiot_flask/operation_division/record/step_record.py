@@ -9,5 +9,7 @@ class StepRecord(Record):
         self.client = client
 
     def add_entry(self, prompt, response):
-        self.body += f"<@entry>{datetime.now()}" \
-                     f"<@time>{prompt}<@res>{response}"
+        def now() -> str:
+            return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        self.body += f"<@entry>{now()}<@time>{prompt}<@res>{response}"
