@@ -31,7 +31,7 @@ class ClientService(SymbiotService):
             GPTClient.set_api_key(check_clear(open_ai))
 
     def open_chat(self, step_id):
-        self._active_step = self.mediator("operation")\
+        self._active_step = self.mediator("operation") \
             .get_step(step_id)
 
     def close_chat(self):
@@ -39,7 +39,7 @@ class ClientService(SymbiotService):
         self._active_step = None
 
     def calibrate(self, step: StepRecord, wish: str):
-        client: GPTClient = self._builder.new("gpt", "calibrator")\
+        client: GPTClient = self._builder.new("gpt", "calibrator") \
             .add_access(NordStarExtractor(self._builder)).build()
 
         step.client = client

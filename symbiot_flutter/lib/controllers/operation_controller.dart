@@ -26,19 +26,14 @@ class OperationController extends ChangeNotifier {
   }
 
   List<OperationModel>? models;
-  int? _pickedModelID;
+  OperationModel operation(int id) => models!.firstWhere((el) => el.id == id);
 
-  OperationModel? get model => models != null && _pickedModelID != null
-      ? models!.firstWhere((el) => el.id == _pickedModelID) : null;
+  RecordModel record(int id) => models!.expand((el) => el.records)
+      .firstWhere((el) => el.id == id);
 
-  RecordModel record(int id) => model!.records.firstWhere((el) => el.id == id);
-
-  void openOperation(int id, BuildContext context) {
-    _pickedModelID = id;
-    SymbiotApp.push(
-        context, const OperationView()
+  void openOperation(int id, BuildContext context) => SymbiotApp.push(
+        context, OperationView(id)
     ).whenComplete(() => loadData());
-  }
 
   void openChat(int stepID, BuildContext context) {
     _chatConnector!.manageChat("open", stepID);

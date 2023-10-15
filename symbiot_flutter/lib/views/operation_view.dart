@@ -9,14 +9,15 @@ import '../widgets/input_bar.dart';
 import '../widgets/symbiot_scaffold.dart';
 
 class OperationView extends StatelessWidget {
-  const OperationView({super.key});
 
+  final int id;
 
+  const OperationView(this.id, {super.key,});
 
   @override
   Widget build(BuildContext context) => Consumer<OperationController>(
         builder: (context, controller, child) => SymbiotScaffold(
-          tittle: controller.model!.name,
+          tittle: controller.operation(id).name,
           body: Column(
             children: [
               InputBar(
@@ -31,7 +32,7 @@ class OperationView extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Text(
                             "The main purpose of this operation is:\n"
-                            "${controller.model!.nordStar}",
+                            "${controller.operation(id).nordStar}",
                             style: const TextStyle(
                               color: Palette.accent,
                               fontSize: 25,
@@ -42,17 +43,18 @@ class OperationView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(
-                              controller.model!.records.length,
+                              controller.operation(id).records.length,
                               (index) => InkWell(
                                     onTap: () => controller.openChat(
-                                        controller.model!.records[index].id,
+                                        controller.operation(id)
+                                            .records[index].id,
                                         context
                                     ),
                                     child: Card(
                                       child: Padding(
                                         padding: const EdgeInsets.all(20),
                                         child: Text(controller
-                                            .model!.records[index].id
+                                            .operation(id).records[index].id
                                             .toString()),
                                       ),
                                     ),
