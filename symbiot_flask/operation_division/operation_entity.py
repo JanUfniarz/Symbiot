@@ -1,4 +1,5 @@
 from database_provider import db
+from operation_division.record.record import Record
 
 
 class Operation(db.Model):
@@ -14,7 +15,6 @@ class Operation(db.Model):
     body = db.Column(db.Text)
     _records = db.relationship(
         "RecordEntity", backref="operations", lazy=True)
-    _converter = None
 
     def __init__(self, wish, name="untitled", body=""):
 
@@ -25,14 +25,10 @@ class Operation(db.Model):
         self.status = "CREATION_STARTED"
         self.body = body
 
-    @classmethod
-    def inject_converter(cls, converter):
-        cls._converter = converter
-
     @property
     def records(self):
-        records = [self._converter.from_entity(entity)
-                   for entity in self._records]
+        records = [record.from_entity
+                   for record in self._records]
 
         for record in records:
             if isinstance(record.previous, int):
@@ -42,8 +38,8 @@ class Operation(db.Model):
 
         return records
 
-    def add_record(self, new):
-        self._records.append(self._converter.to_entity(new))
+    def add_record(self, new: Record):
+        self._records.append(new.to_entity)
 
     def to_dict(self):
         res = self.__dict__.copy()

@@ -4,6 +4,7 @@ from client_division.client_factory import ClientFactory
 from client_division.gpt.gpt_client import GPTClient
 from client_division.gpt.gpt_client_entity import GPTClientEntity
 from operation_division.record.step_record import StepRecord
+from tool_kits.nord_star_extractor import NordStarExtractor
 from tool_kits.tool_kit import ToolKit
 
 
@@ -28,25 +29,22 @@ class ClientBuilder:
         self._client = client
         return self
 
+    # noinspection PyTypeChecker
     def new(self, type_: str, template: str = None):
         if type_ == "gpt":
             if template:
                 self._client = self._factory.gpt(template)
+                match template:
+
+                    case "calibrator":
+                        self.add_access(NordStarExtractor(self))
+
             else:
                 self._client = GPTClient()
         return self
 
-    # def client_required(self):
-    #     def wrapper(method, *args, **kwargs):
-    #         if not self._client:
-    #             raise Exception("No client, "
-    #                             "use new() or from_() first")
-    #         return method(*args, **kwargs)
-    #
-    #     return wrapper
-
     @client_required
-    def build(self):
+    def build(self) -> GPTClient:
         return self._client
 
     @client_required
@@ -99,9 +97,11 @@ class ClientBuilder:
             self._client.n = n
         if max_tokens is not None:
             self._client.max_tokens = max_tokens
+        return self
 
     @client_required
     def add_sys_prompt(self, prompt: str):
         self._client.messages.append(dict(
             role="system",
             content=prompt))
+        return self

@@ -12,8 +12,10 @@ class OperationController extends ChangeNotifier {
 
   OperationConnector? _operationConnector;
   ChatConnector? _chatConnector;
+  List<OperationModel> models = [];
 
   OperationController._private();
+
   static final OperationController _instance = OperationController._private();
 
   static OperationController getInstance({
@@ -25,10 +27,9 @@ class OperationController extends ChangeNotifier {
     return _instance;
   }
 
-  List<OperationModel>? models;
-  OperationModel operation(int id) => models!.firstWhere((el) => el.id == id);
+  OperationModel operation(int id) => models.firstWhere((el) => el.id == id);
 
-  RecordModel record(int id) => models!.expand((el) => el.records)
+  RecordModel record(int id) => models.expand((el) => el.records)
       .firstWhere((el) => el.id == id);
 
   void openOperation(int id, BuildContext context) => SymbiotApp.push(

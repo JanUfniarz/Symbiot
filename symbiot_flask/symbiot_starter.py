@@ -6,7 +6,6 @@ from client_division.chat_endpoint import ChatEndpoint
 from client_division.keys_endpoint import KeysEndpoint
 from mediator import Mediator
 from operation_division.operation_endpoint import OperationEndpoint
-from operation_division.operation_entity import Operation
 from operation_division.record.record import Record
 from operation_division.record.record_converter import RecordConverter
 from symbiot_division import SymbiotDivision
@@ -73,7 +72,7 @@ class SymbiotStarter:
 
     def converters(self, record_converter: RecordConverter):
         self._record_converter = record_converter
-        for cls in [Operation, Record]:
+        for cls in [Record]:
             cls.inject_converter(record_converter)
         return self
 

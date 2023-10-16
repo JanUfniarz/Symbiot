@@ -1,7 +1,6 @@
 from injector import inject
 
 from client_division.client_builder import ClientBuilder
-from tool_kits.nord_star_extractor import NordStarExtractor
 from operation_division.record.step_record import StepRecord
 from symbiot_service import SymbiotService
 from .gpt.gpt_client import GPTClient
@@ -39,20 +38,20 @@ class ClientService(SymbiotService):
         self._active_step = None
 
     def calibrate(self, step: StepRecord, wish: str):
-        client: GPTClient = self._builder.new("gpt", "calibrator") \
-            .add_access(NordStarExtractor(self._builder)).build()
+        client: GPTClient = self._builder.new("gpt", "calibrator").build()
 
         step.client = client
         step.add_to_status("calibration")
         self._active_step = step
         self.continue_chat(wish)
+        self.close_chat()
 
     def continue_chat(self, prompt: str):
         step = self._active_step
         if not step:
             # TODO: implement
             raise NotImplementedError("no active step")
-        response = step.client.chat()
+        response = step.client.chat(prompt)
         step.add_entry(prompt, response)
         return step.body
 

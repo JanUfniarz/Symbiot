@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/controllers/operation_controller.dart';
-import 'package:symbiot_flutter/views/chat_view.dart';
 import 'package:symbiot_flutter/widgets/symbiot_divider.dart';
 
 import '../palette.dart';
@@ -12,7 +11,7 @@ class OperationView extends StatelessWidget {
 
   final int id;
 
-  const OperationView(this.id, {super.key,});
+  const OperationView(this.id, {super.key});
 
   @override
   Widget build(BuildContext context) => Consumer<OperationController>(

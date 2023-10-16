@@ -16,6 +16,10 @@ class Record:
         cls._converter = converter
 
     @property
+    def to_entity(self):
+        return self._converter.to_entity(self)
+
+    @property
     def current_status(self) -> str:
         return self.status.split("/")[-1]
 

@@ -31,3 +31,7 @@ class RecordEntity(Record, db.Model):
         super().__init__(inputs=inputs, **kwargs)
         self.type_ = type_
         self.big_o = big_o
+
+    @property
+    def from_entity(self) -> Record:
+        return self._converter.from_entity(self)
