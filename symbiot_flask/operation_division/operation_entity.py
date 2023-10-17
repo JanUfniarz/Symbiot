@@ -6,7 +6,7 @@ class Operation(db.Model):
     __tablename__ = 'operations'
     id = db.Column(
         db.Integer,
-        primary_key=True,)
+        primary_key=True)
     wish = db.Column(db.Text)
     nord_star = db.Column(db.Text)
     leaf_summary_status = db.Column(db.Text, nullable=True)
