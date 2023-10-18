@@ -1,3 +1,5 @@
+import uuid
+
 from database_provider import db
 from operation_division.record.record import Record
 
@@ -5,7 +7,7 @@ from operation_division.record.record import Record
 class Operation(db.Model):
     __tablename__ = 'operations'
     id = db.Column(
-        db.Integer,
+        db.String,
         primary_key=True)
     wish = db.Column(db.Text)
     nord_star = db.Column(db.Text)
@@ -16,8 +18,9 @@ class Operation(db.Model):
     _records = db.relationship(
         "RecordEntity", backref="operations", lazy=True)
 
-    def __init__(self, wish, name="untitled", body=""):
+    def __init__(self, wish, name="untitled", body="", id_=None):
 
+        self.id = str(uuid.uuid4()) if id_ is None else id_
         self.name = name
         self._records = []
         self.wish = wish

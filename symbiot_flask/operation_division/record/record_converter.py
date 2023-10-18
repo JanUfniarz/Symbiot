@@ -45,6 +45,7 @@ class RecordConverter:
         args = record.__dict__.copy()
         args.pop("inputs")
         args.pop("outputs")
+        args["id_"] = args.pop("id")
 
         return RecordEntity(
             type_,
@@ -53,11 +54,12 @@ class RecordConverter:
             **args
         )
 
-    """
+    def bridge_format(self, data):
+        """
             1<b>list<b>
               str<l1>dupa<el1>
               int<l1>1
-    
+
             2<b>list<b>
               list<l1>
                   str<l2>pyra<el2>
@@ -65,9 +67,7 @@ class RecordConverter:
               list<l1>
                   str<l2>dupa<el2>
                   int<l2>52
-            """
-
-    def bridge_format(self, data):
+    """
         def type_format(d):
             return str(type(d)) \
                 .replace('<class ', '') \
@@ -79,7 +79,7 @@ class RecordConverter:
                 return f"{type_format(d)}<@level{lev}>{str(d)}"
             elif isinstance(d, list):
                 res = f"<@el{lev}>".join(
-                    [format_(x, lev+1)
+                    [format_(x, lev + 1)
                      for x in d])
                 return f"{type_format(d)}<@level{lev}>{res}"
                 # TODO: add support for set and dict
@@ -92,12 +92,16 @@ class RecordConverter:
         def read(b, lev):
             t, d = b.split(f"<@level{lev}>")
             match t:
-                case "str": return d
-                case "int": return int(d)
-                case "bool": return bool(d)
-                case "float": return float(d)
+                case "str":
+                    return d
+                case "int":
+                    return int(d)
+                case "bool":
+                    return bool(d)
+                case "float":
+                    return float(d)
                 case "list":
-                    res = [read(el, lev+1)
+                    res = [read(el, lev + 1)
                            for el in d.split(f"<@el{lev}>")]
                     return res
                 # TODO: add support for set and dict

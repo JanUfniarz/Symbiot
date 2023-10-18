@@ -11,7 +11,7 @@ import '../palette.dart';
 
 class ChatView extends StatelessWidget {
 
-  final int recordID;
+  final String recordID;
 
   const ChatView(this.recordID, {super.key});
 

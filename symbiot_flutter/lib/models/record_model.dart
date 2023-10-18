@@ -1,5 +1,5 @@
 class RecordModel {
-  final int id;
+  final String id;
   final RecordType type;
   dynamic previous;
   final String? path;

@@ -5,7 +5,7 @@ class ChatConnector {
   final String path = "chat";
 
   Future<dynamic> manageChat(
-      String action, int stepID,
+      String action, String stepID,
       ) async => (action == "open" || action == "close")
       ? await HTTPFacade.post(path, body: {
         "command": action, "id": stepID

@@ -30,12 +30,7 @@ class OperationService(SymbiotService):
         step_1 = StepRecord([])
 
         operation.add_record(step_1)
-        operation = self._repository.save(operation)
-
-        print("===")
-        print(f"operation: {operation.id}")
-        print(f"step: {step_1.id}")
-        print("===")
+        self._repository.save(operation)
 
         self.mediator("client").calibrate(step_1, wish)
 

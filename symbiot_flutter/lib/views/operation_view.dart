@@ -9,7 +9,7 @@ import '../widgets/symbiot_scaffold.dart';
 
 class OperationView extends StatelessWidget {
 
-  final int id;
+  final String id;
 
   const OperationView(this.id, {super.key});
 

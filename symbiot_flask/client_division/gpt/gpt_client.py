@@ -9,7 +9,7 @@ class GPTClient:
             model: str = "gpt-3.5-turbo",
             functions=None,
             function_call: str = "auto",
-            temperature: float = 0.1,
+            temperature: float = 1,
             n: int = 1,
             max_tokens: int = 3000,
             init_messages: list = None,

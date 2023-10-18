@@ -7,10 +7,8 @@ class SymbiotRepository:
         self._entity = entity
 
     def save(self, entity):
-        entity_ = entity
-        self.db.session.merge(entity_)
+        self.db.session.merge(entity)
         self.db.session.commit()
-        return entity_
 
     def get_all(self):
         return self.db.session.query(self._entity).all()

@@ -3,7 +3,7 @@ import 'package:symbiot_flutter/models/record_model.dart';
 import 'message_model.dart';
 
 class ChatModel {
-  final int stepID;
+  final String stepID;
   final String status;
   final List<MessageModel> messages;
 

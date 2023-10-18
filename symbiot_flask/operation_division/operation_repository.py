@@ -16,10 +16,5 @@ class OperationRepository(SymbiotRepository):
         return self.db.session.query(RecordEntity).get(id_)
 
     def update_record(self, record: Record):
-
-        print(f"record: {record.id}")
-        entity = record.to_entity
-        print(f"entity: {entity.id}")
-
-        self.db.session.merge(entity)
+        self.db.session.merge(record.to_entity)
         self.db.session.commit()

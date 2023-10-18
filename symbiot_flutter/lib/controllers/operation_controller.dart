@@ -27,16 +27,16 @@ class OperationController extends ChangeNotifier {
     return _instance;
   }
 
-  OperationModel operation(int id) => models.firstWhere((el) => el.id == id);
+  OperationModel operation(String id) => models.firstWhere((el) => el.id == id);
 
-  RecordModel record(int id) => models.expand((el) => el.records)
+  RecordModel record(String id) => models.expand((el) => el.records)
       .firstWhere((el) => el.id == id);
 
-  void openOperation(int id, BuildContext context) => SymbiotApp.push(
+  void openOperation(String id, BuildContext context) => SymbiotApp.push(
         context, OperationView(id)
     ).whenComplete(() => loadData());
 
-  void openChat(int stepID, BuildContext context) {
+  void openChat(String stepID, BuildContext context) {
     _chatConnector!.manageChat("open", stepID);
     SymbiotApp.push(
         context, ChatView(stepID))
@@ -45,7 +45,7 @@ class OperationController extends ChangeNotifier {
                 .whenComplete(() => notifyListeners()));
   }
 
-  void chat(String message, int id) =>
+  void chat(String message, String id) =>
       _chatConnector!.sendMessage(message)
           .then((val) => record(id).body = val["step_body"])
           .whenComplete(() => notifyListeners());

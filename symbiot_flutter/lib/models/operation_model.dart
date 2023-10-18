@@ -4,7 +4,7 @@
 import 'record_model.dart';
 
 class OperationModel {
-  final int id;
+  final String id;
   final String wish;
   final String nordStar;
   final String? leafSummaryStatus;
