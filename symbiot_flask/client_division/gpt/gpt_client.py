@@ -46,6 +46,7 @@ class GPTClient:
                 result = output
         else:
             result = response["choices"][0]["message"]["content"]
+        print(f"FROM GPT: {response}")
         return response if full_response else result
 
     def _to_dict(self) -> dict:
@@ -54,4 +55,7 @@ class GPTClient:
             del res["functions"]
             del res["function_call"]
         del res["tool_kit"]
+
+        print(f"TO GPT: {res}")
+
         return res

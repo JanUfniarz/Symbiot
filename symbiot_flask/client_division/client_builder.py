@@ -1,3 +1,4 @@
+import copy
 from injector import inject
 
 from client_division.client_factory import ClientFactory
@@ -37,7 +38,10 @@ class ClientBuilder:
                 match template:
 
                     case "calibrator":
-                        self.add_access(NordStarExtractor(self))
+                        client_copy = copy.copy(self._client)
+                        extractor = NordStarExtractor(self)
+                        self._client = client_copy
+                        self.add_access(extractor)
 
             else:
                 self._client = GPTClient()
