@@ -12,8 +12,8 @@ class OperationRepository(SymbiotRepository):
     def __init__(self, db: SQLAlchemy):
         super().__init__(db, Operation)
 
-    def get_record_by_id(self, id_):
-        return self.db.session.query(RecordEntity).get(id_)
+    def get_record_by_id(self, id_) -> Record:
+        return self.db.session.query(RecordEntity).get(id_).from_entity
 
     def update_record(self, record: Record):
         self.db.session.merge(record.to_entity)

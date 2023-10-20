@@ -6,6 +6,7 @@ from tool_kits.tool_kit import ToolKit
 class GPTClient:
     def __init__(
             self,
+            name: str = None,
             model: str = "gpt-3.5-turbo",
             functions=None,
             function_call: str = "auto",
@@ -13,8 +14,10 @@ class GPTClient:
             n: int = 1,
             max_tokens: int = 3000,
             init_messages: list = None,
-            tool_kit: ToolKit = None
+            tool_kit: ToolKit = None,
+            id_: str = None
     ):
+        self.name = name
         self.model = model
         self.functions = functions
         self.function_call = function_call
@@ -24,6 +27,7 @@ class GPTClient:
         self.messages = [] \
             if not init_messages else init_messages
         self.tool_kit = tool_kit
+        self.id = id_
 
     @staticmethod
     def set_api_key(api_key):
@@ -46,7 +50,6 @@ class GPTClient:
                 result = output
         else:
             result = response["choices"][0]["message"]["content"]
-        print(f"FROM GPT: {response}")
         return response if full_response else result
 
     def _to_dict(self) -> dict:
@@ -55,7 +58,6 @@ class GPTClient:
             del res["functions"]
             del res["function_call"]
         del res["tool_kit"]
-
-        print(f"TO GPT: {res}")
-
+        del res["id"]
+        del res["name"]
         return res

@@ -47,6 +47,9 @@ class RecordConverter:
         args.pop("outputs")
         args["id_"] = args.pop("id")
 
+        if "client" in args and args["client"] is not None:
+            args["client"] = args["client"].name
+
         return RecordEntity(
             type_,
             inputs=[self.bridge_format(bridge) for bridge in record.inputs],

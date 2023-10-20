@@ -16,7 +16,7 @@ class Operation(db.Model):
     name = db.Column(db.String)
     body = db.Column(db.Text)
     _records = db.relationship(
-        "RecordEntity", backref="operations", lazy=True)
+        "RecordEntity", backref="operations", lazy=False)
 
     def __init__(self, wish, name="untitled", body="", id_=None):
 
@@ -48,6 +48,8 @@ class Operation(db.Model):
         res = self.__dict__.copy()
         if "_sa_instance_state" in res:
             res.pop("_sa_instance_state")
+        if "_records" in res:
+            res.pop("_records")
         res["records"] = list(map(
             lambda r: r.to_dict(),
             self.records))

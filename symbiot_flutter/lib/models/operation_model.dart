@@ -25,9 +25,8 @@ class OperationModel {
             .map((el) => RecordModel(el))
             .toList() {
     for (RecordModel record in records)
-      records.forEach((element) {
-        if (element.id == record.previous)
-          record.previous = element;
-      });
+      records.forEach((element) =>
+        element.id == record.previous
+            ? record.previous = element : null);
   }
 }

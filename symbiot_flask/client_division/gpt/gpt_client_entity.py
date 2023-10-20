@@ -18,8 +18,9 @@ class GPTClientEntity(db.Model):
     system_prompts = db.Column(ARRAY(db.String))
     step_id = db.Column(db.String, db.ForeignKey("records.id"))
 
-    def __init__(self, client: GPTClient, id_=None):
-        self.id = str(uuid.uuid4()) if id_ is None else id_
+    def __init__(self, client: GPTClient):
+        self.id = str(uuid.uuid4()) \
+            if client.id is None else client.id
         self.model = client.model
         self.temperature = client.temperature
         self.n = client.n
@@ -30,3 +31,17 @@ class GPTClientEntity(db.Model):
             for val in client.messages
             if val["role"] == "system"
         ]
+
+    @property
+    def from_entity(self) -> GPTClient:
+        args = self.__dict__.copy()
+
+        args["init_messages"] = [dict(
+            role="system",
+            content=prompt
+        ) for prompt in args.pop("system_prompts")]
+
+        if "_sa_instance_state" in args:
+            args.pop("_sa_instance_state")
+
+        return GPTClient(**args)
