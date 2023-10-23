@@ -1,4 +1,3 @@
-
 from injector import inject
 
 from client_division.client_builder import ClientBuilder
@@ -31,8 +30,10 @@ class ClientService(SymbiotService):
             GPTClient.set_api_key(check_clear(open_ai))
 
     def open_chat(self, step_id):
-        step = self.mediator("operation").get_step(step_id)
-        step.client = self._builder.new("gpt", step.client).build()
+        step: StepRecord = self.mediator("operation").get_step(step_id)
+        step.client = self._builder\
+            .new("gpt", step.client)\
+            .add_step(step).get()
         self._active_step = step
 
     def close_chat(self):
@@ -40,7 +41,7 @@ class ClientService(SymbiotService):
         self._active_step = None
 
     def calibrate(self, step: StepRecord, wish: str):
-        step.client = self._builder.new("gpt", "calibrator").build()
+        step.client = self._builder.new("gpt", "calibrator").get()
         step.add_to_status("calibration")
         self._active_step = step
         self.continue_chat(wish)

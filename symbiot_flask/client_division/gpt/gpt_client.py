@@ -55,9 +55,9 @@ class GPTClient:
     def _to_dict(self) -> dict:
         res = self.__dict__.copy()
         if not self.functions:
-            del res["functions"]
-            del res["function_call"]
-        del res["tool_kit"]
-        del res["id"]
-        del res["name"]
+            for param in ["functions", "function_call"]:
+                del res[param],
+
+        for param in ["tool_kit", "id", "name"]:
+            del res[param],
         return res

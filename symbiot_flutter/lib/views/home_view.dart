@@ -15,7 +15,11 @@ class HomeView extends StatelessWidget {
       Consumer<OperationController>(
         builder: (context, controller, child) =>
             InputBar(
-              onSend: (text) => controller.newOperation(text),
+
+              onSend: (text) => controller.newOperation(text)
+                  .then((val) => controller.openChat(
+                  val.records.first.id, context)),
+
               child: Container(
                 alignment: Alignment.topCenter,
                 child: Padding(

@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/symbiot_app.dart';
 
@@ -39,8 +41,7 @@ class OperationController extends ChangeNotifier {
   void openChat(String stepID, BuildContext context) =>
     _chatConnector!.manageChat("open", stepID)
         .whenComplete(() => SymbiotApp.push(context, ChatView(stepID))
-        .whenComplete(() => _chatConnector!.manageChat("close", stepID)
-        .whenComplete(() => notifyListeners())));
+        .whenComplete(() => _chatConnector!.manageChat("close", stepID)));
 
   void chat(String message, String id) =>
       _chatConnector!.sendMessage(message)
@@ -54,7 +55,11 @@ class OperationController extends ChangeNotifier {
           .toList())
           .whenComplete(() => notifyListeners());
 
-  void newOperation(String wish) => 
-      _operationConnector!.createOperation(wish)
-          .whenComplete(() => loadData());
+  Future<OperationModel> newOperation(String wish) async {
+    List<String> oldModels = models.map((el) => el.id).toList();
+    await _operationConnector!.createOperation(wish)
+        .whenComplete(() => loadData());
+    return operation(models.map((el) => el.id)
+        .firstWhere((id) => !oldModels.contains(id)));
+  }
 }

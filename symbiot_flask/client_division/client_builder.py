@@ -13,7 +13,7 @@ def client_required(method):
     def wrapper(self, *args, **kwargs):
         if not self._client:
             raise Exception("No client, "
-                            "use new() or from_() first")
+                            "use new() or existing() first")
         return method(self, *args, **kwargs)
 
     return wrapper
@@ -26,7 +26,7 @@ class ClientBuilder:
         self._client = None
         self._factory = factory
 
-    def from_(self, client: GPTClient):
+    def existing(self, client: GPTClient):
         self._client = client
         return self
 
@@ -48,7 +48,7 @@ class ClientBuilder:
         return self
 
     @client_required
-    def build(self) -> GPTClient:
+    def get(self) -> GPTClient:
         return self._client
 
     @client_required
