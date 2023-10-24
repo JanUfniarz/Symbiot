@@ -1,14 +1,14 @@
-from action_division.action_service import ActionService
-from client_division.client_service import ClientService
-from operation_division.operation_service import OperationService
-
-
 class Mediator:
-    def __init__(self, symbiot):
-        self._services = dict(
-            operation=symbiot.get(OperationService),
-            client=symbiot.get(ClientService),
-            action=symbiot.get(ActionService))
+    def __init__(self, injector):
+
+        services = {}
+        # noinspection PyProtectedMember
+        for cls in injector.binder._bindings:
+            if hasattr(cls, "division_name"):
+                services[getattr(cls, "division_name")] = cls
+
+        self._services = {name: injector.get(service) for name, service in services.items()}
+
         for service in self._services.values():
             service.set_mediator(self)
 

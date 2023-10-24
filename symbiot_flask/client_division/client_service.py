@@ -8,6 +8,7 @@ from .gpt.gpt_client_repository import GPTClientRepository
 
 
 class ClientService(SymbiotService):
+    division_name = "client"
 
     # noinspection PyTypeChecker
     @inject

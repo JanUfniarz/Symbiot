@@ -16,16 +16,10 @@ class CommandExecutor {
         _arguments = ["-c"];
 
 
-  Future<dynamic> run(String? command,
+  Future<dynamic> run(String command,
       {bool return_ = false}) async {
 
-    if (command == null) {
-      print("runCommand - No command");
-      return;
-    }
-    final result = await Process.run(
-        _executable, _arguments + [command]
-    );
+    final result = await Process.run(_executable, _arguments + [command]);
 
     if (result.exitCode == 0) {
       print('Command $_executable executed correctly:'

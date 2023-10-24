@@ -7,6 +7,8 @@ from .record.step_record import StepRecord
 
 
 class OperationService(SymbiotService):
+    division_name = "operation"
+
     @inject
     def __init__(
             self,

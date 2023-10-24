@@ -63,8 +63,7 @@ class KeyController extends ChangeNotifier {
       context: context,
       builder: (BuildContext context) => KeyPopup(
             name: name,
-            apiKey: keys[name] ?? "No Key",
-          ));
+            apiKey: keys[name] ?? "No Key"));
 
   Future<void> _getKeys() async => await _executor!
       .run("Get-Content $_path", return_: true)
