@@ -1,9 +1,9 @@
 from injector import inject
 
 from symbiot_service import SymbiotService
-from .operation_entity import Operation
+from .operation_entity import OperationEntity
 from .operation_repository import OperationRepository
-from .record.step_record import StepRecord
+from objects.step_record import StepRecord
 
 
 class OperationService(SymbiotService):
@@ -27,7 +27,7 @@ class OperationService(SymbiotService):
 
         print("service, create: " + wish)
 
-        operation = Operation(wish)
+        operation = OperationEntity(wish)
         operation.status = "CALIBRATION"
         step_1 = StepRecord([])
 

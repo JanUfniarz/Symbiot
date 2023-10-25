@@ -2,7 +2,7 @@ import uuid
 
 from sqlalchemy.dialects.postgresql import ARRAY
 
-from client_division.gpt.gpt_client import GPTClient
+from objects.gpt_client import GPTClient
 from database_provider import db
 
 
@@ -31,17 +31,3 @@ class GPTClientEntity(db.Model):
             for val in client.messages
             if val["role"] == "system"
         ]
-
-    @property
-    def from_entity(self) -> GPTClient:
-        args = self.__dict__.copy()
-
-        args["init_messages"] = [dict(
-            role="system",
-            content=prompt
-        ) for prompt in args.pop("system_prompts")]
-
-        if "_sa_instance_state" in args:
-            args.pop("_sa_instance_state")
-
-        return GPTClient(**args)

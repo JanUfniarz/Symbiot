@@ -1,20 +1,12 @@
-from .step_record import StepRecord
-from .script_record import ScriptRecord
+from objects.record import Record
+from objects.step_record import StepRecord
+from objects.script_record import ScriptRecord
 from .record_entity import RecordEntity
 
 
 class RecordConverter:
-    def type_to_string(self, record):
-        if type(record) is RecordEntity:
-            return "entity"
-        elif type(record) is StepRecord:
-            return "step"
-        elif type(record) is ScriptRecord:
-            return "script"
-        else:
-            raise NotImplementedError("Unsupported container type")
 
-    def from_entity(self, entity):
+    def from_entity(self, entity: RecordEntity) -> Record:
         inputs = [self.bridge_read(input_) for input_ in entity.inputs]
         outputs = None if entity.outputs is None else \
             [self.bridge_read(output_) for output_ in entity.outputs]
@@ -36,8 +28,9 @@ class RecordConverter:
                 id_=entity.id,
                 **args)
 
-    def to_entity(self, record) -> RecordEntity:
-        type_ = self.type_to_string(record)
+    # noinspection PyTypeChecker
+    def to_entity(self, record: Record) -> RecordEntity:
+        type_ = record.type_str
 
         if type_ == "entity":
             return record
@@ -70,7 +63,7 @@ class RecordConverter:
               list<l1>
                   str<l2>dupa<el2>
                   int<l2>52
-    """
+        """
         def type_format(d):
             return str(type(d)) \
                 .replace('<class ', '') \
@@ -95,14 +88,10 @@ class RecordConverter:
         def read(b, lev):
             t, d = b.split(f"<@level{lev}>")
             match t:
-                case "str":
-                    return d
-                case "int":
-                    return int(d)
-                case "bool":
-                    return bool(d)
-                case "float":
-                    return float(d)
+                case "str": return d
+                case "int": return int(d)
+                case "bool": return bool(d)
+                case "float": return float(d)
                 case "list":
                     res = [read(el, lev + 1)
                            for el in d.split(f"<@el{lev}>")]

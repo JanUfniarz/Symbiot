@@ -2,9 +2,9 @@ import copy
 from injector import inject
 
 from client_division.client_factory import ClientFactory
-from client_division.gpt.gpt_client import GPTClient
+from objects.gpt_client import GPTClient
 from client_division.gpt.gpt_client_entity import GPTClientEntity
-from operation_division.record.step_record import StepRecord
+from objects.step_record import StepRecord
 from tool_kits.nord_star_extractor import NordStarExtractor
 from tool_kits.tool_kit import ToolKit
 

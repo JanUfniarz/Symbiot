@@ -1,9 +1,9 @@
 from injector import inject
 
 from client_division.client_builder import ClientBuilder
-from operation_division.record.step_record import StepRecord
+from objects.step_record import StepRecord
 from symbiot_service import SymbiotService
-from .gpt.gpt_client import GPTClient
+from objects.gpt_client import GPTClient
 from .gpt.gpt_client_repository import GPTClientRepository
 
 

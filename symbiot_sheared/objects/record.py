@@ -1,8 +1,8 @@
 import uuid
+from abc import abstractmethod
 
 
 class Record:
-    _converter = None
 
     def __init__(self, inputs, id_=None, previous=None, path=None,
                  outputs=None, body="", status="", **ignored):
@@ -14,17 +14,13 @@ class Record:
         self.body = body
         self.status = status
 
-    @classmethod
-    def inject_converter(cls, converter):
-        cls._converter = converter
-
-    @property
-    def to_entity(self):
-        return self._converter.to_entity(self)
-
     @property
     def current_status(self) -> str:
         return self.status.split("/")[-1]
+
+    @abstractmethod
+    def type_str(self):
+        pass
 
     def add_to_status(self, value):
         self.status += "/" + value
@@ -34,7 +30,7 @@ class Record:
 
     def to_dict(self):
         res = self.__dict__.copy()
-        res["type"] = self._converter.type_to_string(self)
+        res["type"] = self.type_str()
         res["inputs"] = list(map(
             lambda i: str(i),
             self.inputs))

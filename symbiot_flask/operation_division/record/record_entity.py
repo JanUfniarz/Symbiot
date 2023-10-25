@@ -1,7 +1,7 @@
 from sqlalchemy.dialects.postgresql import ARRAY
 
 from database_provider import db
-from .record import Record
+from objects.record import Record
 
 
 class RecordEntity(Record, db.Model):
@@ -35,5 +35,5 @@ class RecordEntity(Record, db.Model):
         self.big_o = big_o
 
     @property
-    def from_entity(self) -> Record:
-        return self._converter.from_entity(self)
+    def type_str(self):
+        return "entity"

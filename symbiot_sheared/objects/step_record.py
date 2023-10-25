@@ -1,11 +1,14 @@
 from datetime import datetime
 
-from client_division.gpt.gpt_client import GPTClient
-from client_division.gpt.gpt_client_entity import GPTClientEntity
-from .record import Record
+from objects.gpt_client import GPTClient
+from objects.record import Record
 
 
 class StepRecord(Record):
+    @property
+    def type_str(self):
+        return "step"
+
     def __init__(self, inputs,
                  client: GPTClient = None, **kwargs):
         super().__init__(inputs, **kwargs)

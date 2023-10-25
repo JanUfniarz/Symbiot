@@ -1,4 +1,4 @@
-from client_division.gpt.gpt_client import GPTClient
+from objects.gpt_client import GPTClient
 
 
 class ClientFactory:
