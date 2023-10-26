@@ -1,3 +1,4 @@
+from objects.record import Record
 from objects.script_record import ScriptRecord
 from objects.step_record import StepRecord
 
@@ -5,15 +6,15 @@ from objects.step_record import StepRecord
 class Operation:
     def __init__(self, id_: str, wish: str, nord_star: str,
                  leaf_summary_status: str, status: str,
-                 name: str, body: str, records: list):
-        self.records = records
-        self.body = body
-        self.name = name
-        self.status = status
-        self.leaf_summary_status = leaf_summary_status
-        self.nord_star = nord_star
-        self.wish = wish
-        self.id = id_
+                 name: str, body: str, records: list[Record]):
+        self.records: list[Record] = records
+        self.body: str = body
+        self.name: str = name
+        self.status: str = status
+        self.leaf_summary_status: str = leaf_summary_status
+        self.nord_star: str = nord_star
+        self.wish: str = wish
+        self.id: str = id_
 
     def from_dict(self, data: dict):
         def record_from_dict(record_data: dict):
@@ -36,7 +37,7 @@ class Operation:
         return res
 
     @staticmethod
-    def join_records(records: list) -> list:
+    def join_records(records: list[Record]) -> list[Record]:
         for record in records:
             if isinstance(record.previous, int):
                 for it in records:

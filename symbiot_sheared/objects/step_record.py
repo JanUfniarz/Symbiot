@@ -12,7 +12,7 @@ class StepRecord(Record):
     def __init__(self, inputs,
                  client: GPTClient = None, **kwargs):
         super().__init__(inputs, **kwargs)
-        self.client = client
+        self.client: GPTClient = client
 
     def add_entry(self, prompt, response):
         def now() -> str:
