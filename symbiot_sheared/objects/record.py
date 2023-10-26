@@ -31,12 +31,6 @@ class Record:
     def to_dict(self):
         res = self.__dict__.copy()
         res["type"] = self.type_str()
-        res["inputs"] = list(map(
-            lambda i: str(i),
-            self.inputs))
-        res["outputs"] = list(map(
-            lambda o: str(o),
-            self.outputs))
         if isinstance(res["previous"], Record):
             res["previous"] = self.previous.id
         return res

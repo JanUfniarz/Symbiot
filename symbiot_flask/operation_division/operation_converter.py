@@ -20,6 +20,7 @@ class OperationConverter:
 
     def from_entity(self, entity: OperationEntity) -> Operation:
         args = entity.__dict__.copy()
-        args["records"] = list(map(lambda record: self.record_converter.from_entity(record),
-                                   args["records"]))
+        args["records"] = Operation.join_records(
+            list(map(lambda record: self.record_converter.from_entity(record),
+                     args["records"])))
         return Operation(**args)
