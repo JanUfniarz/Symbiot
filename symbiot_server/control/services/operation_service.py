@@ -1,8 +1,8 @@
 from injector import inject
 
 from symbiot_service import SymbiotService
-from .operation_entity import OperationEntity
-from .operation_repository import OperationRepository
+from symbiot_server.database.entities.operation_entity import OperationEntity
+from symbiot_server.database.repositories.operation_repository import OperationRepository
 from objects.step_record import StepRecord
 
 

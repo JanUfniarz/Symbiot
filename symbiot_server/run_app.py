@@ -1,10 +1,10 @@
 from flask import Flask
 
-from action_division.action_division import ActionDivision
-from client_division.client_division import ClientDivision
-from database_provider import db
-from operation_division.operation_division import OperationDivision
-from symbiot_starter import SymbiotStarter
+from symbiot_server.config.divisions.action_division import ActionDivision
+from symbiot_server.config.divisions.client_division import ClientDivision
+from symbiot_server.config.database_provider import db
+from symbiot_server.config.divisions.operation_division import OperationDivision
+from symbiot_server.config.symbiot_starter import SymbiotStarter
 
 app: Flask = Flask(__name__)
 

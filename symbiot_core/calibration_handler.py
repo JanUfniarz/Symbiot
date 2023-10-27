@@ -1,4 +1,4 @@
-from symbiot_sheared.objects.step_record import StepRecord
+from symbiot_lib.objects.step_record import StepRecord
 
 
 class CalibrationHandler:

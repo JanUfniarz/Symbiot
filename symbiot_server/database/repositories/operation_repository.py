@@ -2,11 +2,11 @@ from flask_sqlalchemy import SQLAlchemy
 from injector import inject
 
 from symbiot_repository import SymbiotRepository
-from .operation_converter import OperationConverter
+from symbiot_server.database.converters.operation_converter import OperationConverter
 from objects.record import Record
-from .record.record_converter import RecordConverter
-from .record.record_entity import RecordEntity
-from .operation_entity import OperationEntity
+from symbiot_server.database.converters.record_converter import RecordConverter
+from symbiot_server.database.entities.record_entity import RecordEntity
+from symbiot_server.database.entities.operation_entity import OperationEntity
 
 
 class OperationRepository(SymbiotRepository):

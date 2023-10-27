@@ -2,12 +2,12 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from injector import Injector
 
-from client_division.chat_endpoint import ChatEndpoint
-from client_division.keys_endpoint import KeysEndpoint
-from mediator import Mediator
-from operation_division.operation_endpoint import OperationEndpoint
-from operation_division.record.record_converter import RecordConverter
-from symbiot_division import SymbiotDivision
+from symbiot_server.endpoints.chat_endpoint import ChatEndpoint
+from symbiot_server.endpoints.keys_endpoint import KeysEndpoint
+from symbiot_server.control.mediator import Mediator
+from symbiot_server.endpoints.operation_endpoint import OperationEndpoint
+from symbiot_server.database.converters.record_converter import RecordConverter
+from symbiot_server.config.divisions.symbiot_division import SymbiotDivision
 from tool_kits.tool_kit import ToolKit
 
 

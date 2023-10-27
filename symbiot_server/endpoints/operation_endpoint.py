@@ -1,7 +1,7 @@
 from flask import jsonify, Flask, request
 from injector import inject
 
-from .operation_service import OperationService
+from symbiot_server.control.services.operation_service import OperationService
 
 
 class OperationEndpoint:

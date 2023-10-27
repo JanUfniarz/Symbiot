@@ -4,8 +4,8 @@ import pickle
 from objects.step_record import StepRecord
 from objects.script_record import ScriptRecord
 
-from symbiot_sheared.objects.record import Record
-from .record_entity import RecordEntity
+from symbiot_lib.objects.record import Record
+from symbiot_server.database.entities.record_entity import RecordEntity
 
 
 class RecordConverter:

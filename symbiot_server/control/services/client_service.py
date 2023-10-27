@@ -4,7 +4,7 @@ from client_division.client_builder import ClientBuilder
 from objects.step_record import StepRecord
 from symbiot_service import SymbiotService
 from objects.gpt_client import GPTClient
-from .gpt.gpt_client_repository import GPTClientRepository
+from symbiot_server.database.repositories.gpt_client_repository import GPTClientRepository
 
 
 class ClientService(SymbiotService):

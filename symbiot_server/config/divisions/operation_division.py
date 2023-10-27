@@ -3,11 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from injector import singleton
 
 from symbiot_division import SymbiotDivision
-from .operation_converter import OperationConverter
-from .operation_endpoint import OperationEndpoint
-from .operation_repository import OperationRepository
-from .operation_service import OperationService
-from .record.record_converter import RecordConverter
+from symbiot_server.database.converters.operation_converter import OperationConverter
+from symbiot_server.endpoints.operation_endpoint import OperationEndpoint
+from symbiot_server.database.repositories.operation_repository import OperationRepository
+from symbiot_server.control.services.operation_service import OperationService
+from symbiot_server.database.converters.record_converter import RecordConverter
 
 
 class OperationDivision(SymbiotDivision):
