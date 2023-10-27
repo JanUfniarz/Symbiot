@@ -9,10 +9,8 @@ class StepRecord(Record):
     def type_str(self):
         return "step"
 
-    def __init__(self, inputs,
-                 client: GPTClient = None, **kwargs):
+    def __init__(self, inputs, **kwargs):
         super().__init__(inputs, **kwargs)
-        self.client: GPTClient = client
 
     def add_entry(self, prompt, response):
         def now() -> str:

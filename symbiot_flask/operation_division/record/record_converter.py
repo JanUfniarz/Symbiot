@@ -1,6 +1,10 @@
-from objects.record import Record
+import pickle
+
+
 from objects.step_record import StepRecord
 from objects.script_record import ScriptRecord
+
+from symbiot_sheared.objects.record import Record
 from .record_entity import RecordEntity
 
 
@@ -14,6 +18,8 @@ class RecordConverter:
         args = entity.__dict__.copy()
         args.pop("inputs")
         args.pop("outputs")
+
+        args["client"] = pickle.loads(args["client"])
 
         if entity.type_ == "step":
             return StepRecord(
@@ -40,8 +46,7 @@ class RecordConverter:
         args.pop("outputs")
         args["id_"] = args.pop("id")
 
-        if "client" in args and args["client"] is not None:
-            args["client"] = args["client"].name
+        args["client"] = pickle.dumps(args["client"])
 
         return RecordEntity(
             type_,

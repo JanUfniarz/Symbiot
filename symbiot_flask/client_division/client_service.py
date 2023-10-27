@@ -63,3 +63,6 @@ class ClientService(SymbiotService):
         self._active_step.outputs.append(nord_star)
         self._active_step.add_to_status("done")
         self.mediator("operation").calibration_ended(self._active_step)
+
+    def new_by_name(self, name: str) -> GPTClient:
+        return self._builder.new("gpt", name).get()

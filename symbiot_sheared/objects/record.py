@@ -5,7 +5,8 @@ from abc import abstractmethod
 class Record:
 
     def __init__(self, inputs, id_=None, previous=None, path=None,
-                 outputs=None, body="", status="", **ignored):
+                 outputs=None, body="", status="", client=None, **ignored):
+        self.client = client
         self.id: str = str(uuid.uuid4()) if id_ is None else id_
         self.previous = previous
         self.path: str = path

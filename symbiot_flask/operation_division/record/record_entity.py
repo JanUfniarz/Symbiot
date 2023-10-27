@@ -27,7 +27,7 @@ class RecordEntity(Record, db.Model):
     body = db.Column(db.Text, nullable=True)
     status = db.Column(db.String)
     operation_id = db.Column(db.String, db.ForeignKey("operations.id"))
-    client = db.Column(db.String)
+    client = db.Column(db.Largebinary, nullable=True)
 
     def __init__(self, type_, inputs, big_o=None,  **kwargs):
         super().__init__(inputs=inputs, **kwargs)
