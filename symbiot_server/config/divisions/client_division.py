@@ -2,7 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from injector import singleton
 
-from symbiot_division import SymbiotDivision
+# noinspection PyPackages
+from .symbiot_division import SymbiotDivision
 from symbiot_server.endpoints.chat_endpoint import ChatEndpoint
 from symbiot_server.control.client_builder import ClientBuilder
 from symbiot_server.database.converters.client_converter import ClientConverter

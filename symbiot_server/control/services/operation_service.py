@@ -1,7 +1,8 @@
 from injector import inject
 
 from symbiot_lib.objects.step_record import StepRecord
-from symbiot_service import SymbiotService
+# noinspection PyPackages
+from .symbiot_service import SymbiotService
 from symbiot_server.database.entities.operation_entity import OperationEntity
 from symbiot_server.database.repositories.operation_repository import OperationRepository
 

@@ -2,7 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from injector import singleton
 
-from symbiot_division import SymbiotDivision
+# noinspection PyPackages
+from .symbiot_division import SymbiotDivision
 from symbiot_server.database.converters.operation_converter import OperationConverter
 from symbiot_server.endpoints.operation_endpoint import OperationEndpoint
 from symbiot_server.database.repositories.operation_repository import OperationRepository
