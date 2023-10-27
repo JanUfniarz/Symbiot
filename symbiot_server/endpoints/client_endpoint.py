@@ -1,6 +1,6 @@
 import pickle
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from injector import inject
 
 from symbiot_server.control.services.client_service import ClientService
@@ -17,8 +17,9 @@ class ClientEndpoint:
     def listen(self, path):
         @self.app.route(path + "/", methods=["GET"])
         def get_client():
-            by: str = request.get_json()["by"]
+            params = request.get_json()
 
-            match by:
-                case "name": return pickle.dumps(
-                    self.service.new_by_name(request.get_json()["name"]))
+            return jsonify(dict(pickle=pickle.dumps(
+                self.service.new_by_name(
+                    params["by"],
+                    params["content"]))))

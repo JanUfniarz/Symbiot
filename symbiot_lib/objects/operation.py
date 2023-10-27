@@ -7,7 +7,7 @@ class Operation:
     def __init__(self, id_: str, wish: str, nord_star: str,
                  leaf_summary_status: str, status: str,
                  name: str, body: str, records: list[Record]):
-        self.records: list[Record] = records
+        self._records: list[Record] = records
         self.body: str = body
         self.name: str = name
         self.status: str = status
@@ -15,6 +15,17 @@ class Operation:
         self.nord_star: str = nord_star
         self.wish: str = wish
         self.id: str = id_
+
+    @property
+    def records(self):
+        return self._records.copy()
+
+    def add_record(self, record: Record):
+        self._records.append(record)
+
+    def remove_record(self, record: Record):
+        if record in self._records:
+            self._records.remove(record)
 
     def from_dict(self, data: dict):
         def record_from_dict(record_data: dict):
@@ -33,7 +44,7 @@ class Operation:
         res = self.__dict__.copy()
         res["records"] = list(map(
             lambda r: r.to_dict(),
-            self.records))
+            self._records))
         return res
 
     @staticmethod

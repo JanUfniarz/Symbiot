@@ -7,11 +7,12 @@ from symbiot_server.endpoints.keys_endpoint import KeysEndpoint
 from symbiot_server.control.mediator import Mediator
 from symbiot_server.endpoints.operation_endpoint import OperationEndpoint
 from symbiot_server.database.converters.record_converter import RecordConverter
-from symbiot_server.config.divisions.symbiot_division import SymbiotDivision
+from symbiot_server.config.divisions.server_division import ServerDivision
 
 
 # noinspection PyTypeChecker
 class SymbiotStarter:
+    port: int = 5000
     _endpoints: dict = dict(
         operation=OperationEndpoint,
         key=KeysEndpoint,
@@ -24,29 +25,27 @@ class SymbiotStarter:
     def __call__(self, cls):
         if cls is Mediator:
             return self._mediator
-        if cls is RecordConverter:
-            return self._record_converter
         return self._injector.get(cls)
 
     @property
     def _app(self):
-        if not SymbiotDivision.app:
+        if not ServerDivision.app:
             raise Exception("provide flask app first")
-        return SymbiotDivision.app
+        return ServerDivision.app
 
     @_app.setter
     def _app(self, value):
-        SymbiotDivision.app = value
+        ServerDivision.app = value
 
     @property
     def _db(self):
-        if not SymbiotDivision.db:
+        if not ServerDivision.db:
             raise Exception("provide sqlAlchemy db first")
-        return SymbiotDivision.db
+        return ServerDivision.db
 
     @_db.setter
     def _db(self, value):
-        SymbiotDivision.db = value
+        ServerDivision.db = value
 
     def divisions(self, divisions: list):
         self._injector = Injector(divisions)
@@ -82,5 +81,5 @@ class SymbiotStarter:
         return self
 
     def run(self):
-        self._app.run(debug=True)
+        self._app.run(debug=True, port=self.port)
         return self

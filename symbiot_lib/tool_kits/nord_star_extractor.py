@@ -23,6 +23,7 @@ class NordStarExtractor(ToolKit):
 
     def __init__(self, builder):
         super().__init__()
+        self.func = None
 
         self.name_generator: GPTClient = builder.new("gpt", "one_value_generator") \
             .add_sys_prompt(self.NAME_GENERATOR_PROMPT).get()
@@ -33,6 +34,6 @@ class NordStarExtractor(ToolKit):
                                type="string",
                                description=NORD_STAR_DESCRIPTION)])
     def extract_nord_star(self, nord_star: str):
-        self.mediator("client").calibration_ended(
+        self.func(
             nord_star,
             self.name_generator.chat(nord_star))

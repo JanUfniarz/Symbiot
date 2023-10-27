@@ -31,14 +31,14 @@ class ClientService(SymbiotService):
             GPTClient.set_api_key(check_clear(open_ai))
 
     def open_chat(self, step_id):
-        step: StepRecord = self.mediator("operation").get_step(step_id)
+        step: StepRecord = self.mediator("operation").get_record(step_id)
         step.client = self._builder\
             .new("gpt", step.client)\
             .add_step(step).get()
         self._active_step = step
 
     def close_chat(self):
-        self.mediator("operation").save_step(self._active_step)
+        self.mediator("operation").save_record(self._active_step)
         self._active_step = None
 
     def calibrate(self, step: StepRecord, wish: str):
@@ -64,5 +64,7 @@ class ClientService(SymbiotService):
         self._active_step.add_to_status("done")
         self.mediator("operation").calibration_ended(self._active_step)
 
-    def new_by_name(self, name: str) -> GPTClient:
-        return self._builder.new("gpt", name).get()
+    def new_by_name(self, by: str, content) -> GPTClient:
+        match by:
+            case "name": return self._builder.new("gpt", content).get()
+

@@ -3,6 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from injector import Module
 
 
-class SymbiotDivision(Module):
+class ServerDivision(Module):
     app: Flask = None
     db: SQLAlchemy = None

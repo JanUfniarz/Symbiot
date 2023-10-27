@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from injector import singleton
 
 # noinspection PyPackages
-from .symbiot_division import SymbiotDivision
+from .server_division import ServerDivision
 from symbiot_server.endpoints.chat_endpoint import ChatEndpoint
 from symbiot_server.control.client_builder import ClientBuilder
 from symbiot_server.database.converters.client_converter import ClientConverter
@@ -13,7 +13,7 @@ from symbiot_server.database.repositories.gpt_client_repository import GPTClient
 from symbiot_server.endpoints.keys_endpoint import KeysEndpoint
 
 
-class ClientDivision(SymbiotDivision):
+class ClientDivision(ServerDivision):
 
     def configure(self, binder):
         binder.bind(ClientService, scope=singleton)

@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from injector import singleton
 
 # noinspection PyPackages
-from .symbiot_division import SymbiotDivision
+from .server_division import ServerDivision
 from symbiot_server.database.converters.operation_converter import OperationConverter
 from symbiot_server.endpoints.operation_endpoint import OperationEndpoint
 from symbiot_server.database.repositories.operation_repository import OperationRepository
@@ -11,7 +11,7 @@ from symbiot_server.control.services.operation_service import OperationService
 from symbiot_server.database.converters.record_converter import RecordConverter
 
 
-class OperationDivision(SymbiotDivision):
+class OperationDivision(ServerDivision):
     def configure(self, binder):
         binder.bind(OperationEndpoint, scope=singleton)
         binder.bind(Flask, to=super().app)
