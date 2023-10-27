@@ -1,10 +1,8 @@
 import pickle
 
-
-from objects.step_record import StepRecord
-from objects.script_record import ScriptRecord
-
 from symbiot_lib.objects.record import Record
+from symbiot_lib.objects.script_record import ScriptRecord
+from symbiot_lib.objects.step_record import StepRecord
 from symbiot_server.database.entities.record_entity import RecordEntity
 
 

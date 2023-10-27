@@ -1,9 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from injector import inject
 
+from symbiot_lib.objects.record import Record
 from symbiot_repository import SymbiotRepository
 from symbiot_server.database.converters.operation_converter import OperationConverter
-from objects.record import Record
 from symbiot_server.database.converters.record_converter import RecordConverter
 from symbiot_server.database.entities.record_entity import RecordEntity
 from symbiot_server.database.entities.operation_entity import OperationEntity

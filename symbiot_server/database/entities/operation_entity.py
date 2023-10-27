@@ -1,6 +1,6 @@
 import uuid
 
-from database_provider import db
+from symbiot_server.config.database_provider import db
 
 
 class OperationEntity(db.Model):

@@ -8,7 +8,6 @@ from symbiot_server.control.mediator import Mediator
 from symbiot_server.endpoints.operation_endpoint import OperationEndpoint
 from symbiot_server.database.converters.record_converter import RecordConverter
 from symbiot_server.config.divisions.symbiot_division import SymbiotDivision
-from tool_kits.tool_kit import ToolKit
 
 
 # noinspection PyTypeChecker
@@ -55,7 +54,6 @@ class SymbiotStarter:
 
     def mediator(self):
         self._mediator = Mediator(self._injector)
-        ToolKit.mediator = self._mediator
         return self
 
     def flask(self, app: Flask):

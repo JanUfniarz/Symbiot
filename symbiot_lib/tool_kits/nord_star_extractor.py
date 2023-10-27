@@ -1,5 +1,5 @@
-from objects.gpt_client import GPTClient
-from tool_kits.tool_kit import ToolKit
+from symbiot_lib.objects.gpt_client import GPTClient
+from symbiot_lib.tool_kits.tool_kit import ToolKit
 
 
 class NordStarExtractor(ToolKit):

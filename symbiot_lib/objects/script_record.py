@@ -1,4 +1,4 @@
-from objects.record import Record
+from symbiot_lib.objects.record import Record
 
 
 class ScriptRecord(Record):

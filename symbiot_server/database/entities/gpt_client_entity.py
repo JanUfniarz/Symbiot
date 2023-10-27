@@ -2,8 +2,8 @@ import uuid
 
 from sqlalchemy.dialects.postgresql import ARRAY
 
-from objects.gpt_client import GPTClient
-from database_provider import db
+from symbiot_lib.objects.gpt_client import GPTClient
+from symbiot_server.config.database_provider import db
 
 
 class GPTClientEntity(db.Model):

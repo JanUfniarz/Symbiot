@@ -1,5 +1,5 @@
-from objects.gpt_client import GPTClient
-from client_division.gpt.gpt_client_entity import GPTClientEntity
+from symbiot_lib.objects.gpt_client import GPTClient
+from symbiot_server.database.entities.gpt_client_entity import GPTClientEntity
 
 
 class ClientConverter:

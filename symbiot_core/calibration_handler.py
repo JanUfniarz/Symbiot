@@ -1,3 +1,4 @@
+from symbiot_lib.objects.operation import Operation
 from symbiot_lib.objects.step_record import StepRecord
 
 

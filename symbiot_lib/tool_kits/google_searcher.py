@@ -5,7 +5,8 @@ from selenium.webdriver import Keys
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
-from tool_kits.tool_kit import ToolKit
+
+from symbiot_lib.tool_kits.tool_kit import ToolKit
 
 
 class GoogleSearcher(ToolKit):

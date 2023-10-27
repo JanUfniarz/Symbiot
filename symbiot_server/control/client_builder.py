@@ -1,12 +1,12 @@
 import copy
 from injector import inject
 
-from client_division.client_factory import ClientFactory
-from objects.gpt_client import GPTClient
-from client_division.gpt.gpt_client_entity import GPTClientEntity
-from objects.step_record import StepRecord
-from tool_kits.nord_star_extractor import NordStarExtractor
-from tool_kits.tool_kit import ToolKit
+from symbiot_lib.objects.gpt_client import GPTClient
+from symbiot_lib.objects.step_record import StepRecord
+from symbiot_lib.tool_kits.nord_star_extractor import NordStarExtractor
+from symbiot_lib.tool_kits.tool_kit import ToolKit
+from symbiot_server.control.client_factory import ClientFactory
+from symbiot_server.database.entities.gpt_client_entity import GPTClientEntity
 
 
 def client_required(method):

@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from objects.gpt_client import GPTClient
-from objects.record import Record
+from symbiot_lib.objects.record import Record
 
 
 class StepRecord(Record):

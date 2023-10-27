@@ -1,6 +1,6 @@
-from objects.record import Record
-from objects.script_record import ScriptRecord
-from objects.step_record import StepRecord
+from symbiot_lib.objects.record import Record
+from symbiot_lib.objects.script_record import ScriptRecord
+from symbiot_lib.objects.step_record import StepRecord
 
 
 class Operation:

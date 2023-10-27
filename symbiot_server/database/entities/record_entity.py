@@ -1,7 +1,7 @@
 from sqlalchemy.dialects.postgresql import ARRAY
 
-from database_provider import db
-from objects.record import Record
+from symbiot_lib.objects.record import Record
+from symbiot_server.config.database_provider import db
 
 
 class RecordEntity(Record, db.Model):

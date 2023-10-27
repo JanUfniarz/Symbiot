@@ -1,8 +1,8 @@
 from injector import inject
 
-from objects.operation import Operation
-from operation_division.operation_entity import OperationEntity
-from operation_division.record.record_converter import RecordConverter
+from symbiot_lib.objects.operation import Operation
+from symbiot_server.database.converters.record_converter import RecordConverter
+from symbiot_server.database.entities.operation_entity import OperationEntity
 
 
 class OperationConverter:

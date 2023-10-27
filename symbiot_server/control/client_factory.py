@@ -1,4 +1,4 @@
-from objects.gpt_client import GPTClient
+from symbiot_lib.objects.gpt_client import GPTClient
 
 
 class ClientFactory:

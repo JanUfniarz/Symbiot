@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from injector import inject
 
-from client_division.client_service import ClientService
+from symbiot_server.control.services.client_service import ClientService
 
 
 class KeysEndpoint:

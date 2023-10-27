@@ -1,4 +1,4 @@
-from tool_kits.tool_kit import ToolKit
+from symbiot_lib.tool_kits.tool_kit import ToolKit
 
 
 class TestTK(ToolKit):
