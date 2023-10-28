@@ -20,6 +20,6 @@ class ClientEndpoint:
             params = request.get_json()
 
             return jsonify(dict(pickle=pickle.dumps(
-                self.service.new_by_name(
+                self.service.new_client(
                     params["by"],
                     params["content"]))))

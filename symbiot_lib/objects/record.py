@@ -29,6 +29,7 @@ class Record:
     def in_status(self, value) -> bool:
         return value in self.status.split("/")
 
+    @property
     def to_dict(self) -> dict:
         res = self.__dict__.copy()
         res["type"] = self.type_str()

@@ -9,3 +9,4 @@ app: Flask = Flask(__name__)
 if __name__ == '__main__':
     injector = Injector(CoreDivision(app))
     injector.get(MainEndpoint).listen("main")
+    app.run(debug=True, port=5001)

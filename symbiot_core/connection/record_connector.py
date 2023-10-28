@@ -1,7 +1,7 @@
-from symbiot_core.connection.symbiot_connector import SymbiotConnector
+from symbiot_core.connection.pickle_connector import PickleConnector
 
 
-class RecordConnector(SymbiotConnector):
+class RecordConnector(PickleConnector):
 
     def __init__(self):
         super().__init__("record")

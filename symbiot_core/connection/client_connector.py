@@ -2,11 +2,11 @@ import pickle
 
 import requests
 
-from symbiot_core.connection.symbiot_connector import SymbiotConnector
+from symbiot_core.connection.pickle_connector import PickleConnector
 from symbiot_lib.objects.gpt_client import GPTClient
 
 
-class ClientConnector(SymbiotConnector):
+class ClientConnector(PickleConnector):
 
     def __init__(self):
         super().__init__("client")

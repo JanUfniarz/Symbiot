@@ -10,22 +10,23 @@ class HTTPFacade {
 
   static Future<dynamic> get(path,
       {String? pathArgument}) async =>
-      _manage(await http.get(_uri(path, pathArgument)));
+      _manage(await http.get(_uri(path, pathArgument),
+          headers: _headers));
 
   static Future<dynamic> post(path,
       {String? pathArgument, Object? body}) async =>
       _manage(await http.post(_uri(path, pathArgument),
-          headers: _headers, body: jsonEncode(body)));
+          headers: _headers, body: jsonEncode(body ?? {})));
 
   static Future<void> put(path,
       {String? pathArgument, Object? body}) async =>
       _manage(await http.put(_uri(path, pathArgument),
-          headers: _headers, body: jsonEncode(body)));
+          headers: _headers, body: jsonEncode(body ?? {})));
 
   static Future<void> delete(path,
       {String? pathArgument, Object? body}) async =>
       _manage(await http.delete(_uri(path, pathArgument),
-          headers: _headers, body: jsonEncode(body)));
+          headers: _headers, body: jsonEncode(body ?? {})));
 
   static dynamic _manage(http.Response response) =>
       response.statusCode == 200
