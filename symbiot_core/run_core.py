@@ -1,5 +1,4 @@
 from flask import Flask
-from injector import Injector
 
 from symbiot_core.config.core_division import CoreDivision
 from symbiot_core.endpoints.chat_endpoint import ChatEndpoint

@@ -1,3 +1,4 @@
+# noinspection PyPackages
 from .symbiot_service import SymbiotService
 
 

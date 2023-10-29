@@ -1,6 +1,7 @@
 from symbiot_server.control.mediator import Mediator
 
 
+# noinspection PyTypeChecker
 class SymbiotService:
     def __init__(self):
         self.mediator: Mediator = None

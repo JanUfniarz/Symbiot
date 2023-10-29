@@ -1,4 +1,5 @@
 import copy
+
 from injector import inject
 
 from symbiot_lib.objects.gpt_client import GPTClient
@@ -6,7 +7,6 @@ from symbiot_lib.objects.step_record import StepRecord
 from symbiot_lib.tool_kits.nord_star_extractor import NordStarExtractor
 from symbiot_lib.tool_kits.tool_kit import ToolKit
 from symbiot_server.control.client_factory import ClientFactory
-from symbiot_server.database.entities.gpt_client_entity import GPTClientEntity
 
 
 def client_required(method):
@@ -50,18 +50,6 @@ class ClientBuilder:
     @client_required
     def get(self) -> GPTClient:
         return self._client
-
-    @client_required
-    def entity_data(self,
-                    entity: GPTClientEntity,
-                    sys_prompts=True):
-        params = entity.__dict__.copy()
-        prompts = params.pop("system_prompts")
-        self.set_params(**params)
-        if sys_prompts:
-            self._client.messages += list(map(lambda prompt: dict(
-                role="system", content=prompt), prompts))
-        return self
 
     @client_required
     def add_step(self, step: StepRecord):

@@ -1,7 +1,6 @@
 from injector import inject
 
 from symbiot_core.connection.object_connector import ObjectConnector
-from symbiot_core.connection.pickle_connector import endpoint
 from symbiot_core.handlers.chat_handler import ChatHandler
 from symbiot_lib.objects.operation import Operation
 from symbiot_lib.objects.step_record import StepRecord

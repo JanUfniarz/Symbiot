@@ -4,7 +4,6 @@ from itertools import chain
 from flask import jsonify, Flask, request
 from injector import inject
 
-from symbiot_lib.objects.record import Record
 from symbiot_server.control.services.operation_service import OperationService
 
 
