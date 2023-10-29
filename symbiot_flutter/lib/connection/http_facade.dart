@@ -10,8 +10,7 @@ class HTTPFacade {
 
   static Future<dynamic> get(path,
       {String? pathArgument}) async =>
-      _manage(await http.get(_uri(path, pathArgument),
-          headers: _headers));
+      _manage(await http.get(_uri(path, pathArgument)));
 
   static Future<dynamic> post(path,
       {String? pathArgument, Object? body}) async =>

@@ -1,3 +1,5 @@
+import uuid
+
 from symbiot_lib.objects.record import Record
 from symbiot_lib.objects.script_record import ScriptRecord
 from symbiot_lib.objects.step_record import StepRecord
@@ -14,7 +16,7 @@ class Operation:
         self.leaf_summary_status: str = leaf_summary_status
         self.nord_star: str = nord_star
         self.wish: str = wish
-        self.id: str = id_
+        self.id: str = str(uuid.uuid4()) if id_ is None else id_
 
     @property
     def records(self):

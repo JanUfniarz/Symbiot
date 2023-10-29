@@ -17,7 +17,6 @@ class OperationEntity(db.Model):
     records = db.relationship(
         "RecordEntity", backref="operations", lazy=False)
 
-    # noinspection PyMissingConstructor
     def __init__(self, wish, name="untitled", body="", id_=None,
                  nord_star=None, status="CREATION_STARTED",
                  leaf_summary_status=None, records=None):

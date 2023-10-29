@@ -8,7 +8,7 @@ class PickleConnector:
     headers: dict = {'Content-Type': "application/json; charset=UTF-8"}
     url = "http://127.0.0.1:5000/"
 
-    def __init__(self, path: str = ""):
+    def __init__(self, path: str = None):
         self.path = path
 
     @staticmethod
@@ -25,9 +25,9 @@ class PickleConnector:
                 headers=self.headers,
                 params=params)).json()["pickle"])
 
-    def put_pickle(self, object_):
+    def put_pickle(self, object_, path=None):
         return self.check_status(requests.put(
-            self.url + self.path,
+            self.url + self.path if path is None else path,
             headers=self.headers,
             json=dict(
                 pickle=pickle.dumps(object_))))

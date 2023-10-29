@@ -21,11 +21,16 @@ class ObjectConnector(PickleConnector):
             by="record_id",
             content=record.id))
 
+    # @endpoint("operation")
+    # def save_operation(self, operation: Operation):
+    #     return self.put_pickle(operation)
+
     @endpoint("operation/record")
     def get_record_by_id(self, record_id: str) -> Record:
         return self.get_pickle(dict(
+            by="id",
             id=record_id))
 
-    @endpoint("operation/record")
-    def save_record(self, record: Record):
-        return self.put_pickle(record)
+    # @endpoint("operation/record")
+    # def save_record(self, record: Record):
+    #     return self.put_pickle(record)
