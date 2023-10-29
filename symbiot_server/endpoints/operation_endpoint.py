@@ -66,3 +66,4 @@ class OperationEndpoint:
             if "pickle" in self._data(json=True):
                 self.service.save_record(
                     pickle.loads(self._data(json=True).get("pickle")))
+            return jsonify({"message": "added record"})

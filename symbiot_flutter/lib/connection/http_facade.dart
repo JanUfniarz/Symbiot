@@ -30,7 +30,7 @@ class HTTPFacade {
   static dynamic _manage(http.Response response) =>
       response.statusCode == 200
           ? jsonDecode(utf8.decode(response.bodyBytes))
-          : throw Exception('Serwer connection error!!!');
+          : throw Exception('Server connection error!!!');
 
   static Uri _uri(String path, String? arg) =>
       Uri.parse("http://127.0.0.1:5000/$path/${arg ?? ""}");

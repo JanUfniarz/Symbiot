@@ -20,12 +20,12 @@ class CalibrationHandler(ChatHandler):
             "", "NEW",
             "unnamed", "", [])
 
-        step = StepRecord([], client=self.serwer.get_client_by_name("calibrator"))
+        step = StepRecord([], client=self.server.get_client_by_name("calibrator"))
         step.add_to_status("calibration")
         step.client.tool_kit.func = self.assign_nord_star
         operation.add_record(step)
 
-        self.serwer.put_pickle(operation,
+        self.server.put_pickle(operation,
                                path="operation")
 
         self._active_step = step
@@ -38,8 +38,8 @@ class CalibrationHandler(ChatHandler):
         step.outputs.append(nord_star)
         step.add_to_status("done")
 
-        operation = self.serwer.get_operation_by_record(step)
+        operation = self.server.get_operation_by_record(step)
 
         operation.name = step.inputs[0]
         operation.nord_star = step.outputs[0]
-        self.serwer.put_pickle(operation, path="operation")
+        self.server.put_pickle(operation, path="operation")
