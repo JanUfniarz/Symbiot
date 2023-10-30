@@ -1,5 +1,3 @@
-// ignore_for_file: curly_braces_in_flow_control_structures, avoid_print
-
 import "dart:convert";
 import "package:http/http.dart" as http;
 

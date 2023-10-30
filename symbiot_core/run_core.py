@@ -11,6 +11,6 @@ if __name__ == '__main__':
     symbiot_core: SymbiotStarter = SymbiotStarter(dict(
         main=MainEndpoint,
         chat=ChatEndpoint
-    )).flask(app).divisions(
+    )).flask(app).divisions([
         CoreDivision()
-    ).listen_all().run(debug=True, port=5001)
+    ]).listen_all().run(debug=True, port=5001)

@@ -1,3 +1,4 @@
+import base64
 import pickle
 from itertools import chain
 
@@ -18,8 +19,12 @@ class OperationEndpoint:
     @staticmethod
     def _format(object_, format_: str = "json"):
         match format_:
-            case "json": return jsonify(object_.to_dict())
-            case "pickle": return pickle.dumps(object_)
+            case "json": return object_.to_dict()
+            case "pickle": return base64.b64encode(pickle.dumps(object_))
+
+    @staticmethod
+    def _pickle_decode(encoded):
+        return pickle.loads(base64.b64decode(encoded))
 
     @staticmethod
     def _data(json: bool = False) -> dict:
@@ -43,9 +48,9 @@ class OperationEndpoint:
 
         @self.app.route(path + '/', methods=["POST"])
         def add_operation():
-            wish = request.get_json()["wish"]
-            self.service.create(wish)
-            return jsonify({"message": "added operation"})
+            self.service.save_operation(
+                self._pickle_decode(request.get_json()["pickle"]))
+            return jsonify(dict(message="added operation"))
 
         @self.app.route(path + "/records", methods=["GET"])
         def get_records():
@@ -64,5 +69,5 @@ class OperationEndpoint:
         def add_record():
             if "pickle" in self._data(json=True):
                 self.service.save_record(
-                    pickle.loads(self._data(json=True).get("pickle")))
+                    self._pickle_decode(self._data(json=True).get("pickle")))
             return jsonify({"message": "added record"})

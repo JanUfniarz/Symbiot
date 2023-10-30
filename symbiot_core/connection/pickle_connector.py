@@ -1,3 +1,4 @@
+import base64
 import pickle
 
 import requests
@@ -19,25 +20,25 @@ class PickleConnector:
 
     def get_pickle(self, params: dict):
         params["format"] = "pickle"
-        return pickle.loads(self.check_status(
+        return pickle.loads(base64.b64decode(self.check_status(
             requests.get(
-                self.url + self.path,
+                self.url + self.path + "/",
                 headers=self.headers,
-                params=params)).json()["pickle"])
+                params=params)).json()["pickle"]))
 
     def put_pickle(self, object_, path=None):
         return self.check_status(requests.put(
-            self.url + self.path if path is None else path,
+            self.url + self.path if path is None else path + "/",
             headers=self.headers,
             json=dict(
-                pickle=pickle.dumps(object_))))
+                pickle=(base64.b64encode(pickle.dumps(object_))))))
 
 
 def endpoint(path):
     def decorator(func):
         def wrapper(self, *args, **kwargs):
             self.path = path
-            return func(*args, **kwargs)
+            return func(self, *args, **kwargs)
 
         return wrapper
 

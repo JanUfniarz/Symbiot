@@ -1,3 +1,4 @@
+import base64
 import pickle
 
 from flask import Flask, request, jsonify
@@ -17,9 +18,10 @@ class ClientEndpoint:
     def listen(self, path):
         @self.app.route(path + "/", methods=["GET"])
         def get_client():
-            params = request.get_json()
+            params = request.args
 
-            return jsonify(dict(pickle=pickle.dumps(
-                self.service.new_client(
-                    params["by"],
-                    params["content"]))))
+            return jsonify(dict(
+                pickle=base64.b64encode(pickle.dumps(
+                    self.service.new_client(
+                        params["by"],
+                        params["content"])))))

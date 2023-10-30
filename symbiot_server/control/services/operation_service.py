@@ -40,3 +40,6 @@ class OperationService(SymbiotService):
         match by:
             case "id": return self.get_record(content)
             case _: raise NotImplementedError(f"not implemented operation by {by}")
+
+    def save_operation(self, operation):
+        self._repository.save(operation)

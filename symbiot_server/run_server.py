@@ -17,5 +17,5 @@ if __name__ == '__main__':
     ).divisions([
             OperationDivision(),
             ClientDivision(),
-            ActionDivision()]
-    ).mediator().listen_all().run(debug=True, port=5000)
+            ActionDivision()
+    ]).mediator().listen_all().run(debug=True, port=5000)
