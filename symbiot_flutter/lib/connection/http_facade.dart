@@ -3,35 +3,30 @@
 import "dart:convert";
 import "package:http/http.dart" as http;
 
+import "../models/endpoint_model.dart";
+
 class HTTPFacade {
-  static final Map<String, String> _headers = {
-    'Content-Type': "application/json; charset=UTF-8",
-  };
-
-  static Future<dynamic> get(path,
+  Future<dynamic> get(EndpointModel endpoint,
       {String? pathArgument}) async =>
-      _manage(await http.get(_uri(path, pathArgument)));
+      _manage(await http.get(endpoint.uri(pathArgument)));
 
-  static Future<dynamic> post(path,
+  Future<dynamic> post(EndpointModel endpoint,
       {String? pathArgument, Object? body}) async =>
-      _manage(await http.post(_uri(path, pathArgument),
-          headers: _headers, body: jsonEncode(body ?? {})));
+      _manage(await http.post(endpoint.uri(pathArgument),
+          headers: endpoint.headers, body: jsonEncode(body ?? {})));
 
-  static Future<void> put(path,
+  Future<void> put(EndpointModel endpoint,
       {String? pathArgument, Object? body}) async =>
-      _manage(await http.put(_uri(path, pathArgument),
-          headers: _headers, body: jsonEncode(body ?? {})));
+      _manage(await http.put(endpoint.uri(pathArgument),
+          headers: endpoint.headers, body: jsonEncode(body ?? {})));
 
-  static Future<void> delete(path,
+  Future<void> delete(EndpointModel endpoint,
       {String? pathArgument, Object? body}) async =>
-      _manage(await http.delete(_uri(path, pathArgument),
-          headers: _headers, body: jsonEncode(body ?? {})));
+      _manage(await http.delete(endpoint.uri(pathArgument),
+          headers: endpoint.headers, body: jsonEncode(body ?? {})));
 
-  static dynamic _manage(http.Response response) =>
+  dynamic _manage(http.Response response) =>
       response.statusCode == 200
           ? jsonDecode(utf8.decode(response.bodyBytes))
           : throw Exception('Server connection error!!!');
-
-  static Uri _uri(String path, String? arg) =>
-      Uri.parse("http://127.0.0.1:5000/$path/${arg ?? ""}");
 }

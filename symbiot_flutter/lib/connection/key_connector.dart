@@ -1,13 +1,11 @@
-// ignore_for_file: curly_braces_in_flow_control_structures, avoid_print
-
 import "package:symbiot_flutter/connection/http_facade.dart";
 
-class KeyConnector {
-  final String path = "key";
+import "../models/endpoint_model.dart";
 
-  void provideKeys(Map<String, String> keys) =>
-      HTTPFacade.post(path, body: keys);
+class KeyConnector extends HTTPFacade {
+  final EndpointModel keyEndpoint = EndpointModel(Receiver.server, "key");
 
-  void clearKey(String name) =>
-      HTTPFacade.delete(path, pathArgument: name);
+  void provideKeys(Map<String, String> keys) => post(keyEndpoint, body: keys);
+
+  void clearKey(String name) => delete(keyEndpoint, pathArgument: name);
 }
