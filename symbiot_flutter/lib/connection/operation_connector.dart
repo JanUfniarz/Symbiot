@@ -1,25 +1,13 @@
-// ignore_for_file: curly_braces_in_flow_control_structures, avoid_print
-
+import "../models/endpoint_model.dart";
 import "http_facade.dart";
 
-class OperationConnector {
+class OperationConnector extends HTTPFacade {
 
-  final String path = "operation";
+  final EndpointModel mainEndpoint = EndpointModel(Receiver.core, "main");
+  final EndpointModel operationEndpoint = EndpointModel(Receiver.server, "operation");
 
-  Future<List<dynamic>> getAllOperations() async =>
-      await HTTPFacade.get(path);
+  Future<List<dynamic>> getAllOperations() async => await get(operationEndpoint);
 
-  Future<dynamic> createOperation(
-      String? argument) async {
-
-    if (argument == null)
-      throw Exception("No argument");
-
-    return HTTPFacade.post(path,
-        body: {"wish": argument});
-  }
-
-  Future<void> updateOperation() async {}
-
-  Future<void> deleteOperation() async => HTTPFacade.delete(path);
+  Future<dynamic> createOperation(String wish) async =>
+      await post(mainEndpoint, body: {"wish": wish});
 }

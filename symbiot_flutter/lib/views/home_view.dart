@@ -18,7 +18,7 @@ class HomeView extends StatelessWidget {
 
               onSend: (text) => controller.newOperation(text)
                   .then((val) => controller.openChat(
-                  val.records.first.id, context)),
+                  val.records.first, context)),
 
               child: Container(
                 alignment: Alignment.topCenter,

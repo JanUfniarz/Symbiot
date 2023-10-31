@@ -46,7 +46,7 @@ class OperationView extends StatelessWidget {
                               (index) => InkWell(
                                     onTap: () => controller.openChat(
                                         controller.operation(id)
-                                            .records[index].id,
+                                            .records[index],
                                         context
                                     ),
                                     child: Card(

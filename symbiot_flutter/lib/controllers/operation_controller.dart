@@ -38,10 +38,10 @@ class OperationController extends ChangeNotifier {
         context, OperationView(id)
     ).whenComplete(() => loadData());
 
-  void openChat(String stepID, BuildContext context) =>
-    _chatConnector!.manageChat("open", stepID)
-        .whenComplete(() => SymbiotApp.push(context, ChatView(stepID))
-        .whenComplete(() => _chatConnector!.manageChat("close", stepID)));
+  void openChat(RecordModel step, BuildContext context) =>
+    _chatConnector!.manageChat("open", step: step)
+        .whenComplete(() => SymbiotApp.push(context, ChatView(step.id))
+        .whenComplete(() => _chatConnector!.manageChat("close")));
 
   void chat(String message, String id) =>
       _chatConnector!.sendMessage(message)

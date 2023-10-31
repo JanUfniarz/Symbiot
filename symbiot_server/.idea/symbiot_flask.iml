@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="symbiot_core" />
+    <orderEntry type="module" module-name="symbiot_sheared" />
+  </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/operation_division" />
+        <option value="$MODULE_DIR$/client_division" />
+      </list>
+    </option>
+  </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="fb09b675-f8d8-4bc3-af34-b7e925782a7a" />
+  </component>
+</module>
