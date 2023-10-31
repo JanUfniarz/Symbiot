@@ -17,10 +17,14 @@ class OperationEndpoint:
         self.service = service
 
     @staticmethod
-    def _format(object_, format_: str = "json"):
+    def _format(object_, format_: str = "json") -> dict:
+        format_ = "json" if format_ is None else format_
         match format_:
-            case "json": return object_.to_dict()
-            case "pickle": return base64.b64encode(pickle.dumps(object_))
+            case "json": return object_.to_dict
+            case "pickle": return dict(
+                pickle=base64.b64encode(
+                    pickle.dumps(object_)
+                ).decode("utf-8"))
 
     @staticmethod
     def _pickle_decode(encoded):
@@ -42,17 +46,17 @@ class OperationEndpoint:
                 return self._format(
                     self.service.operation(self._data()["by"], self._data()["content"]),
                     format_=self._data().get("expected_format"))
-            return list(map(
+            return jsonify(list(map(
                 lambda op: self._format(op, self._data().get("expected_format")),
-                self.service.operations))
+                self.service.operations)))
 
-        @self.app.route(path + '/', methods=["POST"])
+        @self.app.route(path + '/', methods=["PUT"])
         def add_operation():
             self.service.save_operation(
                 self._pickle_decode(request.get_json()["pickle"]))
             return jsonify(dict(message="added operation"))
 
-        @self.app.route(path + "/records", methods=["GET"])
+        @self.app.route(path + "/record/", methods=["GET"])
         def get_records():
             if "by" in self._data():
                 return self._format(
@@ -60,12 +64,12 @@ class OperationEndpoint:
                     format_=self._data().get("expected_format"))
             return list(map(
                 lambda record: self._format(
-                    record, self._data().get("expected_format")),
+                    record, format_=self._data().get("expected_format")),
                 list(chain.from_iterable(map(
                     lambda operation: operation.records,
                     self.service.operations)))))
 
-        @self.app.route(path + "/record", methods=["POST"])
+        @self.app.route(path + "/record/", methods=["PUT"])
         def add_record():
             if "pickle" in self._data(json=True):
                 self.service.save_record(

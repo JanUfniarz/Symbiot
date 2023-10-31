@@ -32,7 +32,8 @@ class Record:
     @property
     def to_dict(self) -> dict:
         res = self.__dict__.copy()
-        res["type"] = self.type_str()
+        res["type"] = self.type_str
+        res.pop("client")
         if isinstance(res["previous"], Record):
             res["previous"] = self.previous.id
         return res

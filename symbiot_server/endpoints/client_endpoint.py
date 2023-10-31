@@ -24,4 +24,4 @@ class ClientEndpoint:
                 pickle=base64.b64encode(pickle.dumps(
                     self.service.new_client(
                         params["by"],
-                        params["content"])))))
+                        params["content"]))).decode("utf-8")))

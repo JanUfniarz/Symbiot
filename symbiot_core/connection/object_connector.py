@@ -25,4 +25,4 @@ class ObjectConnector(PickleConnector):
     def get_record_by_id(self, record_id: str) -> Record:
         return self.get_pickle(dict(
             by="id",
-            id=record_id))
+            content=record_id))

@@ -6,9 +6,10 @@ from symbiot_lib.objects.step_record import StepRecord
 
 
 class Operation:
-    def __init__(self, id_: str, wish: str, nord_star: str,
-                 leaf_summary_status: str, status: str,
-                 name: str, body: str, records: list[Record]):
+    def __init__(self, id_: str = None,
+                 wish: str = None, nord_star: str = None,
+                 leaf_summary_status: str = None, status: str = None,
+                 name: str = None, body: str = None, records: list[Record] = None):
         self._records: list[Record] = records
         self.body: str = body
         self.name: str = name
@@ -42,11 +43,12 @@ class Operation:
 
         return Operation(*data)
 
-    def to_dict(self):
+    @property
+    def to_dict(self) -> dict:
         res = self.__dict__.copy()
         res["records"] = list(map(
-            lambda r: r.to_dict(),
-            self._records))
+            lambda r: r.to_dict,
+            res.pop("_records")))
         return res
 
     @staticmethod

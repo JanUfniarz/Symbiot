@@ -19,7 +19,7 @@ class PickleConnector:
         return response
 
     def get_pickle(self, params: dict):
-        params["format"] = "pickle"
+        params["expected_format"] = "pickle"
         return pickle.loads(base64.b64decode(self.check_status(
             requests.get(
                 self.url + self.path + "/",
@@ -28,10 +28,10 @@ class PickleConnector:
 
     def put_pickle(self, object_, path=None):
         return self.check_status(requests.put(
-            self.url + self.path if path is None else path + "/",
+            self.url + (self.path if path is None else path) + "/",
             headers=self.headers,
             json=dict(
-                pickle=(base64.b64encode(pickle.dumps(object_))))))
+                pickle=(base64.b64encode(pickle.dumps(object_)).decode("utf-8")))))
 
 
 def endpoint(path):

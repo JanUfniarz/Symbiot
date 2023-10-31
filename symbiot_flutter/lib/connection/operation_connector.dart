@@ -1,5 +1,3 @@
-// ignore_for_file: curly_braces_in_flow_control_structures, avoid_print
-
 import "../models/endpoint_model.dart";
 import "http_facade.dart";
 
