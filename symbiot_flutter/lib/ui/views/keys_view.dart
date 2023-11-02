@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../control/controllers/key_controller.dart';
+import '../../bloc/controllers/key_controller.dart';
 import '../palette.dart';
 import '../widgets/bordered_button.dart';
 import '../widgets/symbiot_text_field.dart';

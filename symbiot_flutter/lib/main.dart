@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:symbiot_flutter/control/command_executor.dart';
 import 'package:symbiot_flutter/connection/key_connector.dart';
 import 'package:symbiot_flutter/ui/symbiot_app.dart';
 
+import 'bloc/command_executor.dart';
+import 'bloc/controllers/key_controller.dart';
+import 'bloc/controllers/operation_controller.dart';
 import 'connection/chat_connector.dart';
 import 'connection/operation_connector.dart';
-import 'control/controllers/key_controller.dart';
-import 'control/controllers/operation_controller.dart';
 
 // void main() {
 //

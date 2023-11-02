@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../control/controllers/operation_controller.dart';
+import '../../bloc/controllers/operation_controller.dart';
 import '../palette.dart';
 import '../widgets/input_bar.dart';
 import '../widgets/symbiot_divider.dart';
