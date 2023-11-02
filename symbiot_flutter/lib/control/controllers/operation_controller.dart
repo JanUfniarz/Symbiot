@@ -1,14 +1,12 @@
-// ignore_for_file: curly_braces_in_flow_control_structures
-
 import 'package:flutter/material.dart';
-import 'package:symbiot_flutter/symbiot_app.dart';
 
-import '../connection/chat_connector.dart';
-import '../connection/operation_connector.dart';
-import '../models/operation_model.dart';
-import '../models/record_model.dart';
-import '../views/chat_view.dart';
-import '../views/operation_view.dart';
+import '../../connection/chat_connector.dart';
+import '../../connection/operation_connector.dart';
+import '../../models/operation_model.dart';
+import '../../models/record_model.dart';
+import '../../ui/symbiot_app.dart';
+import '../../ui/views/chat_view.dart';
+import '../../ui/views/operation_view.dart';
 
 class OperationController extends ChangeNotifier {
 

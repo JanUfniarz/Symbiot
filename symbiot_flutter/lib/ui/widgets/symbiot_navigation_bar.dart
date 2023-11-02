@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:symbiot_flutter/widgets/navigation_element.dart';
 
 import '../palette.dart';
+import 'navigation_element.dart';
 
 class SymbiotNavigationBar extends StatelessWidget {
   final int selected;

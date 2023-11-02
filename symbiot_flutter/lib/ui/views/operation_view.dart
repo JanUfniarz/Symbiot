@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:symbiot_flutter/controllers/operation_controller.dart';
-import 'package:symbiot_flutter/widgets/symbiot_divider.dart';
 
+import '../../control/controllers/operation_controller.dart';
 import '../palette.dart';
 import '../widgets/input_bar.dart';
+import '../widgets/symbiot_divider.dart';
 import '../widgets/symbiot_scaffold.dart';
 
 class OperationView extends StatelessWidget {

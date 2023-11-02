@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/models/operation_model.dart';
 
-import '../command_executor.dart';
+import '../control/command_executor.dart';
 import '../connection/operation_connector.dart';
-import '../widgets/bordered_button.dart';
+import '../ui/widgets/bordered_button.dart';
 
 class ApiControlPanelButton extends StatelessWidget {
   const ApiControlPanelButton({super.key});

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:symbiot_flutter/widgets/operation_card.dart';
-import 'package:symbiot_flutter/widgets/operations_gallery.dart';
-
-import '../controllers/operation_controller.dart';
+import '../../control/controllers/operation_controller.dart';
 import '../palette.dart';
 import '../widgets/input_bar.dart';
+import '../widgets/operation_card.dart';
+import '../widgets/operations_gallery.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/tests/api_control_panel.dart';
-import 'package:symbiot_flutter/views/home_view.dart';
-import 'package:symbiot_flutter/views/keys_view.dart';
-import 'package:symbiot_flutter/views/settings_view.dart';
-import 'package:symbiot_flutter/widgets/symbiot_navigation_bar.dart';
-import 'package:symbiot_flutter/widgets/symbiot_scaffold.dart';
+import 'package:symbiot_flutter/ui/views/home_view.dart';
+import 'package:symbiot_flutter/ui/views/keys_view.dart';
+import 'package:symbiot_flutter/ui/views/settings_view.dart';
+import 'package:symbiot_flutter/ui/widgets/symbiot_navigation_bar.dart';
+import 'package:symbiot_flutter/ui/widgets/symbiot_scaffold.dart';
 
 class SymbiotApp extends StatefulWidget {
   const SymbiotApp({super.key});

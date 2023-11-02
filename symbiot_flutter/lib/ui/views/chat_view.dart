@@ -3,11 +3,10 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/models/chat_model.dart';
-import 'package:symbiot_flutter/widgets/symbiot_scaffold.dart';
-
-import '../controllers/operation_controller.dart';
-import '../models/message_model.dart';
+import '../../control/controllers/operation_controller.dart';
+import '../../models/message_model.dart';
 import '../palette.dart';
+import '../widgets/symbiot_scaffold.dart';
 
 class ChatView extends StatelessWidget {
 

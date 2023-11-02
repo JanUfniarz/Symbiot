@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:symbiot_flutter/widgets/symbiot_text_field.dart';
-
-import '../controllers/key_controller.dart';
+import '../../control/controllers/key_controller.dart';
 import '../palette.dart';
 import '../widgets/bordered_button.dart';
+import '../widgets/symbiot_text_field.dart';
 
 class KeysView extends StatelessWidget {
   const KeysView({super.key});

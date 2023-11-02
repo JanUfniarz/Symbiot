@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/connection/key_connector.dart';
 
+import '../../ui/widgets/key_popup.dart';
 import '../command_executor.dart';
-import '../widgets/key_popup.dart';
 
 class KeyController extends ChangeNotifier {
   CommandExecutor? _executor;

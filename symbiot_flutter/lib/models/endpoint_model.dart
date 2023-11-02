@@ -7,7 +7,8 @@ class EndpointModel {
       Receiver receiver,
       this.path,
       {Map<String, String>? headers}):
-        _port = _receiverToPort(receiver), headers = headers ?? {
+        _port = _receiverToPort(receiver),
+        headers = headers ?? {
         'Content-Type': "application/json; charset=UTF-8",
       };
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:symbiot_flutter/palette.dart';
+import 'package:symbiot_flutter/ui/palette.dart';
 
 
 class SymbiotTextField extends StatelessWidget {

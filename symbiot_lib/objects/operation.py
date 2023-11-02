@@ -44,10 +44,10 @@ class Operation:
         return Operation(*data)
 
     @property
-    def to_dict(self) -> dict:
+    def serialized(self) -> dict:
         res = self.__dict__.copy()
         res["records"] = list(map(
-            lambda r: r.to_dict,
+            lambda r: r.serialized,
             res.pop("_records")))
         return res
 

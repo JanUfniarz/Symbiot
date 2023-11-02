@@ -20,7 +20,7 @@ class OperationEndpoint:
     def _format(object_, format_: str = "json") -> dict:
         format_ = "json" if format_ is None else format_
         match format_:
-            case "json": return object_.to_dict
+            case "json": return object_.serialized
             case "pickle": return dict(
                 pickle=base64.b64encode(
                     pickle.dumps(object_)

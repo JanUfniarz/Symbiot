@@ -30,7 +30,7 @@ class Record:
         return value in self.status.split("/")
 
     @property
-    def to_dict(self) -> dict:
+    def serialized(self) -> dict:
         res = self.__dict__.copy()
         res["type"] = self.type_str
         res.pop("client")
