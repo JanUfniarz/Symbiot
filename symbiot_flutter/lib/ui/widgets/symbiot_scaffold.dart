@@ -7,7 +7,7 @@ class SymbiotScaffold extends StatelessWidget {
   final String tittle;
   final Widget? body;
 
-  const SymbiotScaffold({super.key, tittle, this.body}):
+  const SymbiotScaffold({super.key, String? tittle, this.body}):
       tittle = tittle ?? "Symbiot";
 
   @override

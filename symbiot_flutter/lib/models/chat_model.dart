@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:symbiot_flutter/models/record_model.dart';
 
 import 'message_model.dart';
@@ -13,11 +15,11 @@ class ChatModel {
         messages = (step.body ?? "")
             .split("<@entry>")
             .sublist(1)
-            .expand((el) {
-              var split = el.split("<@time>");
-              String time = split[0];
-              split = split[1].split("<@res>");
-              return [MessageModel(split[0], Role.user, time),
-                      MessageModel(split[1], Role.assistant, time)];
-            }).toList();
+            .map((el) => json.decode(el) as Map<String, String>)
+            .map((el) => MessageModel(
+              el["content"]!,
+              Role.values.firstWhere(
+                      (role) => role.toString() == 'Role.${el["role"]}'),
+              el["time"]!))
+            .toList();
 }

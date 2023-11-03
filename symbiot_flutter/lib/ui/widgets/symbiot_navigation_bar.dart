@@ -38,12 +38,5 @@ class SymbiotNavigationBar extends StatelessWidget {
               )
       ),
     );
-    // return Container(
-    //   height: 50,
-    //   color: Palette.primary,
-    //  
-    //   child: Row(
-    //   ),
-    // );
   }
 }

@@ -59,7 +59,7 @@ class KeyController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showKey(BuildContext context, name) => showDialog(
+  void showKey(BuildContext context, String name) => showDialog(
       context: context,
       builder: (BuildContext context) => KeyPopup(
             name: name,

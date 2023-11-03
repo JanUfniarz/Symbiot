@@ -3,7 +3,7 @@ class MessageModel {
   final Role role;
   final DateTime time;
 
-  MessageModel(this.content, this.role, time):
+  MessageModel(this.content, this.role, String time):
         time = DateTime.parse(time);
 }
 

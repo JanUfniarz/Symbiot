@@ -9,7 +9,7 @@ class RecordModel {
   String? body;
   final String status;
 
-  RecordModel(dynamic json):
+  RecordModel(json):
         id = json["id"],
         type = RecordType.values
             .firstWhere(

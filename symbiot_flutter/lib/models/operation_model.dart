@@ -13,7 +13,7 @@ class OperationModel {
   final String body;
   List<RecordModel> records;
   
-  OperationModel(dynamic json):
+  OperationModel(json):
         id = json["id"],
         wish = json["wish"],
         nordStar = json["nord_star"],

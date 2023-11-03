@@ -6,7 +6,7 @@ class BorderedButton extends StatelessWidget {
   const BorderedButton({
     super.key,
     required this.onTap,
-    primaryColor,
+    Color? primaryColor,
     required this.text,
     required this.icon,
   }): primaryColor = primaryColor ?? Palette.primary;
