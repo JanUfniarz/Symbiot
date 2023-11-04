@@ -33,7 +33,8 @@ class NordStarExtractor(ToolKit):
                                name="nord_star",
                                type="string",
                                description=NORD_STAR_DESCRIPTION)])
-    def extract_nord_star(self, nord_star: str):
+    def extract_nord_star(self, nord_star: str) -> str:
         self.func(
             nord_star,
             self.name_generator.chat(nord_star))
+        return f"=== NORD STAR ===\n{nord_star}"

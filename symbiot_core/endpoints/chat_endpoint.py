@@ -24,7 +24,7 @@ class ChatEndpoint:
 
         if status is not None:
             set_handler(status)
-        if self._handlers is None:
+        if self._active_handler is None:
             raise ValueError("No active handler, provide proper status")
         return self._active_handler
 

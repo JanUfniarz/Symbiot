@@ -26,8 +26,11 @@ class Record:
     def add_to_status(self, value):
         self.status += "/" + value
 
-    def in_status(self, value) -> bool:
-        return value in self.status.split("/")
+    def in_status(self, *values) -> bool:
+        for value in values:
+            if value not in self.status.split("/"):
+                return False
+        return True
 
     @property
     def serialized(self) -> dict:

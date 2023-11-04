@@ -22,7 +22,7 @@ class CalibrationHandler(ChatHandler):
         step = StepRecord([], client=self.server.get_client_by_name("calibrator"))
         step.add_to_status("calibration")
         step.client.tool_kit.func = self.assign_nord_star
-        operation.add_record(step)
+        operation.add_or_update_record(step)
 
         self.server.put_pickle(operation,
                                path="operation")
@@ -31,14 +31,14 @@ class CalibrationHandler(ChatHandler):
         self.continue_chat(wish)
         self.close_chat()
 
-    def assign_nord_star(self, nord_star, name):
+    def open_chat(self, step_id):  # * overwrite
+        super().open_chat(step_id)
+        self._active_step.client.tool_kit.func = self.assign_nord_star
+
+    def assign_nord_star(self, nord_star, name):  # * callback method
+        print("nord_star assigned")
         step = self._active_step
         step.inputs.append(name)
         step.outputs.append(nord_star)
-        step.add_to_status("done")
-
-        operation = self.server.get_operation_by_record(step)
-
-        operation.name = step.inputs[0]
-        operation.nord_star = step.outputs[0]
-        self.server.put_pickle(operation, path="operation")
+        step.add_to_status("ns_generated")
+        print(self._active_step.current_status)

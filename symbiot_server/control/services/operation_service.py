@@ -22,6 +22,15 @@ class OperationService(SymbiotService):
         return self._repository.get_all()
 
     def save_record(self, record: Record):
+        if record.in_status("calibration", "ns_generated") \
+                and not record.in_status("done"):
+            operation = self.operation("record_id", record.id)
+
+            operation.name = record.inputs[0]
+            operation.nord_star = record.outputs[0]
+            self._repository.save(operation)
+
+            record.add_to_status("done")
         self._repository.update_record(record)
 
     def get_record(self, id_: int):
@@ -33,13 +42,16 @@ class OperationService(SymbiotService):
                 for operation in self.operations:
                     if content in [record.id for record in operation.records]:
                         return operation
-                    raise ValueError(f"no record with id: {content}")
-            case _: raise NotImplementedError(f"not implemented operation by {by}")
+                raise ValueError(f"no record with id: {content}")
+            case _:
+                raise NotImplementedError(f"not implemented operation by {by}")
 
     def record(self, by: str, content) -> Record:
         match by:
-            case "id": return self.get_record(content)
-            case _: raise NotImplementedError(f"not implemented operation by {by}")
+            case "id":
+                return self.get_record(content)
+            case _:
+                raise NotImplementedError(f"not implemented operation by {by}")
 
     def save_operation(self, operation):
         self._repository.save(operation)

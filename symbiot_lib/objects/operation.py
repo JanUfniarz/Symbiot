@@ -23,7 +23,11 @@ class Operation:
     def records(self):
         return self._records.copy()
 
-    def add_record(self, record: Record):
+    def add_or_update_record(self, record: Record):
+        for it, record_ in enumerate(self._records):
+            if record.id == record_.id:
+                self._records[it] = record
+                return
         self._records.append(record)
 
     def remove_record(self, record: Record):

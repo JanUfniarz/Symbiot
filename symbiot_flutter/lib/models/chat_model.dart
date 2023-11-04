@@ -15,7 +15,7 @@ class ChatModel {
         messages = (step.body ?? "")
             .split("<@entry>")
             .sublist(1)
-            .map((el) => json.decode(el) as Map<String, String>)
+            .map((el) => json.decode(el) as Map<String, dynamic>)
             .map((el) => MessageModel(
               el["content"]!,
               Role.values.firstWhere(

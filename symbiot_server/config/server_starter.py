@@ -18,8 +18,7 @@ class ServerStarter(SymbiotStarter):
         self._mediator: Mediator = None
         self._db: SQLAlchemy = None
 
-    # * override
-    def __call__(self, cls):
+    def __call__(self, cls):  # * override
         if cls is Mediator:
             return self._mediator
         return self._injector.get(cls)
@@ -28,8 +27,9 @@ class ServerStarter(SymbiotStarter):
         self._mediator = Mediator(self._injector)
         return self
 
-    # * override
-    def divisions(self, divisions: list[SymbiotDivision]):
+    def divisions(
+            self,
+            divisions: list[SymbiotDivision]):  # * override
         if self._db is None:
             raise ValueError("provide database first")
         for div in divisions:
