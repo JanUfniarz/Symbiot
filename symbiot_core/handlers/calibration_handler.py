@@ -32,6 +32,7 @@ class CalibrationHandler(ChatHandler):
         self.close_chat()
 
     def open_chat(self, step_id):  # * overwrite
+        # ! I'm not sure why it is necessary
         super().open_chat(step_id)
         self._active_step.client.tool_kit.func = self.assign_nord_star
 
