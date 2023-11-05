@@ -41,11 +41,11 @@ class GPTClient:
         self.messages.append(dict(role=role, content=message))
         response = openai.ChatCompletion.create(**self._to_request())
         if "function_call" in response["choices"][0]["message"]:
-            output = self.tool_kit.execute(
-                response["choices"][0]["message"]["function_call"])
+            call = response["choices"][0]["message"]["function_call"]
+            output = self.tool_kit.execute(call)
             if output:
                 self.messages.append(
-                    dict(role="function", content=output))
+                    dict(role="function", name=call["name"], content=output))
                 result = output
         else:
             result = response["choices"][0]["message"]["content"]
@@ -60,5 +60,4 @@ class GPTClient:
 
         for param in ["tool_kit", "id", "name"]:
             del res[param],
-        print(res)
         return res
