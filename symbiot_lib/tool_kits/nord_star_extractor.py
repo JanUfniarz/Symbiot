@@ -36,5 +36,5 @@ class NordStarExtractor(ToolKit):
     def extract_nord_star(self, nord_star: str) -> str:
         self.func(
             nord_star,
-            self.name_generator.chat(nord_star))
+            self.name_generator.chat(nord_star)["content"])
         return f"=== NORD STAR ===\n{nord_star}"

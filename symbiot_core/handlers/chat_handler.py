@@ -24,8 +24,10 @@ class ChatHandler:
         if not step:
             # TODO: implement
             raise NotImplementedError("no active step")
-        step.add_entry(
-            "user", prompt
-        ).add_entry(
-            "assistant", step.client.chat(prompt))
+
+        step.add_entry("user", prompt)
+
+        response: dict = step.client.chat(prompt)
+
+        step.add_entry(response["role"], response["content"])
         return step.body

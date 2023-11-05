@@ -13,7 +13,7 @@ class MessageModel {
     switch (role) {
       case Role.user: return MainAxisAlignment.end;
       case Role.assistant: return MainAxisAlignment.start;
-      case Role.server:
+      case Role.function:
       case Role.error: return MainAxisAlignment.center;
     }
   }
@@ -22,7 +22,7 @@ class MessageModel {
     switch (role) {
       case Role.user: return TextAlign.end;
       case Role.assistant: return TextAlign.start;
-      case Role.server:
+      case Role.function:
       case Role.error: return TextAlign.center;
     }
   }
@@ -31,12 +31,12 @@ class MessageModel {
     switch (role) {
       case Role.user: return Palette.primary;
       case Role.assistant: return Palette.accent;
-      case Role.server: return Palette.backgroundGrey;
+      case Role.function: return Palette.infoYellow;
       case Role.error: return Palette.delete;
     }
   }
 }
 
 enum Role {
-  user, assistant, server, error,
+  user, assistant, function, error,
 }

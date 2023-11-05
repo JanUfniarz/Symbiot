@@ -35,7 +35,7 @@ class ClientFactory:
             scripter=dict(init_messages=[self._sys_prompt(self.SCRIPTER)], max_tokens=4000),
 
             # used
-            calibrator=dict(init_messages=[self._sys_prompt(self.CALIBRATOR)], name="calibrator"),
+            calibrator=dict(init_messages=[self._sys_prompt(self.CALIBRATOR)]),
             one_value_generator=dict(init_messages=[self._sys_prompt(self.ONE_VALUE_GENERATOR)], max_tokens=1000),
         )
         return GPTClient(**templates[template])
