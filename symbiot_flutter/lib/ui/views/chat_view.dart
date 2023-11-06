@@ -11,41 +11,46 @@ import '../palette.dart';
 class ChatView extends StatelessWidget {
   final String stepID;
 
+  final double _messageCornerRadius = 20;
+
   const ChatView(this.stepID, {super.key});
 
   @override
   Widget build(BuildContext context) => Consumer<OperationController>(
-      builder: (context, controller, child) {
-        ChatModel model = ChatModel(controller.record(stepID));
-        return SymbiotScaffold(
+      builder: (context, controller, child) => SymbiotScaffold(
           body: SingleChildScrollView(
             child: Column(
 
-              children: List.generate(model.messages.length, (index) {
-                MessageModel mesModel = model.messages[index];
-                // ignore: unnecessary_cast
-                return Card(
+              children: ChatModel(controller.record(stepID)).messages
+                    // ignore: unnecessary_cast
+                    .map((mes) => Card(
                   elevation: 0,
                   color: Palette.background,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Row(
-                      mainAxisAlignment: mesModel.axisAlignment,
+                      mainAxisAlignment: mes.axisAlignment,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
 
                         Flexible(
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(_messageCornerRadius),
+                              topRight: Radius.circular(_messageCornerRadius),
+                              bottomLeft: Radius.circular(
+                                  mes.role == Role.assistant ? 0 : _messageCornerRadius
+                              ),
+                              bottomRight: Radius.circular(
+                                  mes.role == Role.user ? 0 : _messageCornerRadius
+                              ),
                             ),
 
                             child: Container(
                               padding: const EdgeInsets.all(20),
-                              color: mesModel.color,
-                              child: Text(mesModel.content,
-                                textAlign: mesModel.textAlignment,
+                              color: mes.color,
+                              child: Text(mes.content,
+                                textAlign: mes.textAlignment,
                                 style: const TextStyle(
                                     color: Palette.background,
                                     fontSize: 20,
@@ -59,13 +64,13 @@ class ChatView extends StatelessWidget {
                       ],
                     ),
                   ),
-                ) as Widget;
-              }) + [
+                ) as Widget
+              ).toList() + [
                 InputBar(
                   onSend: (text) => controller.chat(text, stepID)
               )],
             ),
           ),
-        );
-      });
+      )
+  );
 }

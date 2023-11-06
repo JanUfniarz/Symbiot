@@ -13,6 +13,8 @@ class SymbiotApp extends StatefulWidget {
       Navigator.push(context, MaterialPageRoute(
           builder: (context) => view));
 
+  static void back(BuildContext context) => Navigator.pop(context);
+
   @override
   State<SymbiotApp> createState() => _SymbiotAppState();
 }

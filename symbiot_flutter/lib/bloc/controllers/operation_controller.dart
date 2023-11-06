@@ -60,4 +60,9 @@ class OperationController extends ChangeNotifier {
     return operation(models.map((el) => el.id)
         .firstWhere((id) => !oldModels.contains(id)));
   }
+
+  Future<void> deleteOperation(String id, BuildContext context) async =>
+      _operationConnector!.deleteOperation(id)
+          .then((ig) => SymbiotApp.back(context))
+          .whenComplete(() => loadData());
 }

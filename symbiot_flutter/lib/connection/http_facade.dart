@@ -18,7 +18,8 @@ class HTTPFacade {
       _manage(await http.put(endpoint.uri(pathArgument),
           headers: endpoint.headers, body: jsonEncode(body ?? {})));
 
-  Future<void> delete(EndpointModel endpoint,
+  Future<void>
+  delete(EndpointModel endpoint,
       {String? pathArgument, Object? body}) async =>
       _manage(await http.delete(endpoint.uri(pathArgument),
           headers: endpoint.headers, body: jsonEncode(body ?? {})));

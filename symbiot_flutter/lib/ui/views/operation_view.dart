@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:symbiot_flutter/ui/widgets/bordered_button.dart';
 import '../../bloc/controllers/operation_controller.dart';
 import '../palette.dart';
 import '../widgets/input_bar.dart';
@@ -37,6 +38,28 @@ class OperationView extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SymbiotDivider(),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+
+                            BorderedButton(
+                              onTap: () {},
+                              text: "Change Name",
+                              icon: Icons.drive_file_rename_outline_sharp
+                            ),
+
+                            BorderedButton(
+                                onTap: () => controller.deleteOperation(id, context),
+                                text: "Delete",
+                                icon: Icons.delete,
+                                primaryColor: Palette.delete
+                            ),
+
+                          ],
+                        ),
+
                         const SymbiotDivider(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

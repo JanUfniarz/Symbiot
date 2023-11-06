@@ -10,4 +10,7 @@ class OperationConnector extends HTTPFacade {
 
   Future<dynamic> createOperation(String wish) async =>
       await post(mainEndpoint, body: {"wish": wish});
+
+  Future<dynamic> deleteOperation(String id) async =>
+      await delete(operationEndpoint, body: {"id": id});
 }

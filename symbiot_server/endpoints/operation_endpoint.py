@@ -56,6 +56,15 @@ class OperationEndpoint:
                 self._pickle_decode(request.get_json()["pickle"]))
             return jsonify(dict(message="added operation"))
 
+        @self.app.route(path + '/', methods=["DELETE"])
+        def delete_operation():
+            print("del")
+            print(self._data(json=True))
+            message = self.service.delete_operation(self._data(json=True)["id"])
+            print(f"message: {message}")
+            return jsonify(dict(
+                message=message))
+
         @self.app.route(path + "/record/", methods=["GET"])
         def get_records():
             if "by" in self._data():

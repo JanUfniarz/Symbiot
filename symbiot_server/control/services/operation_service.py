@@ -36,15 +36,20 @@ class OperationService(SymbiotService):
     def get_record(self, id_: int):
         return self._repository.get_record_by_id(id_)
 
-    def operation(self, by: str, content) -> Operation:
-        match by:
-            case "record_id":
-                for operation in self.operations:
-                    if content in [record.id for record in operation.records]:
-                        return operation
-                raise ValueError(f"no record with id: {content}")
-            case _:
-                raise NotImplementedError(f"not implemented operation by {by}")
+    def operation(self, by: str, content) -> Operation | None:
+        def condition(operation_: Operation) -> bool:
+            match by:
+                case "id": return operation_.id == content
+                case "record_id": return (
+                        content in
+                        [record.id for record in operation_.records])
+                case _:
+                    raise NotImplementedError(f"not implemented operation by {by}")
+
+        try:
+            return [operation for operation in self.operations if condition(operation)][0]
+        except IndexError:
+            return None
 
     def record(self, by: str, content) -> Record:
         match by:
@@ -55,3 +60,10 @@ class OperationService(SymbiotService):
 
     def save_operation(self, operation):
         self._repository.save(operation)
+
+    def delete_operation(self, id_: str) -> str:
+        operation = self.operation("id", id_)
+        if not operation:
+            return f"there is no operation with id: {id_}"
+        self._repository.delete(id_)
+        return "operation deleted"

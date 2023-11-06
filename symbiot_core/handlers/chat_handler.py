@@ -13,7 +13,6 @@ class ChatHandler:
         self._active_step = self.server.get_record_by_id(step_id)
 
     def close_chat(self):
-        print(self._active_step.current_status)
         self.server.put_pickle(self._active_step,
                                path="operation/record")
         self._active_step = None
@@ -26,8 +25,6 @@ class ChatHandler:
             raise NotImplementedError("no active step")
 
         step.add_entry("user", prompt)
-
         response: dict = step.client.chat(prompt)
-
         step.add_entry(response["role"], response["content"])
         return step.body

@@ -37,9 +37,7 @@ class CalibrationHandler(ChatHandler):
         self._active_step.client.tool_kit.func = self.assign_nord_star
 
     def assign_nord_star(self, nord_star, name):  # * callback method
-        print("nord_star assigned")
         step = self._active_step
         step.inputs.append(name)
         step.outputs.append(nord_star)
         step.add_to_status("ns_generated")
-        print(self._active_step.current_status)

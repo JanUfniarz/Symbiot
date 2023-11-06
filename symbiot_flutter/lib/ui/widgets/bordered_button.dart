@@ -24,7 +24,7 @@ class BorderedButton extends StatelessWidget {
     child: Padding(
       padding: const EdgeInsets.only(right: 10),
       child: SizedBox(
-        width: 120,
+        width: 130,
         height: 50,
         child: Card(
           color: primaryColor,
