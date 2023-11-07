@@ -16,6 +16,7 @@ class SymbiotRepository:
         return list(map(lambda entity: self.base_converter.from_entity(entity),
                         self.db.session.query(self._entity).all()))
 
-    def execute(self, query: str):
-        self.db.session.execute(text(query))
-        self.db.session.commit()
+    def is_available(self, id_: str) -> bool:
+        return self.db.session.execute(text(f"""
+            SELECT id FROM {self._entity.__tablename__} WHERE id = '{id_}'
+        """)).fetchone() is not None

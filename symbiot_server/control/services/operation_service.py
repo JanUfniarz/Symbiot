@@ -11,7 +11,7 @@ def operation_required():
     # * id must be first argument
     def decorator(method):
         def wrapper(self, *args, **kwargs):
-            if self.operation("id", args[0]) is None:
+            if not self._repository.is_available(args[0]):
                 return f"there is no operation with id: {args[0]}"
             return method(self, *args, **kwargs)
         return wrapper

@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from injector import inject
+from sqlalchemy import text
 
 from symbiot_lib.objects.record import Record
 from symbiot_server.database.converters.operation_converter import OperationConverter
@@ -21,19 +22,21 @@ class OperationRepository(SymbiotRepository):
         return self.record_converter.from_entity(
             self.db.session.query(RecordEntity).get(id_))
 
-    def update_record(self, record: Record):
+    def update_record(self, record: Record) -> None:
         self.db.session.merge(self.record_converter.to_entity(record))
         self.db.session.commit()
 
-    def delete(self, id_: str):
-        self.execute(f"""
+    def delete(self, id_: str) -> None:
+        self.db.session.execute(text(f"""
             DELETE FROM records WHERE operation_id = '{id_}';
             DELETE FROM operations WHERE id = '{id_}';
-        """)
+        """))
+        self.db.session.commit()
 
-    def update(self, id_, to_change, content):
-        self.execute(f"""
+    def update(self, id_, to_change, content) -> None:
+        self.db.session.execute(text(f"""
             UPDATE operations 
             SET {to_change} = '{content}'
             WHERE id = '{id_}';
-        """)
+        """))
+        self.db.session.commit()
