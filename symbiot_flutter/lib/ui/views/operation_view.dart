@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/ui/widgets/bordered_button.dart';
+import 'package:symbiot_flutter/ui/widgets/symbiot_text_field.dart';
 import '../../bloc/controllers/operation_controller.dart';
 import '../palette.dart';
 import '../widgets/input_bar.dart';
@@ -8,7 +9,6 @@ import '../widgets/symbiot_divider.dart';
 import '../widgets/symbiot_scaffold.dart';
 
 class OperationView extends StatelessWidget {
-
   final String id;
 
   const OperationView(this.id, {super.key});
@@ -43,22 +43,25 @@ class OperationView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-
                             BorderedButton(
-                              onTap: () {},
-                              text: "Change Name",
-                              icon: Icons.drive_file_rename_outline_sharp
-                            ),
-
+                                onTap: () => controller.trigger(),
+                                text: "Change Name",
+                                icon: Icons.drive_file_rename_outline_sharp),
                             BorderedButton(
-                                onTap: () => controller.deleteOperation(id, context),
+                                onTap: () =>
+                                    controller.deleteOperation(id, context),
                                 text: "Delete",
                                 icon: Icons.delete,
-                                primaryColor: Palette.delete
-                            ),
-
+                                primaryColor: Palette.delete),
                           ],
                         ),
+
+                        controller.trigger(get: true)
+                            ? InputBar(
+                                onSend: (newName) =>
+                                  controller.changeOperationName(id, newName)
+                              )
+                            : const SizedBox(),
 
                         const SymbiotDivider(),
                         Row(
@@ -67,20 +70,19 @@ class OperationView extends StatelessWidget {
                               controller.operation(id).records.length,
                               (index) => InkWell(
                                     onTap: () => controller.openChat(
-                                        controller.operation(id)
-                                            .records[index],
-                                        context
-                                    ),
+                                        controller.operation(id).records[index],
+                                        context),
                                     child: Card(
                                       child: Padding(
                                         padding: const EdgeInsets.all(20),
                                         child: Text(controller
-                                            .operation(id).records[index].id
+                                            .operation(id)
+                                            .records[index]
+                                            .id
                                             .toString()),
                                       ),
                                     ),
-                              )
-                          ),
+                                  )),
                         ),
                       ],
                     ),

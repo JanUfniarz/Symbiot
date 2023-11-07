@@ -14,6 +14,8 @@ class OperationController extends ChangeNotifier {
   ChatConnector? _chatConnector;
   List<OperationModel> models = [];
 
+  bool _multiPurposeTrigger = false;
+
   OperationController._private();
 
   static final OperationController _instance = OperationController._private();
@@ -27,10 +29,23 @@ class OperationController extends ChangeNotifier {
     return _instance;
   }
 
+  Future<void> loadData() async => await
+      _operationConnector!.getAllOperations()
+          .then((val) => models = val
+          .map((el) => OperationModel(el))
+          .toList())
+          .whenComplete(() => notifyListeners());
+
   OperationModel operation(String id) => models.firstWhere((el) => el.id == id);
 
   RecordModel record(String id) => models.expand((el) => el.records)
       .firstWhere((el) => el.id == id);
+
+  dynamic trigger({bool get = false}) {
+    if (get) return _multiPurposeTrigger;
+    _multiPurposeTrigger = true;
+    notifyListeners();
+  }
 
   void openOperation(String id, BuildContext context) => SymbiotApp.push(
         context, OperationView(id)
@@ -46,13 +61,6 @@ class OperationController extends ChangeNotifier {
           .then((val) => record(id).body = val["step_body"])
           .whenComplete(() => notifyListeners());
 
-  Future<void> loadData() async => await
-      _operationConnector!.getAllOperations()
-          .then((val) => models = val
-          .map((el) => OperationModel(el))
-          .toList())
-          .whenComplete(() => notifyListeners());
-
   Future<OperationModel> newOperation(String wish) async {
     List<String> oldModels = models.map((el) => el.id).toList();
     await _operationConnector!.createOperation(wish)
@@ -65,4 +73,11 @@ class OperationController extends ChangeNotifier {
       _operationConnector!.deleteOperation(id)
           .then((ig) => SymbiotApp.back(context))
           .whenComplete(() => loadData());
+
+  Future<void> changeOperationName(String id, String newName) async {
+    _multiPurposeTrigger = false;
+    notifyListeners();
+    _operationConnector!.changeName(id, newName)
+        .whenComplete(() => loadData());
+  }
 }

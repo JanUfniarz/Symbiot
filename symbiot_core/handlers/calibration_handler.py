@@ -24,15 +24,15 @@ class CalibrationHandler(ChatHandler):
         step.client.tool_kit.func = self.assign_nord_star
         operation.add_or_update_record(step)
 
-        self.server.put_pickle(operation,
-                               path="operation")
+        self.server.post_pickle(operation,
+                                path="operation")
 
         self._active_step = step
         self.continue_chat(wish)
         self.close_chat()
 
     def open_chat(self, step_id):  # * overwrite
-        # ! I'm not sure why it is necessary
+        # ? I'm not sure why it is necessary
         super().open_chat(step_id)
         self._active_step.client.tool_kit.func = self.assign_nord_star
 

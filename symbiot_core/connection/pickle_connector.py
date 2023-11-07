@@ -26,8 +26,8 @@ class PickleConnector:
                 headers=self.headers,
                 params=params)).json()["pickle"]))
 
-    def put_pickle(self, object_, path=None):
-        return self.check_status(requests.put(
+    def post_pickle(self, object_, path=None):
+        return self.check_status(requests.post(
             self.url + (self.path if path is None else path) + "/",
             headers=self.headers,
             json=dict(

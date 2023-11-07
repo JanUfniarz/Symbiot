@@ -13,8 +13,8 @@ class ChatHandler:
         self._active_step = self.server.get_record_by_id(step_id)
 
     def close_chat(self):
-        self.server.put_pickle(self._active_step,
-                               path="operation/record")
+        self.server.post_pickle(self._active_step,
+                                path="operation/record")
         self._active_step = None
 
     def continue_chat(self, prompt: str):

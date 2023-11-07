@@ -7,6 +7,17 @@ from symbiot_server.database.repositories.operation_repository import OperationR
 from .symbiot_service import SymbiotService
 
 
+def operation_required():
+    # * id must be first argument
+    def decorator(method):
+        def wrapper(self, *args, **kwargs):
+            if self.operation("id", args[0]) is None:
+                return f"there is no operation with id: {args[0]}"
+            return method(self, *args, **kwargs)
+        return wrapper
+    return decorator
+
+
 class OperationService(SymbiotService):
     division_name = "operation"
 
@@ -61,9 +72,12 @@ class OperationService(SymbiotService):
     def save_operation(self, operation):
         self._repository.save(operation)
 
+    @operation_required()
     def delete_operation(self, id_: str) -> str:
-        operation = self.operation("id", id_)
-        if not operation:
-            return f"there is no operation with id: {id_}"
         self._repository.delete(id_)
         return "operation deleted"
+
+    @operation_required()
+    def update_operation(self, id_, to_change, content):
+        self._repository.update(id_, to_change, content)
+        return f"operation {to_change} updated"

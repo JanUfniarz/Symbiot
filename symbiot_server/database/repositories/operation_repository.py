@@ -1,14 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from injector import inject
-from sqlalchemy import text
 
 from symbiot_lib.objects.record import Record
-# noinspection PyPackages
-from .symbiot_repository import SymbiotRepository
 from symbiot_server.database.converters.operation_converter import OperationConverter
 from symbiot_server.database.converters.record_converter import RecordConverter
-from symbiot_server.database.entities.record_entity import RecordEntity
 from symbiot_server.database.entities.operation_entity import OperationEntity
+from symbiot_server.database.entities.record_entity import RecordEntity
+# noinspection PyPackages
+from .symbiot_repository import SymbiotRepository
 
 
 class OperationRepository(SymbiotRepository):
@@ -27,8 +26,14 @@ class OperationRepository(SymbiotRepository):
         self.db.session.commit()
 
     def delete(self, id_: str):
-        self.db.session.execute(text(f"""
+        self.execute(f"""
             DELETE FROM records WHERE operation_id = '{id_}';
             DELETE FROM operations WHERE id = '{id_}';
-            """))
-        self.db.session.commit()
+        """)
+
+    def update(self, id_, to_change, content):
+        self.execute(f"""
+            UPDATE operations 
+            SET {to_change} = '{content}'
+            WHERE id = '{id_}';
+        """)

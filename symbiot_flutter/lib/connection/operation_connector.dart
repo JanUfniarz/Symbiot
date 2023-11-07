@@ -13,4 +13,10 @@ class OperationConnector extends HTTPFacade {
 
   Future<dynamic> deleteOperation(String id) async =>
       await delete(operationEndpoint, body: {"id": id});
+
+  Future<dynamic> changeName(String id, String newName) async =>
+      await put(operationEndpoint, body: {
+        "id": id,
+        "to_change": "name",
+        "content": newName });
 }

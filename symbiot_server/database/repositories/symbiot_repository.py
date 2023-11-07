@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 
 
 class SymbiotRepository:
@@ -14,3 +15,7 @@ class SymbiotRepository:
     def get_all(self) -> list:
         return list(map(lambda entity: self.base_converter.from_entity(entity),
                         self.db.session.query(self._entity).all()))
+
+    def execute(self, query: str):
+        self.db.session.execute(text(query))
+        self.db.session.commit()

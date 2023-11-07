@@ -50,7 +50,7 @@ class OperationEndpoint:
                 lambda op: self._format(op, self._data().get("expected_format")),
                 self.service.operations)))
 
-        @self.app.route(path + '/', methods=["PUT"])
+        @self.app.route(path + '/', methods=["POST"])
         def add_operation():
             self.service.save_operation(
                 self._pickle_decode(request.get_json()["pickle"]))
@@ -58,12 +58,16 @@ class OperationEndpoint:
 
         @self.app.route(path + '/', methods=["DELETE"])
         def delete_operation():
-            print("del")
             print(self._data(json=True))
             message = self.service.delete_operation(self._data(json=True)["id"])
-            print(f"message: {message}")
             return jsonify(dict(
                 message=message))
+
+        @self.app.route(path + '/', methods=["PUT"])
+        def update_operation():
+            data = self._data(json=True)
+            return jsonify(dict(message=self.service.update_operation(
+                data["id"], data["to_change"], data["content"])))
 
         @self.app.route(path + "/record/", methods=["GET"])
         def get_records():
@@ -78,9 +82,9 @@ class OperationEndpoint:
                     lambda operation: operation.records,
                     self.service.operations)))))
 
-        @self.app.route(path + "/record/", methods=["PUT"])
+        @self.app.route(path + "/record/", methods=["POST"])
         def add_record():
             if "pickle" in self._data(json=True):
                 self.service.save_record(
                     self._pickle_decode(self._data(json=True).get("pickle")))
-            return jsonify({"message": "added record"})
+            return jsonify(dict(message="added record"))
