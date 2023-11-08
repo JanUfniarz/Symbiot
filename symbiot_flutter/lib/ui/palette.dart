@@ -8,5 +8,6 @@ class Palette {
   static const Color primary = Color(0xff41e270);
   static const Color backgroundGrey = Color(0xff343641);
   static const Color infoYellow = Color(0xffebe534);
+  static Color lightGrey = Colors.grey.shade400;
 
 }

@@ -27,6 +27,7 @@ class OperationRepository(SymbiotRepository):
         self.db.session.commit()
 
     def delete(self, id_: str) -> None:
+        # language=POSTGRES-PSQL
         self.db.session.execute(text(f"""
             DELETE FROM records WHERE operation_id = '{id_}';
             DELETE FROM operations WHERE id = '{id_}';

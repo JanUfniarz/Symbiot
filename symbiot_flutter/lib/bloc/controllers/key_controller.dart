@@ -66,6 +66,7 @@ class KeyController extends ChangeNotifier {
             apiKey: keys[name] ?? "No Key"));
 
   Future<void> _getKeys() async => await _executor!
+      // language=PowerShell
       .run("Get-Content $_path", return_: true)
       .then((content) => _keys = Map.fromEntries(RegExp(r'<(.*?)>')
           .allMatches(content)
@@ -75,6 +76,7 @@ class KeyController extends ChangeNotifier {
       el!.split("=")[0], el.split("=")[1]))));
 
   void _saveKeys() => _executor!.run(
+      // language=PowerShell
       "Set-Content -Path $_path -Value \"${_keys.entries
           .map((en) => "<${en.key}=${en.value}>").join()}\"");
 }

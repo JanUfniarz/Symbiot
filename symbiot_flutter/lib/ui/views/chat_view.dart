@@ -14,13 +14,20 @@ class ChatView extends StatelessWidget {
 
   const ChatView(this.stepID, {super.key});
 
+  ChatModel _model(OperationController controller) => ChatModel(controller.record(stepID));
+
+  String _date(MessageModel model) {
+    String date = model.time.toString();
+    return date.substring(0, date.length -7);
+  }
+
   @override
   Widget build(BuildContext context) => Consumer<OperationController>(
       builder: (context, controller, child) => SymbiotScaffold(
           onSend: (text) => controller.chat(text, stepID),
           body: ListView(
 
-            children: ChatModel(controller.record(stepID)).messages
+            children: _model(controller).messages
                   .map((mes) => Card(
                 elevation: 0,
                 color: Palette.background,
@@ -63,7 +70,28 @@ class ChatView extends StatelessWidget {
                   ),
                 ),
               ),
-            ).toList()
+            ).toList().asMap().entries.expand((entry) {
+              String date = _date(_model(controller).messages[entry.key]);
+              String previousDate = "";
+              try {
+                previousDate = _date(
+                    _model(controller).messages[entry.key - 1]);
+              } catch (ig) {/* RangeError pass */}
+
+              return [
+                date == previousDate ? const SizedBox() : Center(
+                  child: Text(date,
+                    style: TextStyle(
+                      color: Palette.lightGrey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
+                    ),
+                  ),
+                ),
+
+                entry.value
+              ];
+            }).toList(),
           ),
       ),
   );

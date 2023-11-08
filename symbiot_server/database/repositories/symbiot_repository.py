@@ -17,11 +17,13 @@ class SymbiotRepository:
                         self.db.session.query(self._entity).all()))
 
     def is_available(self, id_: str) -> bool:
+        # language=POSTGRES-PSQL
         return self.db.session.execute(text(f"""
             SELECT id FROM {self._entity.__tablename__} WHERE id = '{id_}';
         """)).fetchone() is not None
 
     def update_value(self, id_, to_change, value) -> None:
+        # language=POSTGRES-PSQL
         self.db.session.execute(text(f"""
             UPDATE {self._entity.__tablename__} 
             SET {to_change} = '{value}'
