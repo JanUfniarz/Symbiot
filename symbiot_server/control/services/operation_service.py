@@ -78,6 +78,6 @@ class OperationService(SymbiotService):
         return "operation deleted"
 
     @operation_required()
-    def update_operation(self, id_, to_change, content):
-        self._repository.update(id_, to_change, content)
+    def update_operation(self, id_, to_change, value):
+        self._repository.update_value(id_, to_change, value)
         return f"operation {to_change} updated"

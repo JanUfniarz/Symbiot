@@ -4,11 +4,9 @@ import '../palette.dart';
 
 // ignore: must_be_immutable
 class InputBar extends StatelessWidget {
-  final Widget? child;
   final void Function(String) onSend;
 
   InputBar({super.key,
-    this.child,
     required this.onSend
   });
 
@@ -16,46 +14,30 @@ class InputBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Row(
       children: <Widget>[
 
-        Container(
-          alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.symmetric(
-              horizontal: 70,
-              vertical: 20
-          ),
-          child: Row(
-            children: <Widget>[
-
-              Flexible(
-                child: TextField(
-                  decoration: const InputDecoration(
-                    filled: true,
-                    fillColor: Palette.accent,
-                    hintText: 'Wpisz wiadomość...',
-                  ),
-                  onChanged: (text) => value = text,
-                  onSubmitted: (text) => onSend(text),
-                  maxLines: null,
-                ),
-              ),
-
-              IconButton(
-                iconSize: 30,
-                color: Palette.primary,
-                icon: const Icon(Icons.send),
-                onPressed: () => value != null
-                    ? onSend(value!) : null,
-              ),
-            ],
+        Flexible(
+          child: TextField(
+            decoration: const InputDecoration(
+              filled: true,
+              fillColor: Palette.accent,
+              hintText: 'Wpisz wiadomość...',
+            ),
+            onChanged: (text) => value = text,
+            onSubmitted: (text) => onSend(text),
+            maxLines: null,
           ),
         ),
 
-        child ?? const SizedBox(),
-
-      ]
+        IconButton(
+          iconSize: 30,
+          color: Palette.primary,
+          icon: const Icon(Icons.send),
+          onPressed: () => value != null
+              ? onSend(value!) : null,
+        ),
+      ],
     );
   }
 }

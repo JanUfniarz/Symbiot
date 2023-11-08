@@ -18,5 +18,5 @@ class OperationConnector extends HTTPFacade {
       await put(operationEndpoint, body: {
         "id": id,
         "to_change": "name",
-        "content": newName });
+        "value": newName });
 }

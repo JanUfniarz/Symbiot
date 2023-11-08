@@ -67,7 +67,7 @@ class OperationEndpoint:
         def update_operation():
             data = self._data(json=True)
             return jsonify(dict(message=self.service.update_operation(
-                data["id"], data["to_change"], data["content"])))
+                data["id"], data["to_change"], data["value"])))
 
         @self.app.route(path + "/record/", methods=["GET"])
         def get_records():

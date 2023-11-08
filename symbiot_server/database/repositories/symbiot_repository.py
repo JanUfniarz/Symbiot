@@ -18,5 +18,13 @@ class SymbiotRepository:
 
     def is_available(self, id_: str) -> bool:
         return self.db.session.execute(text(f"""
-            SELECT id FROM {self._entity.__tablename__} WHERE id = '{id_}'
+            SELECT id FROM {self._entity.__tablename__} WHERE id = '{id_}';
         """)).fetchone() is not None
+
+    def update_value(self, id_, to_change, value) -> None:
+        self.db.session.execute(text(f"""
+            UPDATE {self._entity.__tablename__} 
+            SET {to_change} = '{value}'
+            WHERE id = '{id_}';
+        """))
+        self.db.session.commit()

@@ -9,7 +9,7 @@ class EndpointModel {
       {Map<String, String>? headers}):
         _port = _receiverToPort(receiver),
         headers = headers ?? {
-        'Content-Type': "application/json; charset=UTF-8",
+        "Content-Type": "application/json; charset=UTF-8",
       };
 
   static int _receiverToPort(Receiver receiver) {

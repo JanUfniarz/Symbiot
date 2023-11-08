@@ -32,11 +32,3 @@ class OperationRepository(SymbiotRepository):
             DELETE FROM operations WHERE id = '{id_}';
         """))
         self.db.session.commit()
-
-    def update(self, id_, to_change, content) -> None:
-        self.db.session.execute(text(f"""
-            UPDATE operations 
-            SET {to_change} = '{content}'
-            WHERE id = '{id_}';
-        """))
-        self.db.session.commit()
