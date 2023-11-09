@@ -49,7 +49,12 @@ class ChatView extends StatelessWidget {
 
                 entry.value
               ];
-            }).toList(),
+            }).toList() + (!controller.trigger(get: true) ? []
+                : [const Center(
+                  child: CircularProgressIndicator(
+              color: Palette.primary,
+            ),
+                )]),
           ),
       ),
   );

@@ -43,7 +43,7 @@ class OperationController extends ChangeNotifier {
 
   dynamic trigger({bool get = false}) {
     if (get) return _multiPurposeTrigger;
-    _multiPurposeTrigger = true;
+    _multiPurposeTrigger = !_multiPurposeTrigger;
     notifyListeners();
   }
 
@@ -56,10 +56,12 @@ class OperationController extends ChangeNotifier {
           .whenComplete(() => SymbiotApp.push(context, ChatView(step.id))
           .whenComplete(() => _chatConnector!.manageChat("close")));
 
-  void chat(String message, String id) =>
-      _chatConnector!.sendMessage(message)
-          .then((val) => record(id).body = val["step_body"])
-          .whenComplete(() => notifyListeners());
+  void chat(String message, String id) {
+    trigger();
+    _chatConnector!.sendMessage(message)
+        .then((val) => record(id).body = val["step_body"])
+        .whenComplete(() => trigger());
+  }
 
   Future<OperationModel> newOperation(String wish) async {
     List<String> oldModels = models.map((el) => el.id).toList();
@@ -75,8 +77,7 @@ class OperationController extends ChangeNotifier {
           .whenComplete(() => loadData());
 
   Future<void> changeOperationName(String id, String newName) async {
-    _multiPurposeTrigger = false;
-    notifyListeners();
+    trigger();
     _operationConnector!.changeName(id, newName)
         .whenComplete(() => loadData());
   }
