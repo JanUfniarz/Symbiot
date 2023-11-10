@@ -13,7 +13,8 @@ class ChatView extends StatelessWidget {
 
   const ChatView(this.stepID, {super.key});
 
-  ChatModel _model(OperationController controller) => ChatModel(controller.record(stepID));
+  ChatModel _model(OperationController controller) =>
+      ChatModel(controller.record(stepID));
 
   String _date(MessageModel model) {
     String date = model.time.toString();
@@ -49,12 +50,11 @@ class ChatView extends StatelessWidget {
 
                 entry.value
               ];
-            }).toList() + (!controller.trigger(get: true) ? []
-                : [const Center(
-                  child: CircularProgressIndicator(
-              color: Palette.primary,
-            ),
-                )]),
+            }).toList() + (!controller.trigger(get: true) ? [] : [const Center(
+              child: CircularProgressIndicator(
+                color: Palette.primary,
+              ),
+            )]),
           ),
       ),
   );
