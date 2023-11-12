@@ -27,14 +27,14 @@ class ChatView extends StatelessWidget {
           onSend: (text) => controller.chat(text, stepID),
           body: ListView(
 
-            children: _model(controller).messages
-                  .map((messageModel) => Message(messageModel)
-            ).toList().asMap().entries.expand((entry) {
-              String date = _date(_model(controller).messages[entry.key]);
+            children: _model(controller).messages.asMap().entries.expand((entry) {
+              int index = entry.key;
+              MessageModel messageModel = entry.value;
+              String date = _date(messageModel);
               String previousDate = "";
               try {
                 previousDate = _date(
-                    _model(controller).messages[entry.key - 1]);
+                    _model(controller).messages[index - 1]);
               } catch (ig) {/* RangeError pass */}
 
               return [
@@ -48,7 +48,10 @@ class ChatView extends StatelessWidget {
                   ),
                 ),
 
-                entry.value
+                Message(messageModel,
+                  delete: () => controller.deleteMessage(stepID, index),
+                  change: () => controller.changeMessage(stepID, index, context),
+                )
               ];
             }).toList() + (!controller.trigger(get: true) ? [] : [const Center(
               child: CircularProgressIndicator(

@@ -9,21 +9,6 @@ import 'bloc/controllers/operation_controller.dart';
 import 'connection/chat_connector.dart';
 import 'connection/operation_connector.dart';
 
-// void main() {
-//
-//   runApp(MaterialApp(
-//     home: HomeView(
-//       connector: FirstConnector(),
-//     ),
-//   ));
-// }
-
-// void main() => runApp(MaterialApp(
-//   home: ApiControlPanel(
-//     connector: OperationConnector(),
-//   ),
-// ));
-
 void main() async {
 
   KeyController keyController = KeyController

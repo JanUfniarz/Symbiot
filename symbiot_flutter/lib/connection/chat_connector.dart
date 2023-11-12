@@ -17,5 +17,12 @@ class ChatConnector extends HTTPFacade {
       "action must be 'open' or 'close'");
 
   Future<dynamic> sendMessage(String message) async =>
-      await put(chatEndpoint, body: {"prompt": message});
+      await put(chatEndpoint,
+          pathArgument: "prompt",
+          body: {"prompt": message});
+
+  Future<dynamic> setBody(String newBody) async =>
+      await put(chatEndpoint,
+          pathArgument: "body",
+          body: {"new_body": newBody});
 }

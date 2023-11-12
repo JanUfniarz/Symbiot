@@ -3,11 +3,19 @@ import 'package:symbiot_flutter/models/message_model.dart';
 
 import '../palette.dart';
 
+typedef SideEffect = void Function();
+
 class Message extends StatelessWidget {
   final MessageModel model;
+  final SideEffect delete;
+  final SideEffect change;
   final double _messageCornerRadius = 20;
 
-  const Message(this.model, {super.key});
+  const Message(this.model, {
+    super.key,
+    required this.delete,
+    required this.change,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,18 +53,12 @@ class Message extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: List.generate(2, (index) => InkWell(
-            onTap: [
-              (() {}), // TODO: delete
-              (() {}), // TODO: change
-            ][index],
+            onTap: [delete, change][index],
             child: Icon([
               Icons.delete,
               Icons.drive_file_rename_outline_sharp,
             ][index],
-              color: [
-                Palette.delete,
-                Palette.primary,
-              ][index],
+              color: Palette.backgroundGrey,
             ),
           ))
         ),

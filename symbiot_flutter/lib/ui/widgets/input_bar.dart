@@ -5,10 +5,14 @@ import '../palette.dart';
 // ignore: must_be_immutable
 class InputBar extends StatelessWidget {
   final void Function(String) onSend;
+  final TextEditingController? textController;
 
   InputBar({super.key,
-    required this.onSend
-  });
+    required this.onSend,
+    String? text,
+  }): textController = text != null
+      ? TextEditingController(text: text)
+      : null;
 
   String? value;
 
@@ -19,6 +23,7 @@ class InputBar extends StatelessWidget {
 
         Flexible(
           child: TextField(
+            controller: textController,
             decoration: const InputDecoration(
               filled: true,
               fillColor: Palette.accent,

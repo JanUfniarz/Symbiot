@@ -28,3 +28,8 @@ class ChatHandler:
         response: dict = step.client.chat(prompt)
         step.add_entry(response["role"], response["content"])
         return step.body
+
+    def set_body(self, new_body: str) -> None:
+        self._active_step.body = new_body
+        self.server.post_pickle(self._active_step,
+                                path="operation/record")

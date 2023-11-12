@@ -29,11 +29,16 @@ class ChatEndpoint:
         return self._active_handler
 
     def listen(self, path):
-        @self.app.route(path + "/", methods=["PUT"])
+        @self.app.route(path + "/prompt", methods=["PUT"])
         def new_message():
             return jsonify({
                 "step_body": self.handler().continue_chat(
                     request.get_json()["prompt"])})
+
+        @self.app.route(path + "/body", methods=["PUT"])
+        def set_body():
+            self.handler().set_body(request.get_json().get("new_body"))
+            return jsonify(dict(message="body updated"))
 
         @self.app.route(path + "/", methods=["POST"])
         def manage_chat():

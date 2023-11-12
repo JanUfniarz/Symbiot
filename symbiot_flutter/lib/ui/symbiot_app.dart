@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/tests/api_control_panel.dart';
+import 'package:symbiot_flutter/ui/palette.dart';
 import 'package:symbiot_flutter/ui/views/home_view.dart';
 import 'package:symbiot_flutter/ui/views/keys_view.dart';
 import 'package:symbiot_flutter/ui/views/settings_view.dart';
@@ -13,7 +14,32 @@ class SymbiotApp extends StatefulWidget {
       Navigator.push(context, MaterialPageRoute(
           builder: (context) => view));
 
-  static void back(BuildContext context) => Navigator.pop(context);
+  static void back(BuildContext context, {result}) => Navigator.of(context).pop(result);
+
+  static Future<dynamic> bottomSheet(
+      BuildContext context,
+      Widget? child,
+      ) => showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Palette.backgroundGrey,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(24),
+        topLeft: Radius.circular(24),
+      ),
+    ),
+    builder: (context) => Padding(
+      padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context)
+              .viewInsets.bottom
+      ),
+      child: SizedBox(
+        height: 300,
+        child: child,
+      ),
+    ),
+  );
 
   @override
   State<SymbiotApp> createState() => _SymbiotAppState();
