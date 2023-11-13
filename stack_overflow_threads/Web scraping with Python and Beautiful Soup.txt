@@ -1,0 +1,50 @@
+Vote count for the thread: 4
+
+<div class="s-prose js-post-body" itemprop="text">
+<p>I am practicing building web scrapers. One that I am working on now involves going to a site, scraping links for the various cities on that site, then taking all of the links for each of the cities and scraping all the links for the properties in said cites.</p>
+<p>I'm using the following code:</p>
+<pre><code>import requests
+
+from bs4 import BeautifulSoup
+
+main_url = "http://www.chapter-living.com/"
+
+# Getting individual cities url
+re = requests.get(main_url)
+soup = BeautifulSoup(re.text, "html.parser")
+city_tags = soup.find_all('a', class_="nav-title")  # Bottom page not loaded dynamycally
+cities_links = [main_url + tag["href"] for tag in city_tags.find_all("a")]  # Links to cities
+</code></pre>
+<p>If I print out <code>city_tags</code> I get the HTML I want. However, when I print <code>cities_links</code> I get <code>AttributeError: 'ResultSet' object has no attribute 'find_all'</code>.</p>
+<p>I gather from other q's on here that this error occurs because <code>city_tags</code> returns none, but this can't be the case if it is printing out the desired html? I have noticed that said html is in [] - does this make a difference?</p>
+</div>
+
+Vote count for the answer: 4
+
+<div class="s-prose js-post-body" itemprop="text">
+<p>Well city_tags is a <code>bs4.element.ResultSet</code> (essentially a list) of  tags and you are calling find_all on it. You probably want to call find_all in every element of the resultset or in this specific case just retrieve their href attribute</p>
+<pre><code>import requests
+from bs4 import BeautifulSoup
+
+main_url = "http://www.chapter-living.com/"
+
+# Getting individual cities url
+re = requests.get(main_url)
+soup = BeautifulSoup(re.text, "html.parser")
+city_tags = soup.find_all('a', class_="nav-title")  # Bottom page not loaded dynamycally
+cities_links = [main_url + tag["href"] for tag in city_tags]  # Links to cities
+</code></pre>
+</div>
+
+Vote count for the answer: 3
+
+<div class="s-prose js-post-body" itemprop="text">
+<p>As the error says, the <em>city_tags</em> is a ResultSet which is a list of nodes and it doesn't have the <code>find_all</code> method, you either have to loop through the set and apply <code>find_all</code> on each individual node or in your case, I think you can simply extract the <code>href</code> attribute from each node:</p>
+<pre><code>[tag['href'] for tag in city_tags]
+
+#['https://www.chapter-living.com/blog/',
+# 'https://www.chapter-living.com/testimonials/',
+# 'https://www.chapter-living.com/events/']
+</code></pre>
+</div>
+
