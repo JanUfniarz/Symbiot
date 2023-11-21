@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../palette.dart';
+import '../style/palette.dart';
 
 class SymbiotDivider extends StatelessWidget {
   const SymbiotDivider({super.key});

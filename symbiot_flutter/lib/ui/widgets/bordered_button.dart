@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../palette.dart';
+import '../style/palette.dart';
 
 class BorderedButton extends StatelessWidget {
   const BorderedButton({

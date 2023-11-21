@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../palette.dart';
+import '../style/palette.dart';
 
 class OperationCard extends StatelessWidget {
   const OperationCard({

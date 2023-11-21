@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/ui/widgets/input_bar.dart';
 
-import '../palette.dart';
+import '../style/palette.dart';
 
 class SymbiotScaffold extends StatelessWidget {
 

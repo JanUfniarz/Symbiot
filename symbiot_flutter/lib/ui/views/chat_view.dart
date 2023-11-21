@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:symbiot_flutter/ui/style/style_provider.dart';
 import 'package:symbiot_flutter/ui/widgets/symbiot_scaffold.dart';
 
 import '../../bloc/controllers/operation_controller.dart';
 import '../../models/chat_model.dart';
 import '../../models/message_model.dart';
-import '../palette.dart';
+import '../style/palette.dart';
 import '../widgets/message.dart';
 
 class ChatView extends StatelessWidget {
@@ -40,11 +41,7 @@ class ChatView extends StatelessWidget {
               return [
                 date == previousDate ? const SizedBox() : Center(
                   child: Text(date,
-                    style: TextStyle(
-                      color: Palette.lightGrey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12
-                    ),
+                    style: StyleProvider.date,
                   ),
                 ),
 

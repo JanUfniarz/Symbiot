@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../palette.dart';
+import '../style/palette.dart';
 import 'navigation_element.dart';
 
 class SymbiotNavigationBar extends StatelessWidget {

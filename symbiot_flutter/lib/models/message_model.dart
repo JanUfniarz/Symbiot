@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:symbiot_flutter/ui/palette.dart';
+import 'package:symbiot_flutter/ui/style/palette.dart';
 
 class MessageModel {
   final String content;

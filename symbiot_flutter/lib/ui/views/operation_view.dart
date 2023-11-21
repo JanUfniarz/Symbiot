@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/ui/widgets/bordered_button.dart';
 
 import '../../bloc/controllers/operation_controller.dart';
-import '../palette.dart';
+import '../style/palette.dart';
 import '../widgets/input_bar.dart';
 import '../widgets/symbiot_divider.dart';
 import '../widgets/symbiot_scaffold.dart';

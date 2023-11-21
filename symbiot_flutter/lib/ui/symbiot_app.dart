@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/tests/api_control_panel.dart';
-import 'package:symbiot_flutter/ui/palette.dart';
+import 'package:symbiot_flutter/ui/style/palette.dart';
 import 'package:symbiot_flutter/ui/views/home_view.dart';
 import 'package:symbiot_flutter/ui/views/keys_view.dart';
 import 'package:symbiot_flutter/ui/views/settings_view.dart';

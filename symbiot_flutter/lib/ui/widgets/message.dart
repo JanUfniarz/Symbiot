@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/models/message_model.dart';
 
-import '../palette.dart';
+import '../style/palette.dart';
 
 typedef SideEffect = void Function();
 

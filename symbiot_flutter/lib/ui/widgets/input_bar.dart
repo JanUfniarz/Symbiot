@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../palette.dart';
+import '../style/palette.dart';
 
 // ignore: must_be_immutable
 class InputBar extends StatelessWidget {

@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import '../palette.dart';
+import '../style/palette.dart';
 import '../symbiot_app.dart';
 import 'input_bar.dart';
 
 class MessageChangeField extends StatelessWidget {
   final Map<String, dynamic> oldMessage;
 
-  MessageChangeField({super.key, required oldMessage}):
+  MessageChangeField({super.key, required String oldMessage}):
         oldMessage = jsonDecode(oldMessage);
 
   String _format(String newMessage) {

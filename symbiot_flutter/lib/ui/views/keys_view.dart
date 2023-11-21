@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../bloc/controllers/key_controller.dart';
-import '../palette.dart';
+import '../style/palette.dart';
+import '../style/style_provider.dart';
 import '../widgets/bordered_button.dart';
 import '../widgets/symbiot_text_field.dart';
 
@@ -30,10 +31,7 @@ class KeysView extends StatelessWidget {
                             width: 100,
                             child: Text(
                               "${keyNames[index]} ",
-                              style: const TextStyle(
-                                color: Palette.accent,
-                                fontSize: 20,
-                              ),
+                              style: StyleProvider.text1,
                             ),
                           ),
                           controller.keys[keyNames[index]] != null
