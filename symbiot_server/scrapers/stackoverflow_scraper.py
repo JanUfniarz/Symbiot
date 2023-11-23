@@ -1,13 +1,17 @@
+from typing import Any
+
 import requests
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup
 
 from requests import Response
 
 
 def get_stack_overflow_thread(thread_url) -> dict:
-    def f_next(post) -> str:
+    def votes(post) -> int:
         res = post.find_next('div', class_='js-vote-count')
-        return str(res) if res and 'data-value' in res.attrs else ""
+        if res:
+            return int(res.attrs.get("data-value", ""))
+        return 0
 
     response: Response = requests.get(thread_url)
     if response.status_code != 200:
@@ -15,23 +19,25 @@ def get_stack_overflow_thread(thread_url) -> dict:
 
     soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
 
-    # Znajdowanie liczby głosów dla głównego wątku
-    vote_element: Tag = soup.find('div', class_='js-vote-count')
+    elements: list[dict[str, Any]] = [dict(
+        content=post.decode_contents(),
+        votes=votes(post))
+        for post in soup.find_all('div', class_='js-post-body')]
 
-    # Znajdowanie tytułu wątku dla nazwy pliku
-    thread_title_element: Tag = soup.find('a', class_='question-hyperlink')
+    temp = list(map(lambda el: el["votes"], elements))
+
+    for it in range(1, len(elements)):
+        elements[it]["votes"] = temp[it - 1]
+
+    elements[0]["votes"] = int(soup.find('div', class_='js-vote-count').attrs.get("data-value", "N/A"))
 
     return dict(
-        meta=dict(
-            thread_title=thread_title_element.text.strip() if thread_title_element else 'stack_overflow_thread',
-            vote_count=vote_element['data-value'] if vote_element and 'data-value' in vote_element.attrs else 'N/A'),
-        elements=[dict(
-            content=str(post),
-            answer_vote_element=f_next(post))
-                for post in soup.find_all('div', class_='js-post-body')])
+        thread_title=soup.find('a', class_='question-hyperlink').text.strip(),
+        question=elements[0],
+        answers=elements[1:])
 
 
 if __name__ == "__main__":
-    url: str = "https://stackoverflow.com/questions/42841271/web-scraping-with-python-and-beautiful-soup"
+    url: str = "https://stackoverflow.com/questions/258028/script-debugging-not-working-vs-2008"
     thread: dict = get_stack_overflow_thread(url)
     print(thread)
