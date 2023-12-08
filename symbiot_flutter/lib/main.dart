@@ -9,33 +9,20 @@ import 'bloc/controllers/operation_controller.dart';
 import 'connection/chat_connector.dart';
 import 'connection/operation_connector.dart';
 
-void main() async {
-
-  KeyController keyController = KeyController
-      .getInstance(
-    connector: KeyConnector(),
-    executor: CommandExecutor.powerShell()
-  );
-
-  keyController.distribute();
-
-  OperationController operationController = OperationController
-      .getInstance(
-    operationConnector: OperationConnector(),
-    chatConnector: ChatConnector(),
-  );
-
-  await operationController.loadData();
-
-  runApp(MultiProvider(
+void main() => runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<KeyController>.value(
-          value: keyController,
+          value: KeyController.getInstance(
+              connector: KeyConnector(),
+              executor: CommandExecutor.powerShell()
+          ),
         ),
         ChangeNotifierProvider<OperationController>.value(
-          value: operationController,
+          value: OperationController.getInstance(
+            operationConnector: OperationConnector(),
+            chatConnector: ChatConnector(),
+          ),
         ),
       ],
       child: const MaterialApp(home: SymbiotApp()),
   ));
-}

@@ -28,6 +28,7 @@ class KeyController extends ChangeNotifier {
   }) {
     _instance._connector ??= connector;
     _instance._executor ??= executor;
+    _instance.distribute();
     return _instance;
   }
 

@@ -29,6 +29,7 @@ class OperationController extends ChangeNotifier {
   }) {
     _instance._operationConnector ??= operationConnector;
     _instance._chatConnector ??= chatConnector;
+    _instance.loadData();
     return _instance;
   }
 

@@ -1,6 +1,5 @@
 from flask import Flask
 
-from symbiot_server.config.divisions.action_division import ActionDivision
 from symbiot_server.config.divisions.client_division import ClientDivision
 from symbiot_server.config.database_provider import db
 from symbiot_server.config.divisions.operation_division import OperationDivision
@@ -17,5 +16,4 @@ if __name__ == '__main__':
     ).divisions([
             OperationDivision(),
             ClientDivision(),
-            ActionDivision()
     ]).mediator().listen_all().run(debug=True, port=5000)
