@@ -12,13 +12,13 @@ import 'connection/operation_connector.dart';
 void main() => runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<KeyController>.value(
-          value: KeyController.getInstance(
+          value: KeyController.singleton(
               connector: KeyConnector(),
               executor: CommandExecutor.powerShell()
           ),
         ),
         ChangeNotifierProvider<OperationController>.value(
-          value: OperationController.getInstance(
+          value: OperationController.singleton(
             operationConnector: OperationConnector(),
             chatConnector: ChatConnector(),
           ),

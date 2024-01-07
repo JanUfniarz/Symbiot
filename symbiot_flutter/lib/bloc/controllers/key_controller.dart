@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/connection/key_connector.dart';
 
@@ -5,8 +7,8 @@ import '../../ui/widgets/key_popup.dart';
 import '../command_executor.dart';
 
 class KeyController extends ChangeNotifier {
-  CommandExecutor? _executor;
-  KeyConnector? _connector;
+  CommandExecutor _executor;
+  KeyConnector _connector;
 
   final String _path = "keys.txt";
 
@@ -18,18 +20,18 @@ class KeyController extends ChangeNotifier {
 
   String? newKey;
 
-  KeyController._private();
+  KeyController._private(this._executor, this._connector);
+  static KeyController? _instance;
 
-  static final KeyController _instance = KeyController._private();
-
-  static KeyController getInstance({
+  factory KeyController.singleton({
     KeyConnector? connector,
     CommandExecutor? executor,
   }) {
-    _instance._connector ??= connector;
-    _instance._executor ??= executor;
-    _instance.distribute();
-    return _instance;
+    if (_instance != null) return _instance!;
+    if (connector == null || executor == null)
+      throw Exception("Provide Dependencies");
+    _instance = KeyController._private(executor, connector);
+    return _instance!;
   }
 
   void setKey(String name) {
@@ -43,12 +45,12 @@ class KeyController extends ChangeNotifier {
 
   void distribute() async {
     await _getKeys();
-    if (keys.isNotEmpty) _connector!.provideKeys(keys);
+    if (keys.isNotEmpty) _connector.provideKeys(keys);
     notifyListeners();
   }
 
   void clear(String name) {
-    _connector!.clearKey(name);
+    _connector.clearKey(name);
     _keys.remove(name);
     notifyListeners();
     _saveKeys();
@@ -66,7 +68,7 @@ class KeyController extends ChangeNotifier {
             name: name,
             apiKey: keys[name] ?? "No Key"));
 
-  Future<void> _getKeys() async => await _executor!
+  Future<void> _getKeys() async => await _executor
       // language=PowerShell
       .run("Get-Content $_path", return_: true)
       .then((content) => _keys = Map.fromEntries(RegExp(r'<(.*?)>')
@@ -76,7 +78,7 @@ class KeyController extends ChangeNotifier {
           .map((el) => MapEntry(
       el!.split("=")[0], el.split("=")[1]))));
 
-  void _saveKeys() => _executor!.run(
+  void _saveKeys() => _executor.run(
       // language=PowerShell
       "Set-Content -Path $_path -Value \"${_keys.entries
           .map((en) => "<${en.key}=${en.value}>").join()}\"");
