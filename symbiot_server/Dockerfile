@@ -1,0 +1,15 @@
+FROM python:3
+
+COPY --from=symbiot_lib_builder / /
+
+COPY . /usr/src/symbiot_server
+
+WORKDIR /usr/src
+
+RUN pip install psycopg2
+
+RUN mv symbiot_server/run_server.py .
+
+EXPOSE 5000
+
+CMD ["python", "run_server.py"]
