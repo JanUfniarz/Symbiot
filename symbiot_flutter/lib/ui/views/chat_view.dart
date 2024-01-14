@@ -36,7 +36,7 @@ class ChatView extends StatelessWidget {
               try {
                 previousDate = _date(
                     _model(controller).messages[index - 1]);
-              } catch (_) {/* RangeError pass */}
+              } catch (ig) {/* RangeError pass */}
 
               return [
                 date == previousDate ? const SizedBox() : Center(
