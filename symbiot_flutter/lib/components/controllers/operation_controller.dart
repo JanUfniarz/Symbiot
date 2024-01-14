@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 
 import '../../models/operation_model.dart';
@@ -13,28 +15,28 @@ typedef _BodyManipulator = void Function(List<String> entries);
 
 class OperationController extends ChangeNotifier {
 
-  OperationConnector? _operationConnector;
-  ChatConnector? _chatConnector;
+  OperationConnector _operationConnector;
+  ChatConnector _chatConnector;
   List<OperationModel> models = [];
 
   bool _multiPurposeTrigger = false;
 
-  OperationController._private();
+  OperationController._private(this._operationConnector, this._chatConnector);
+  static OperationController? _instance;
 
-  static final OperationController _instance = OperationController._private();
-
-  static OperationController getInstance({
+  factory OperationController.singleton({
     OperationConnector? operationConnector,
     ChatConnector? chatConnector
   }) {
-    _instance._operationConnector ??= operationConnector;
-    _instance._chatConnector ??= chatConnector;
-    _instance.loadData();
-    return _instance;
+    if (_instance != null) return _instance!;
+    if (operationConnector == null || chatConnector == null)
+      throw Exception("Provide Dependencies");
+    _instance = OperationController._private(operationConnector, chatConnector);
+    return _instance!;
   }
 
   Future<void> loadData() async => await
-      _operationConnector!.getAllOperations()
+      _operationConnector.getAllOperations()
           .then((val) => models = val
           .map((el) => OperationModel(el))
           .toList())
@@ -56,40 +58,40 @@ class OperationController extends ChangeNotifier {
     ).whenComplete(() => loadData());
 
   void openChat(RecordModel step, BuildContext context) =>
-      _chatConnector!.manageChat("open", step: step)
+      _chatConnector.manageChat("open", step: step)
           .whenComplete(() => SymbiotApp.push(context, ChatView(step.id))
-          .whenComplete(() => _chatConnector!.manageChat("close")));
+          .whenComplete(() => _chatConnector.manageChat("close")));
 
   void chat(String message, String id) {
     trigger();
-    _chatConnector!.sendMessage(message)
+    _chatConnector.sendMessage(message)
         .then((val) => record(id).body = val["step_body"])
         .whenComplete(() => trigger());
   }
 
   Future<OperationModel> newOperation(String wish) async {
     List<String> oldModels = models.map((el) => el.id).toList();
-    await _operationConnector!.createOperation(wish)
+    await _operationConnector.createOperation(wish)
         .whenComplete(() => loadData());
     return operation(models.map((el) => el.id)
         .firstWhere((id) => !oldModels.contains(id)));
   }
 
   Future<void> deleteOperation(String id, BuildContext context) async =>
-      _operationConnector!.deleteOperation(id)
-          .then((ig) => SymbiotApp.back(context))
+      _operationConnector.deleteOperation(id)
+          .then((_) => SymbiotApp.back(context))
           .whenComplete(() => loadData());
 
   Future<void> changeOperationName(String id, String newName) async {
     trigger();
-    _operationConnector!.changeName(id, newName)
+    _operationConnector.changeName(id, newName)
         .whenComplete(() => loadData());
   }
 
   void _setBodyWrapper(String id, _BodyManipulator manipulator) {
     List<String> entries = record(id).body!.split("<@entry>");
     manipulator(entries);
-    _chatConnector!.setBody(entries.join("<@entry>"))
+    _chatConnector.setBody(entries.join("<@entry>"))
         .whenComplete(() => loadData());
   }
 
