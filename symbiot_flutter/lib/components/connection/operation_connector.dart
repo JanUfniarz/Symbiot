@@ -1,4 +1,4 @@
-import "../models/endpoint_model.dart";
+import "../../models/endpoint_model.dart";
 import "http_facade.dart";
 
 class OperationConnector extends HTTPFacade {

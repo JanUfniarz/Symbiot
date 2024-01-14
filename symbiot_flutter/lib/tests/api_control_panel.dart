@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/models/operation_model.dart';
 
-import '../bloc/command_executor.dart';
-import '../connection/operation_connector.dart';
+import '../components/command_executor.dart';
+import '../components/connection/operation_connector.dart';
 import '../ui/widgets/bordered_button.dart';
 
 class ApiControlPanelButton extends StatelessWidget {

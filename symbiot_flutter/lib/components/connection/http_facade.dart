@@ -1,7 +1,8 @@
 import "dart:convert";
 import "package:http/http.dart" as http;
 
-import "../models/endpoint_model.dart";
+import "../../models/endpoint_model.dart";
+
 
 class HTTPFacade {
   Future<dynamic> get(EndpointModel endpoint,

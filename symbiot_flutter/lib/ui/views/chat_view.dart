@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/ui/style/style_provider.dart';
 import 'package:symbiot_flutter/ui/widgets/symbiot_scaffold.dart';
 
-import '../../bloc/controllers/operation_controller.dart';
+import '../../components/controllers/operation_controller.dart';
 import '../../models/chat_model.dart';
 import '../../models/message_model.dart';
 import '../style/palette.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../bloc/controllers/key_controller.dart';
+import '../../components/controllers/key_controller.dart';
 import '../style/palette.dart';
 import '../style/style_provider.dart';
 import '../widgets/bordered_button.dart';

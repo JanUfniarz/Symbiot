@@ -1,7 +1,7 @@
-import 'package:symbiot_flutter/connection/http_facade.dart';
 import 'package:symbiot_flutter/models/endpoint_model.dart';
 
-import '../models/record_model.dart';
+import '../../models/record_model.dart';
+import 'http_facade.dart';
 
 class ChatConnector extends HTTPFacade {
   final EndpointModel chatEndpoint = EndpointModel(Receiver.core, "chat");

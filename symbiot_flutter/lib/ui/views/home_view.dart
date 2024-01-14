@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/ui/style/style_provider.dart';
 
-import '../../bloc/controllers/operation_controller.dart';
+import '../../components/controllers/operation_controller.dart';
 import '../style/palette.dart';
 import '../widgets/input_bar.dart';
 import '../widgets/operation_card.dart';

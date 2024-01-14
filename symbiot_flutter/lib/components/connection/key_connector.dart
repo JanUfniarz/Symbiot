@@ -1,6 +1,5 @@
-import "package:symbiot_flutter/connection/http_facade.dart";
-
-import "../models/endpoint_model.dart";
+import '../../models/endpoint_model.dart';
+import 'http_facade.dart';
 
 class KeyConnector extends HTTPFacade {
   final EndpointModel keyEndpoint = EndpointModel(Receiver.server, "key");
