@@ -13,15 +13,15 @@ import 'components/controllers/operation_controller.dart';
 void main() => runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<KeyController>.value(
-          value: KeyController.getInstance(
-              connector: KeyConnector(),
-              executor: CommandExecutor.powerShell()
+          value: KeyController(
+              CommandExecutor.powerShell(),
+              KeyConnector()
           ),
         ),
         ChangeNotifierProvider<OperationController>.value(
-          value: OperationController.getInstance(
-            operationConnector: OperationConnector(),
-            chatConnector: ChatConnector(),
+          value: OperationController(
+            OperationConnector(),
+            ChatConnector(),
           ),
         ),
       ],
