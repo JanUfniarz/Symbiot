@@ -21,3 +21,10 @@ services:
       - "5000:5000"
     depends_on:
       - database
+
+  core:
+    build:
+      context:
+       ./symbiot_core
+    ports:
+      - "5001:5001"
