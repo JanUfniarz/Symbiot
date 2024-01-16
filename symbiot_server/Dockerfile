@@ -1,6 +1,4 @@
-FROM python:3
-
-COPY --from=symbiot_lib_builder / /
+FROM symbiot_lib_builder
 
 COPY . /usr/src/symbiot_server
 
@@ -12,4 +10,4 @@ RUN mv symbiot_server/run_server.py .
 
 EXPOSE 5000
 
-CMD ["python", "run_server.py"]
+CMD ["python", "run_server.py", "--docker"]
