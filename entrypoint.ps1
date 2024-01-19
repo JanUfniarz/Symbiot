@@ -30,7 +30,7 @@ if (-not $(Test-Path keys.txt -PathType Leaf)) {
 Write-Host "Building symbiot_flutter ..." -ForegroundColor Yellow
 
 flutter run 2>&1 | ForEach-Object {
-    Write-Host $_ -ForegroundColor $(if (($_ -like "*Error*") -or (($_ -like "*Exception*"))) {
+    Write-Host $_ -ForegroundColor $(if (($_ -like "*Error*") -or ($_ -like "*Exception*")) {
         "Red"
     } elseif ($_ -like "*✓*") {
         "Green"
