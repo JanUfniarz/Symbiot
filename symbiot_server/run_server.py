@@ -10,7 +10,8 @@ from symbiot_server.config.server_starter import ServerStarter
 app: Flask = Flask(__name__)
 
 if __name__ == '__main__':
-    db_host: str = 'symbiot-database-1' if '--docker' in sys.argv else 'localhost'
+    db_host: str = 'symbiot-database-1' \
+        if '--docker' in sys.argv else 'localhost'
 
     symbiot_server: ServerStarter = ServerStarter().flask(
         app

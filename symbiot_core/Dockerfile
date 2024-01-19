@@ -10,4 +10,4 @@ RUN mv symbiot_core/run_core.py .
 
 EXPOSE 5001
 
-CMD ["python", "run_core.py"]
+CMD ["python", "run_core.py", "--docker"]

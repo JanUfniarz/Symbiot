@@ -1,5 +1,6 @@
 import base64
 import pickle
+import sys
 
 import requests
 from requests import Response
@@ -7,10 +8,16 @@ from requests import Response
 
 class PickleConnector:
     headers: dict = {'Content-Type': "application/json; charset=UTF-8"}
-    url = "http://127.0.0.1:5000/"
 
     def __init__(self, path: str = None):
         self.path = path
+        self._docker_mode: bool = '--docker' in sys.argv
+
+    @property
+    def url(self):
+        server_host: str = "symbiot-server-1" \
+            if self._docker_mode else "127.0.0.1"
+        return f"http://{server_host}:5000/"
 
     @staticmethod
     def check_status(response: Response) -> Response:

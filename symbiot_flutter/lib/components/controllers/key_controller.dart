@@ -31,8 +31,9 @@ class KeyController extends ChangeNotifier {
     distribute();
   }
 
-  void distribute() {
-    _getKeys();
+  Future<void> distribute() async {
+    await _getKeys();
+    print("distribute");
     if (keys.isNotEmpty) _connector.provideKeys(keys);
     notifyListeners();
   }
@@ -56,7 +57,7 @@ class KeyController extends ChangeNotifier {
             name: name,
             apiKey: keys[name] ?? "No Key"));
 
-  void _getKeys() => _executor
+  Future<void> _getKeys() async => await _executor
       // language=PowerShell
       .run("Get-Content $_path", return_: true)
       .then((content) => _keys = Map.fromEntries(RegExp(r'<(.*?)>')

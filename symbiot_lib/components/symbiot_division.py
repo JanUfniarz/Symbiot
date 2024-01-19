@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from injector import Module
 
 
@@ -7,4 +6,4 @@ from injector import Module
 class SymbiotDivision(Module):
     def __init__(self):
         self.app: Flask = None
-        self.db: SQLAlchemy = None
+        self.db = None

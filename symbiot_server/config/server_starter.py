@@ -4,7 +4,6 @@ from symbiot_lib.components.symbiot_division import SymbiotDivision
 from symbiot_lib.components.symbiot_starter import SymbiotStarter
 from symbiot_server.control.mediator import Mediator
 from symbiot_server.endpoints.client_endpoint import ClientEndpoint
-from symbiot_server.endpoints.keys_endpoint import KeysEndpoint
 from symbiot_server.endpoints.operation_endpoint import OperationEndpoint
 
 
@@ -13,7 +12,6 @@ class ServerStarter(SymbiotStarter):
     def __init__(self):
         super().__init__(dict(
             operation=OperationEndpoint,
-            key=KeysEndpoint,
             client=ClientEndpoint))
         self._mediator: Mediator = None
         self._db: SQLAlchemy = None

@@ -2,7 +2,7 @@ import '../../models/endpoint_model.dart';
 import 'http_facade.dart';
 
 class KeyConnector extends HTTPFacade {
-  final EndpointModel keyEndpoint = EndpointModel(Receiver.server, "key");
+  final EndpointModel keyEndpoint = EndpointModel(Receiver.core, "key");
 
   void provideKeys(Map<String, String> keys) => post(keyEndpoint, body: keys);
 
