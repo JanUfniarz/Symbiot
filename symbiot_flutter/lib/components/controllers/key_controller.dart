@@ -33,7 +33,6 @@ class KeyController extends ChangeNotifier {
 
   Future<void> distribute() async {
     await _getKeys();
-    print("distribute");
     if (keys.isNotEmpty) _connector.provideKeys(keys);
     notifyListeners();
   }
