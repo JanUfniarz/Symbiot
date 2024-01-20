@@ -22,13 +22,13 @@ if (Test-Path -Path (Get-Command docker -ErrorAction SilentlyContinue).Source) {
     Write-Host "$good Docker installed"
 
     $client = try { docker version --format '{{.Client.Version}}' } catch { $null }
-    $server = try { docker version --format '{{.Server.Version}}' } catch { $null }
-
     if ($client) {
         Write-Host "$good Docker Client working. version: $client"
     } else {
         Write-Host "$bad Docker Client not working`n`t probably some instalation error"
     }
+
+    $server = try { docker version --format '{{.Server.Version}}' } catch { $null }
     if ($server) {
         Write-Host "$good Docker Server working. version: $server"
     } else {

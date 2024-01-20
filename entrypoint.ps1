@@ -1,4 +1,5 @@
 Write-Host "Welcome to the Symbiot App!" -ForegroundColor Green
+Write-Host "To check your dependencies run dependency_check.ps1 script" -BackgroundColor Blue
 
 if (-not $(docker images symbiot_lib_builder -q)) {
     Write-Host "Building symbiot_lib ..." -ForegroundColor Yellow
@@ -41,7 +42,7 @@ flutter run 2>&1 | ForEach-Object {
     })
 
     if ($_ -match "Exception: Build process failed") {
-        Write-Host "Cleaning and rebuilding ..." -ForegroundColor Yellow
+        Write-Host "Cleaning and rebuilding ..." -BackgroundColor Blue
         flutter clean
         flutter run
     }
