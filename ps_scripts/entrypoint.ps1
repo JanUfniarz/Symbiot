@@ -1,10 +1,12 @@
+Set-Location ..
+
 Write-Host "Welcome to the Symbiot App!" -ForegroundColor Green
 Write-Host "To check your dependencies run dependency_check.ps1 script" -BackgroundColor Blue
 
 function CheckAndClose {
     docker-compose down
     Write-Host "Checking dependencies ..." -ForegroundColor Yellow
-    & ./dependency_check.ps1
+    & ./ps_scripts/dependency_check.ps1
     exit 1
 }
 
