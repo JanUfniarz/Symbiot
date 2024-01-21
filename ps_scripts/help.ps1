@@ -19,7 +19,7 @@ Write-Host "   | help   |                    | Shows this                       
    |        | db, flutter        | Without args it cleens everything. |
    |________|____________________|____________________________________|
    | build  | lib, server, core, | Builds the image or build dir.     |
-   |        | flutter            | Without args it cleens everything. |
+   |        | flutter            | Without args it builds everything. |
    |________|____________________|____________________________________|
    | check  |                    | Checks the dependencies.           |
    |        |                    |                                    |
