@@ -18,13 +18,4 @@ if __name__ == '__main__':
         key=KeysEndpoint
     )).flask(app).divisions([
         CoreDivision()
-    ]).listen_all()
-
-    # docker_mode: bool = '--docker' in sys.argv
-    # print(docker_mode)
-    #
-    # symbiot_core(PickleConnector).docker_mode = docker_mode
-    #
-    # print(symbiot_core(PickleConnector).docker_mode)
-
-    symbiot_core.run(debug=True, host='0.0.0.0', port=5001)
+    ]).listen_all().run(debug=True, host='0.0.0.0', port=5001)
