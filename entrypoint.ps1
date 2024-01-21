@@ -70,7 +70,7 @@ function RunFrontend {
             if ($status -eq 0) {
                 Write-Host "Cleaning and rebuilding ..." -BackgroundColor Blue
                 flutter clean
-                Run-Frontend -status 1
+                RunFrontend -status 1
             } elseif ($status -eq 1) {
                 Set-Location ..
                 CheckAndClose
