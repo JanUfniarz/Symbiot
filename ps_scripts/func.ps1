@@ -16,5 +16,5 @@ function symbiot {
         check {& ./dependency_check.ps1 }
         default {Write-Host "To see available options run 'symbiot help'"}
     }
-    if ($command -ne src) { Set-Location $originalPath }
+    if ($command -ne "src") { Set-Location $originalPath }
 }
