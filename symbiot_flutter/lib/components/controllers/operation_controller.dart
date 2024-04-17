@@ -9,8 +9,6 @@ import '../../ui/widgets/message_change_field.dart';
 import '../connection/chat_connector.dart';
 import '../connection/operation_connector.dart';
 
-typedef _BodyManipulator = void Function(List<String> entries);
-
 class OperationController extends ChangeNotifier {
 
   final OperationConnector _operationConnector;
@@ -77,20 +75,20 @@ class OperationController extends ChangeNotifier {
         .whenComplete(() => loadData());
   }
 
-  void _setBodyWrapper(String id, _BodyManipulator manipulator) {
-    List<String> entries = record(id).body!.split("<@entry>");
-    manipulator(entries);
-    _chatConnector.setBody(entries.join("<@entry>"))
-        .whenComplete(() => loadData());
-  }
-
   void deleteMessage(String id, int index) =>
       _setBodyWrapper(id, (entries) => entries.removeAt(index + 1));
-  
+
   void changeMessage(String id, int index, BuildContext context) =>
       SymbiotApp.bottomSheet(context, MessageChangeField(
           oldMessage: record(id).body!.split("<@entry>")[index + 1]
       )).then((newMessage) => newMessage != null
           ? _setBodyWrapper(id, (entries) => entries[index + 1] = newMessage)
           : null);
+
+  void _setBodyWrapper(String id, void Function(List<String> entries) manipulator) {
+    List<String> entries = record(id).body!.split("<@entry>");
+    manipulator(entries);
+    _chatConnector.setBody(entries.join("<@entry>"))
+        .whenComplete(() => loadData());
+  }
 }
