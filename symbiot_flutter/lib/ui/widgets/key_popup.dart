@@ -18,21 +18,19 @@ class KeyPopup extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Key: $name', style: _textStyle),
-      content: Text(apiKey, style: _textStyle),
-      backgroundColor: Palette.background,
-      actions: <Widget>[
-        BorderedButton(
-          text: "close",
-          icon: Icons.close,
-          primaryColor: Palette.accent,
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => AlertDialog(
+    title: Text('Key: $name', style: _textStyle),
+    content: Text(apiKey, style: _textStyle),
+    backgroundColor: Palette.background,
+    actions: <Widget>[
+      BorderedButton(
+        text: "close",
+        icon: Icons.close,
+        primaryColor: Palette.accent,
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+      ),
+    ],
+  );
 }

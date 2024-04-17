@@ -23,20 +23,18 @@ class SymbiotNavigationBar extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return NavigationBar(
-      height: 50,
-      backgroundColor: Palette.background,
-      shadowColor: Palette.primary,
-      elevation: 5,
-      destinations: List.generate(_icons.length,
-              (index) => NavigationElement(
-                icon: _icons[index],
-                label: labels[index],
-                selected: selected == index,
-                onTap: () => onSelect(index),
-              )
-      ),
-    );
-  }
+  Widget build(BuildContext context) => NavigationBar(
+    height: 50,
+    backgroundColor: Palette.background,
+    shadowColor: Palette.primary,
+    elevation: 5,
+    destinations: List.generate(_icons.length,
+      (index) => NavigationElement(
+        icon: _icons[index],
+        label: labels[index],
+        selected: selected == index,
+        onTap: () => onSelect(index),
+      )
+    ),
+  );
 }

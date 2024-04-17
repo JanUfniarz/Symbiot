@@ -48,7 +48,7 @@ class SymbiotApp extends StatefulWidget {
 class _SymbiotAppState extends State<SymbiotApp> {
   int selected = 0;
 
-  dynamic _body(int selected) {
+  Widget _body(int selected) {
     switch (selected) {
       case 0: return const HomeView();
       case 1: return const KeysView();

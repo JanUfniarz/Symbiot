@@ -15,27 +15,22 @@ class SymbiotTextField extends StatelessWidget {
   final void Function(String)? onSubmitted;
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+  Widget build(BuildContext context) => Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
 
-        SizedBox(
-          width: 450,
-
-          child: TextField(
-
-            onChanged: onChanged,
-            onSubmitted: onSubmitted,
-
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Palette.accent,
-              hintText: hintText,
-            ),
-          ),
+     SizedBox(
+       width: 450,
+       child: TextField(
+         onChanged: onChanged,
+         onSubmitted: onSubmitted,
+         decoration: InputDecoration(
+           filled: true,
+           fillColor: Palette.accent,
+           hintText: hintText,
+         ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
 }

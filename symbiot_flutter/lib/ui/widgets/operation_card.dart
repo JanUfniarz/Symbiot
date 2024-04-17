@@ -17,36 +17,36 @@ class OperationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: onTap,
-        child: SizedBox(
-          height: 128,
-          width: 100,
-          child: Card(
-            color: primaryColor,
-            child: Card(
-              color: Palette.background,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Icon(
-                    Icons.star_half_rounded,
-                    size: 60,
+    onTap: onTap,
+    child: SizedBox(
+      height: 128,
+      width: 100,
+      child: Card(
+        color: primaryColor,
+        child: Card(
+          color: Palette.background,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  name,
+                  style: TextStyle(
                     color: primaryColor,
+                    fontSize: 20,
                   ),
-                ],
+                ),
               ),
-            ),
+              Icon(
+                Icons.star_half_rounded,
+                size: 60,
+                color: primaryColor,
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    ),
+  );
 }
