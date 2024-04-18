@@ -51,10 +51,11 @@ class KeyController extends ChangeNotifier {
   }
 
   void showKey(BuildContext context, String name) => showDialog(
-      context: context,
-      builder: (BuildContext context) => KeyPopup(
-            name: name,
-            apiKey: keys[name] ?? "No Key"));
+    context: context,
+    builder: (BuildContext context) => KeyPopup(
+      name: name,
+      apiKey: keys[name] ?? "No Key")
+  );
 
   Future<void> _getKeys() async => await _executor
       // language=PowerShell

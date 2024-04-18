@@ -14,7 +14,9 @@ if (Test-Path -Path (Get-Command flutter -ErrorAction SilentlyContinue).Source) 
         } else {
             "`e[33m$sign`e[0m"
         }
-        Write-Host "$sign$($_.Line.Substring(3))"
+        if (-not ($_ -like "*android-setup*")) {
+            Write-Host "$sign$($_.Line.Substring(3))"
+        }
     }
 } else { Write-Host "$bad Flutter not installed or not added to PATH" }
 

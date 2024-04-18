@@ -82,9 +82,8 @@ class OperationController extends ChangeNotifier {
   void changeMessage(String id, int index, BuildContext context) =>
       SymbiotApp.bottomSheet(context, MessageChangeField(
           oldMessage: record(id).body!.split(_entryTag)[index + 1]
-      )).then((newMessage) => newMessage != null
-          ? _setBodyWrapper(id, (entries) => entries[index + 1] = newMessage)
-          : null);
+      )).then((newMessage) => newMessage == null ? null
+          : _setBodyWrapper(id, (entries) => entries[index + 1] = newMessage));
 
   void _setBodyWrapper(String id, void Function(List<String> entries) manipulator) {
     List<String> entries = record(id).body!.split(_entryTag);
