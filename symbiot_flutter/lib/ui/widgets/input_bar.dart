@@ -6,12 +6,14 @@ import '../style/palette.dart';
 class InputBar extends StatelessWidget {
   final void Function(String) onSend;
   final TextEditingController? textController;
+  final IconData icon;
 
   InputBar({super.key,
     required this.onSend,
     String? text,
+    this.icon = Icons.send
   }): textController = text == null ? null
-      : TextEditingController(text: text);
+        : TextEditingController(text: text);
 
   String? value;
 
@@ -36,7 +38,7 @@ class InputBar extends StatelessWidget {
       IconButton(
         iconSize: 30,
         color: Palette.primary,
-        icon: const Icon(Icons.send),
+        icon: Icon(icon),
         onPressed: () => value != null
             ? onSend(value!) : null,
       ),

@@ -3,12 +3,10 @@ import 'package:symbiot_flutter/models/message_model.dart';
 
 import '../style/palette.dart';
 
-typedef SideEffect = void Function();
-
 class Message extends StatelessWidget {
   final MessageModel model;
-  final SideEffect delete;
-  final SideEffect change;
+  final void Function() delete;
+  final void Function() change;
   final double _messageCornerRadius = 20;
 
   const Message(this.model, {

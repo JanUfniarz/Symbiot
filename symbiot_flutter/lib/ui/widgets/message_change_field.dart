@@ -36,6 +36,7 @@ class MessageChangeField extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: InputBar(
           text: oldMessage["content"],
+          icon: Icons.drive_file_rename_outline_sharp,
           onSend: (newMessage) => SymbiotApp.back(context,
               result: _format(newMessage))),
       ),
