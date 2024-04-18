@@ -9,21 +9,17 @@ import 'components/connection/operation_connector.dart';
 import 'components/controllers/key_controller.dart';
 import 'components/controllers/operation_controller.dart';
 
-
-void main() => runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider<KeyController>.value(
-          value: KeyController(
-              CommandExecutor.powerShell(),
-              KeyConnector()
-          ),
-        ),
-        ChangeNotifierProvider<OperationController>.value(
-          value: OperationController(
-            OperationConnector(),
-            ChatConnector(),
-          ),
-        ),
-      ],
-      child: const MaterialApp(home: SymbiotApp()),
-  ));
+void main() => runApp(SymbiotApp(providers: [
+  ChangeNotifierProvider<KeyController>.value(
+    value: KeyController(
+        CommandExecutor.powerShell(),
+        KeyConnector()
+    ),
+  ),
+  ChangeNotifierProvider<OperationController>.value(
+    value: OperationController(
+      OperationConnector(),
+      ChatConnector(),
+    ),
+  ),
+]));

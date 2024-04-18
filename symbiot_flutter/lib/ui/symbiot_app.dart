@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/tests/api_control_panel.dart';
 import 'package:symbiot_flutter/ui/style/palette.dart';
 import 'package:symbiot_flutter/ui/views/home_view.dart';
@@ -8,7 +9,9 @@ import 'package:symbiot_flutter/ui/widgets/symbiot_navigation_bar.dart';
 import 'package:symbiot_flutter/ui/widgets/symbiot_scaffold.dart';
 
 class SymbiotApp extends StatefulWidget {
-  const SymbiotApp({super.key});
+  final List<ChangeNotifierProvider> providers;
+
+  const SymbiotApp({super.key, required this.providers});
 
   static Future<dynamic> push(BuildContext context, Widget view) =>
       Navigator.push(context, MaterialPageRoute(
@@ -58,25 +61,28 @@ class _SymbiotAppState extends State<SymbiotApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return SymbiotScaffold(
-      tittle: SymbiotNavigationBar.labels[selected],
-      body: Column(
-        children: <Widget>[
-          SymbiotNavigationBar(
-            selected: selected,
-            onSelect: (index) => setState(
-                    () => selected = index),
-          ),
+  Widget build(BuildContext context) => MultiProvider(
+    providers: widget.providers,
+    child: MaterialApp(
+      home: SymbiotScaffold(
+        tittle: SymbiotNavigationBar.labels[selected],
+        body: Column(
+          children: <Widget>[
+            SymbiotNavigationBar(
+              selected: selected,
+              onSelect: (index) => setState(
+                      () => selected = index),
+            ),
 
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-          // TODO: remove on prod
-          const ApiControlPanelButton(),
+            // TODO: remove on prod
+            const ApiControlPanelButton(),
 
-          _body(selected),
-        ],
-      ),
-    );
-  }
+            _body(selected),
+          ],
+        ),
+      )
+    ),
+  );
 }
