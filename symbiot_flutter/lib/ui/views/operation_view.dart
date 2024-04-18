@@ -66,22 +66,24 @@ class OperationView extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                            controller.operation(id).records.length,
-                            (index) => InkWell(
-                                  onTap: () => controller.openChat(
-                                      controller.operation(id).records[index],
-                                      context),
-                                  child: Card(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20),
-                                      child: Text(controller
-                                          .operation(id)
-                                          .records[index]
-                                          .id
-                                          .toString()),
-                                    ),
-                                  ),
-                                )),
+                          controller.operation(id).records.length,
+                          (index) => InkWell(
+                            onTap: () => controller.openChat(
+                              controller.operation(id).records[index],
+                              context
+                            ),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Text(controller
+                                    .operation(id)
+                                    .records[index]
+                                    .id
+                                    .toString()),
+                              ),
+                            ),
+                          )
+                        ),
                       ),
                     ],
                   ),

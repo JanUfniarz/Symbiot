@@ -15,6 +15,7 @@ class OperationController extends ChangeNotifier {
   final ChatConnector _chatConnector;
   List<OperationModel> models;
   bool _multiPurposeTrigger;
+  final String _entryTag = "<@entry>";
 
   OperationController(this._operationConnector, this._chatConnector)
       : models = [],
@@ -66,7 +67,7 @@ class OperationController extends ChangeNotifier {
 
   Future<void> deleteOperation(String id, BuildContext context) async =>
       _operationConnector.deleteOperation(id)
-          .then((ig) => SymbiotApp.back(context))
+          .then((_) => SymbiotApp.back(context))
           .whenComplete(() => loadData());
 
   Future<void> changeOperationName(String id, String newName) async {
@@ -80,15 +81,15 @@ class OperationController extends ChangeNotifier {
 
   void changeMessage(String id, int index, BuildContext context) =>
       SymbiotApp.bottomSheet(context, MessageChangeField(
-          oldMessage: record(id).body!.split("<@entry>")[index + 1]
+          oldMessage: record(id).body!.split(_entryTag)[index + 1]
       )).then((newMessage) => newMessage != null
           ? _setBodyWrapper(id, (entries) => entries[index + 1] = newMessage)
           : null);
 
   void _setBodyWrapper(String id, void Function(List<String> entries) manipulator) {
-    List<String> entries = record(id).body!.split("<@entry>");
+    List<String> entries = record(id).body!.split(_entryTag);
     manipulator(entries);
-    _chatConnector.setBody(entries.join("<@entry>"))
+    _chatConnector.setBody(entries.join(_entryTag))
         .whenComplete(() => loadData());
   }
 }

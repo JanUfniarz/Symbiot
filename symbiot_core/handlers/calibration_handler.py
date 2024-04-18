@@ -41,6 +41,11 @@ class CalibrationHandler(ChatHandler):
         self._active_step.client.tool_kit.func = None
         super().close_chat()
 
+    def set_body(self, new_body: str) -> None:  # * overwrite
+        self._active_step.client.tool_kit.func = None
+        super().set_body(new_body)
+        self._active_step.client.tool_kit.func = self.assign_nord_star
+
     def assign_nord_star(self, nord_star, name):  # * callback method
         step = self._active_step
         step.inputs.append(name)
