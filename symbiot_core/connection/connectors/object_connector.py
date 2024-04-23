@@ -1,4 +1,4 @@
-from symbiot_core.connection.pickle_connector import PickleConnector, endpoint
+from symbiot_core.connection.connectors.pickle_connector import PickleConnector, endpoint
 from symbiot_lib.objects.gpt_client import GPTClient
 from symbiot_lib.objects.operation import Operation
 from symbiot_lib.objects.record import Record

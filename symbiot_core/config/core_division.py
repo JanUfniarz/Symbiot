@@ -1,11 +1,11 @@
 from flask import Flask
 from injector import Binder, singleton
 
-from symbiot_core.connection.object_connector import ObjectConnector
-from symbiot_core.endpoints.chat_endpoint import ChatEndpoint
-from symbiot_core.endpoints.keys_endpoint import KeysEndpoint
-from symbiot_core.endpoints.main_endpoint import MainEndpoint
-from symbiot_core.handlers.calibration_handler import CalibrationHandler
+from symbiot_core.connection.connectors.object_connector import ObjectConnector
+from symbiot_core.connection.endpoints.chat_endpoint import ChatEndpoint
+from symbiot_core.connection.endpoints.keys_endpoint import KeysEndpoint
+from symbiot_core.connection.endpoints.main_endpoint import MainEndpoint
+from symbiot_core.control.handlers.calibration_handler import CalibrationHandler
 from symbiot_lib.components.symbiot_division import SymbiotDivision
 
 

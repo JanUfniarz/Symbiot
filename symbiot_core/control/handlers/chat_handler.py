@@ -1,4 +1,4 @@
-from symbiot_core.connection.object_connector import ObjectConnector
+from symbiot_core.connection.connectors.object_connector import ObjectConnector
 from symbiot_lib.objects.step_record import StepRecord
 
 

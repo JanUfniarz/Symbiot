@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 from injector import inject
 
-from symbiot_core.handlers.calibration_handler import CalibrationHandler
-from symbiot_core.handlers.chat_handler import ChatHandler
+from symbiot_core.control.handlers.calibration_handler import CalibrationHandler
+from symbiot_core.control.handlers.chat_handler import ChatHandler
 
 
 class ChatEndpoint:
