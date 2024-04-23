@@ -29,25 +29,25 @@ class CalibrationHandler(ChatHandler):
                                 path="operation")
         step.client.tool_kit.func = self.assign_nord_star
 
-        self._active_step = step
+        self.active_step = step
         self.continue_chat(wish)
         self.close_chat()
 
     def open_chat(self, step_id):  # * overwrite
         super().open_chat(step_id)
-        self._active_step.client.tool_kit.func = self.assign_nord_star
+        self.active_step.client.tool_kit.func = self.assign_nord_star
 
     def close_chat(self):  # * overwrite
-        self._active_step.client.tool_kit.func = None
+        self.active_step.client.tool_kit.func = None
         super().close_chat()
 
     def set_body(self, new_body: str) -> None:  # * overwrite
-        self._active_step.client.tool_kit.func = None
+        self.active_step.client.tool_kit.func = None
         super().set_body(new_body)
-        self._active_step.client.tool_kit.func = self.assign_nord_star
+        self.active_step.client.tool_kit.func = self.assign_nord_star
 
     def assign_nord_star(self, nord_star, name):  # * callback method
-        step = self._active_step
+        step = self.active_step
         step.inputs.append(name)
         step.outputs.append(nord_star)
         step.add_to_status("ns_generated")

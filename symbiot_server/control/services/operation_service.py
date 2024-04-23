@@ -33,15 +33,16 @@ class OperationService(SymbiotService):
         return self._repository.get_all()
 
     def save_record(self, record: Record):
+        operation = self.operation("record_id", record.id)
         if record.in_status("calibration", "ns_generated") \
                 and not record.in_status("done"):
-            operation = self.operation("record_id", record.id)
 
             operation.name = record.inputs[0]
             operation.nord_star = record.outputs[0]
             self._repository.save(operation)
 
             record.add_to_status("done")
+
         self._repository.update_record(record)
 
     def get_record(self, id_: int):
