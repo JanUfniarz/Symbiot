@@ -3,19 +3,36 @@ import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/ui/style/style_provider.dart';
 import 'package:symbiot_flutter/ui/widgets/symbiot_scaffold.dart';
 
-import '../../components/controllers/operation_controller.dart';
+import '../../components/controllers/chat_controller.dart';
 import '../../models/chat_model.dart';
 import '../../models/message_model.dart';
 import '../style/palette.dart';
 import '../widgets/message.dart';
 
-class ChatView extends StatelessWidget {
+class ChatView extends StatefulWidget {
   final String stepID;
 
   const ChatView(this.stepID, {super.key});
 
-  ChatModel _model(OperationController controller) =>
-      ChatModel(controller.record(stepID));
+  @override
+  State<ChatView> createState() => _ChatViewState();
+}
+
+class _ChatViewState extends State<ChatView> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ChatController>(context, listen: false).openChat(widget.stepID);
+  }
+
+  @override
+  void dispose() {
+    Provider.of<ChatController>(context, listen: false).closeChat();
+    super.dispose();
+  }
+
+  ChatModel _model(ChatController controller) =>
+      ChatModel(controller.record(widget.stepID));
 
   String _date(MessageModel model) {
     String date = model.time.toString();
@@ -23,9 +40,9 @@ class ChatView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Consumer<OperationController>(
+  Widget build(BuildContext context) => Consumer<ChatController>(
       builder: (context, controller, child) => SymbiotScaffold(
-          onSend: (text) => controller.chat(text, stepID),
+          onSend: (text) => controller.chat(text, widget.stepID),
           body: ListView(
 
             children: _model(controller).messages.asMap().entries.expand((entry) {
@@ -46,8 +63,8 @@ class ChatView extends StatelessWidget {
                 ),
 
                 Message(messageModel,
-                  delete: () => controller.deleteMessage(stepID, index),
-                  change: () => controller.changeMessage(stepID, index, context),
+                  delete: () => controller.deleteMessage(widget.stepID, index),
+                  change: () => controller.changeMessage(widget.stepID, index, context),
                 )
               ];
             }).toList() + (!controller.trigger(get: true) ? [] : [const Center(

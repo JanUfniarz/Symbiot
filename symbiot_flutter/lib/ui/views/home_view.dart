@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/ui/style/style_provider.dart';
 
-import '../../components/controllers/operation_controller.dart';
+import '../../components/controllers/main_operation_controller.dart';
 import '../style/palette.dart';
 import '../widgets/input_bar.dart';
 import '../widgets/operation_card.dart';
@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) =>
-      Consumer<OperationController>(
+      Consumer<MainOperationController>(
         builder: (context, controller, child) =>
             Container(
               alignment: Alignment.topCenter,
@@ -38,11 +38,11 @@ class HomeView extends StatelessWidget{
                     OperationsGallery(
                       primary: Palette.accent,
                       operationsCards: List.generate(
-                        controller.models.length, (index) =>
+                        controller.cache.operations.length, (index) =>
                           OperationCard(
-                            name: controller.models[index].name,
+                            name: controller.cache.operations[index].name,
                             onTap: () => controller.openOperation(
-                                controller.models[index].id,
+                                controller.cache.operations[index].id,
                                 context
                             ),
                           ),
