@@ -18,4 +18,3 @@ class ClientService(SymbiotService):
     def new_client(self, by: str, content) -> GPTClient:
         match by:
             case "name": return self._builder.new("gpt", content).get()
-

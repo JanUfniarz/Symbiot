@@ -16,10 +16,12 @@ class SymbiotRepository:
         return list(map(lambda entity: self.base_converter.from_entity(entity),
                         self.db.session.query(self._entity).all()))
 
-    def is_available(self, id_: str) -> bool:
+    def is_available(self, id_: str, table_name: str = None) -> bool:
         # language=POSTGRES-PSQL
         return self.db.session.execute(text(f"""
-            SELECT id FROM {self._entity.__tablename__} WHERE id = '{id_}';
+            SELECT id 
+            FROM {table_name if table_name else self._entity.__tablename__} 
+            WHERE id = '{id_}';
         """)).fetchone() is not None
 
     def update_value(self, id_, to_change, value) -> None:

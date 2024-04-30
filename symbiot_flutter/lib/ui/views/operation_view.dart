@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:symbiot_flutter/ui/widgets/bordered_button.dart';
 
-import '../../components/controllers/operation_controller.dart';
+import '../../components/controllers/main_operation_controller.dart';
 import '../style/palette.dart';
 import '../widgets/input_bar.dart';
 import '../widgets/symbiot_divider.dart';
@@ -14,7 +14,7 @@ class OperationView extends StatelessWidget {
   const OperationView(this.id, {super.key});
 
   @override
-  Widget build(BuildContext context) => Consumer<OperationController>(
+  Widget build(BuildContext context) => Consumer<MainOperationController>(
         builder: (context, controller, child) => SymbiotScaffold(
           tittle: controller.operation(id).name,
           onSend: (text) {}, // TODO: new step
