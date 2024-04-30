@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:symbiot_flutter/components/connection/chat_connector.dart';
 import 'package:symbiot_flutter/components/internal_cache.dart';
 
-import '../../models/record_model.dart';
 import '../../ui/symbiot_app.dart';
 import '../../ui/widgets/message_change_field.dart';
 import '../connection/operation_connector.dart';
@@ -19,12 +18,11 @@ class ChatController extends OperationController {
       ): super(operationConnector, cache);
 
   void chat(String message, String id) async {
-    // TODO: reloading
     trigger();
-    var val = await _chatConnector.sendMessage(message);
+    var response = await _chatConnector.sendMessage(message);
 
-    if (!val["must_reload"]) record(id).body = val["step_body"];
-
+    if (!response["must_reload"]) record(id).body = response["step_body"];
+    else await loadData();
 
     trigger();
   }
