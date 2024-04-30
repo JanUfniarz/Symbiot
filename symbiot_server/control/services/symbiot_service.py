@@ -6,7 +6,6 @@ from symbiot_server.control.mediator import Mediator
 # noinspection PyTypeChecker
 class SymbiotService(ABC):
     @abstractmethod
-    @property
     def division_name(self):
         pass
 

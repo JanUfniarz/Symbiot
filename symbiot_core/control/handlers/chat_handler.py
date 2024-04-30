@@ -1,10 +1,11 @@
 from abc import abstractmethod, ABC
 
 from symbiot_core.connection.connectors.object_connector import ObjectConnector
+from symbiot_core.control.handler_interface import HandlerInterface
 from symbiot_lib.objects.step_record import StepRecord
 
 
-class ChatHandler(ABC):
+class ChatHandler(HandlerInterface):
 
     def __init__(self, object_connector: ObjectConnector):
         self.server = object_connector

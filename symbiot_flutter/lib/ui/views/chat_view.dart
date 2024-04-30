@@ -19,16 +19,11 @@ class ChatView extends StatefulWidget {
 }
 
 class _ChatViewState extends State<ChatView> {
+
   @override
   void initState() {
     super.initState();
     Provider.of<ChatController>(context, listen: false).openChat(widget.stepID);
-  }
-
-  @override
-  void dispose() {
-    Provider.of<ChatController>(context, listen: false).closeChat();
-    super.dispose();
   }
 
   ChatModel _model(ChatController controller) =>
@@ -41,38 +36,41 @@ class _ChatViewState extends State<ChatView> {
 
   @override
   Widget build(BuildContext context) => Consumer<ChatController>(
-      builder: (context, controller, child) => SymbiotScaffold(
-          onSend: (text) => controller.chat(text, widget.stepID),
-          body: ListView(
-
-            children: _model(controller).messages.asMap().entries.expand((entry) {
-              int index = entry.key;
-              MessageModel messageModel = entry.value;
-              String date = _date(messageModel);
-              String previousDate = "";
-              try {
-                previousDate = _date(
-                    _model(controller).messages[index - 1]);
-              } catch (_) {/* RangeError pass */}
-
-              return [
-                date == previousDate ? const SizedBox() : Center(
-                  child: Text(date,
-                    style: StyleProvider.date,
+      builder: (context, controller, child) => PopScope(
+        onPopInvoked: (_) => controller.closeChat(),
+        child: SymbiotScaffold(
+            onSend: (text) => controller.chat(text, widget.stepID),
+            body: ListView(
+        
+              children: _model(controller).messages.asMap().entries.expand((entry) {
+                int index = entry.key;
+                MessageModel messageModel = entry.value;
+                String date = _date(messageModel);
+                String previousDate = "";
+                try {
+                  previousDate = _date(
+                      _model(controller).messages[index - 1]);
+                } catch (_) {/* RangeError pass */}
+        
+                return [
+                  date == previousDate ? const SizedBox() : Center(
+                    child: Text(date,
+                      style: StyleProvider.date,
+                    ),
                   ),
+        
+                  Message(messageModel,
+                    delete: () => controller.deleteMessage(widget.stepID, index),
+                    change: () => controller.changeMessage(widget.stepID, index, context),
+                  )
+                ];
+              }).toList() + (!controller.trigger(get: true) ? [] : [const Center(
+                child: CircularProgressIndicator(
+                  color: Palette.primary,
                 ),
-
-                Message(messageModel,
-                  delete: () => controller.deleteMessage(widget.stepID, index),
-                  change: () => controller.changeMessage(widget.stepID, index, context),
-                )
-              ];
-            }).toList() + (!controller.trigger(get: true) ? [] : [const Center(
-              child: CircularProgressIndicator(
-                color: Palette.primary,
-              ),
-            )]),
-          ),
+              )]),
+            ),
+        ),
       ),
   );
 }

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from injector import inject
 
-from symbiot_core.control.middlewares.step_reloader import HandlerProvider
+from symbiot_core.control.middlewares.handler_provider import HandlerProvider
 
 
 class ChatEndpoint:

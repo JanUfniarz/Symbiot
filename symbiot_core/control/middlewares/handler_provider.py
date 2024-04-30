@@ -1,11 +1,12 @@
 from injector import inject
 
+from symbiot_core.control.handler_interface import HandlerInterface
 from symbiot_core.control.handlers.calibration_handler import CalibrationHandler
 from symbiot_core.control.handlers.chat_handler import ChatHandler
 from symbiot_lib.objects.step_record import StepRecord
 
 
-class HandlerProvider:
+class HandlerProvider(HandlerInterface):
     @inject
     def __init__(self, calibration_handler: CalibrationHandler):
         self._handlers: dict[str, ChatHandler] = dict(
@@ -28,9 +29,9 @@ class HandlerProvider:
 
     def _handler(self, status: str = None) -> ChatHandler:
         def set_handler(status_):
-            for tag in [tag for tag in status_.split("/") if tag.sartswith("TO=")]:
+            for tag in [tag for tag in status_.split("/") if tag.startswith("TO=")]:
                 if tag.replace("TO=", "") in self._handlers:
-                    self._active_handler = self._handlers[tag]
+                    self._active_handler = self._handlers[tag.replace("TO=", "")]
 
         if status is not None:
             set_handler(status)
