@@ -27,7 +27,7 @@ class ClientBuilder:
         self._factory = factory
 
     def existing(self, client: GPTClient):
-        self._client = client
+        self._client: GPTClient = client
         return self
 
     # noinspection PyTypeChecker
@@ -37,7 +37,7 @@ class ClientBuilder:
                 self._client = self._factory.gpt(template)
                 match template:
 
-                    case "calibrator":
+                    case "calibration":
                         client_copy = copy.copy(self._client)
                         extractor = NordStarExtractor(self)
                         self._client = client_copy

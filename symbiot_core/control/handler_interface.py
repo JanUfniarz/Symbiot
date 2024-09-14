@@ -7,7 +7,7 @@ class HandlerInterface(ABC):
         pass
 
     @abstractmethod
-    def open_chat(self, status, step_id) -> None:
+    def open_chat(self, step_id) -> None:
         pass
 
     @abstractmethod

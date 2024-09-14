@@ -19,6 +19,10 @@ class ClientFactory:
     him as many questions as you need to start project.
     """
 
+    ROADMAP_CREATOR = """
+    
+    """
+
     ONE_VALUE_GENERATOR = """        
     You are a one value generator and your role is to generate only one value. 
     In next message you will be given instruction what to generate. Be sure to provide only this. 
@@ -35,8 +39,10 @@ class ClientFactory:
             scripter=dict(init_messages=[self._sys_prompt(self.SCRIPTER)], max_tokens=4000),
 
             # used
-            calibrator=dict(init_messages=[self._sys_prompt(self.CALIBRATOR)]),
+            calibration=dict(init_messages=[self._sys_prompt(self.CALIBRATOR)]),
+            roadmap=dict(init_messages=[self._sys_prompt(self.ROADMAP_CREATOR)]),
             one_value_generator=dict(init_messages=[self._sys_prompt(self.ONE_VALUE_GENERATOR)], max_tokens=1000),
+
         )
         return GPTClient(**templates[template])
 

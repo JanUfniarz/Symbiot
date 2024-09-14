@@ -16,9 +16,9 @@ class ChatEndpoint:
         def new_message():
             body, must_reload = self.provider.continue_chat(
                 request.get_json()["prompt"])
-            return jsonify({
-                "step_body": body,
-                "must_reload": must_reload})
+            return jsonify(dict(
+                step_body=body,
+                must_reload=must_reload))
 
         @self.app.route(path + "/body", methods=["PUT"])
         def set_body():
@@ -36,4 +36,4 @@ class ChatEndpoint:
                     self._active_handler = None
                 case _:
                     raise ValueError("Invalid command")
-            return jsonify({"message": "chat opened"})
+            return jsonify(dict(message="chat opened"))

@@ -3,7 +3,6 @@ from injector import inject
 from symbiot_core.connection.connectors.object_connector import ObjectConnector
 from symbiot_core.control.handlers.chat_handler import ChatHandler
 from symbiot_lib.objects.operation import Operation
-from symbiot_lib.objects.step_record import StepRecord
 
 
 class CalibrationHandler(ChatHandler):
@@ -12,16 +11,14 @@ class CalibrationHandler(ChatHandler):
     def __init__(self, object_connector: ObjectConnector):
         super().__init__(object_connector)
 
-    def create(self, wish):
+    def create(self, wish, status="calibration", previous=None):
         # noinspection PyTypeChecker
         operation = Operation(
             None, wish, wish,
             "", "NEW",
             "unnamed", "", [])
 
-        step = StepRecord([], client=self.server.get_client_by_name("calibrator"))
-        step.add_to_status("TO=calibration")
-        step.add_to_status("redirected")
+        step = self.new_step(status, previous)
         operation.add_or_update_record(step)
 
         self.server.post_pickle(operation,

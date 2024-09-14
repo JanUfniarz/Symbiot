@@ -18,6 +18,7 @@ class HandlerProvider(HandlerInterface):
     def continue_chat(self, prompt: str):
         return self._check_and_reload(self._handler().continue_chat(prompt))
 
+    # noinspection PyMethodOverriding
     def open_chat(self, status, step_id):
         return self._handler(status).open_chat(step_id)
 
@@ -47,19 +48,7 @@ class HandlerProvider(HandlerInterface):
             return body, False
 
         new_handler = self._handler(status)
-        new_handler.create(step)
+        new_handler.create(
+            status=status,
+            previous=step)
         return body, True
-
-        #
-        # - sprawdzić czy ma przeładować
-        # - na podastawie statusu dobrać kolejny handler
-        #
-        # odpalić create i włożyć active_step
-        #
-        #
-        # ! tam utworzyć nowy step i zapisać do backendu
-        #
-        # zwrócić dane do response a w nich informację o potrzebnym switchu
-        #
-        # ! przetworzyć na frontendzie i backendzie
-        #

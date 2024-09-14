@@ -17,4 +17,4 @@ class MainEndpoint:
         def new_operation():
             wish = request.get_json()["wish"]
             self.calibration_handler.create(wish)
-            return jsonify({"message": "added operation"})
+            return jsonify(dict(message="added operation"))
