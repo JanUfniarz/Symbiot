@@ -3,7 +3,7 @@ import openai
 from symbiot_lib.tool_kits.tool_kit import ToolKit
 
 
-class GPTClient:
+class GPTAgent:
     def __init__(
             self,
             model: str = "gpt-3.5-turbo",

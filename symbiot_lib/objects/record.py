@@ -5,8 +5,8 @@ from abc import abstractmethod
 class Record:
 
     def __init__(self, inputs, id_=None, previous=None, path=None,
-                 outputs=None, body="", status="", client=None, **ignored):
-        self.client = client
+                 outputs=None, body="", status="", agent=None, **ignored):
+        self.agent = agent
         self.id: str = str(uuid.uuid4()) if id_ is None else id_
         self.previous = previous
         self.path: str = path
@@ -36,7 +36,7 @@ class Record:
     def serialized(self) -> dict:
         res = self.__dict__.copy()
         res["type"] = self.type_str
-        res.pop("client")
+        res.pop("agent")
         if isinstance(res["previous"], Record):
             res["previous"] = self.previous.id
         return res

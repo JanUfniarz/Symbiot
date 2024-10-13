@@ -17,11 +17,11 @@ if (-not $(docker images symbiot_lib_builder -q)) {
     Set-Location ..
 }
 
-Write-Host "Building symbiot_server and symbiot_core ..." -ForegroundColor Yellow
+Write-Host "Building symbiot_server and symbiot_engine ..." -ForegroundColor Yellow
 docker-compose up --detach
 
 $not_working_containers = New-Object System.Collections.ArrayList
-foreach ($name in @("symbiot-server-1", "symbiot-database-1", "symbiot-core-1")) {
+foreach ($name in @("symbiot-server-1", "symbiot-database-1", "symbiot-engine-1")) {
     $null = $not_working_containers.Add($name)
 }
 

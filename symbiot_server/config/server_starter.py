@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from symbiot_lib.components.symbiot_division import SymbiotDivision
 from symbiot_lib.components.symbiot_starter import SymbiotStarter
 from symbiot_server.control.mediator import Mediator
-from symbiot_server.endpoints.client_endpoint import ClientEndpoint
+from symbiot_server.endpoints.agent_endpoint import AgentEndpoint
 from symbiot_server.endpoints.operation_endpoint import OperationEndpoint
 
 
@@ -12,7 +12,7 @@ class ServerStarter(SymbiotStarter):
     def __init__(self):
         super().__init__(dict(
             operation=OperationEndpoint,
-            client=ClientEndpoint))
+            agent=AgentEndpoint))
         self._mediator: Mediator = None
         self._db: SQLAlchemy = None
 

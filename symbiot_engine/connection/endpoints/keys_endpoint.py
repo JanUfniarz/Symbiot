@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from injector import inject
 
-from symbiot_lib.objects.gpt_client import GPTClient
+from symbiot_lib.objects.gpt_agent import GPTAgent
 
 
 class KeysEndpoint:
@@ -17,7 +17,7 @@ class KeysEndpoint:
             return key
 
         if open_ai is not None:
-            GPTClient.set_api_key(check_clear(open_ai))
+            GPTAgent.set_api_key(check_clear(open_ai))
 
     def listen(self, path):
         @self.app.route(path + "/", methods=['POST'])

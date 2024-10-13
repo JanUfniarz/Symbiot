@@ -1,7 +1,7 @@
-from symbiot_lib.objects.gpt_client import GPTClient
+from symbiot_lib.objects.gpt_agent import GPTAgent
 
 
-class ClientFactory:
+class AgentFactory:
 
     FULL_AWARE = """
     You are system manager of an application, that makes scripts to fulfill the user requirements.
@@ -38,7 +38,7 @@ class ClientFactory:
             calibrator=dict(init_messages=[self._sys_prompt(self.CALIBRATOR)]),
             one_value_generator=dict(init_messages=[self._sys_prompt(self.ONE_VALUE_GENERATOR)], max_tokens=1000),
         )
-        return GPTClient(**templates[template])
+        return GPTAgent(**templates[template])
 
     @staticmethod
     def _sys_prompt(prompt):

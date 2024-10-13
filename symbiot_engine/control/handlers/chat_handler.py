@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABC
 
-from symbiot_core.connection.connectors.object_connector import ObjectConnector
-from symbiot_core.control.handler_interface import HandlerInterface
+from symbiot_engine.connection.connectors.object_connector import ObjectConnector
+from symbiot_engine.control.handler_interface import HandlerInterface
 from symbiot_lib.objects.step_record import StepRecord
 
 
@@ -16,6 +16,7 @@ class ChatHandler(HandlerInterface):
         # ! method should send data to server
         pass
 
+    # noinspection PyMethodOverriding
     def open_chat(self, step_id):
         self.active_step = self.server.get_record_by_id(step_id)
 
@@ -37,6 +38,6 @@ class ChatHandler(HandlerInterface):
             raise NotImplementedError("no active step")
 
         step.add_entry("user", prompt)
-        response: dict = step.client.chat(prompt)
+        response: dict = step.agent.chat(prompt)
         step.add_entry(response["role"], response["content"])
         return step.body

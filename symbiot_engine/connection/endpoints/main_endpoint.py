@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from injector import inject
 
-from symbiot_core.control.handlers.calibration_handler import CalibrationHandler
+from symbiot_engine.control.handlers.calibration_handler import CalibrationHandler
 
 
 class MainEndpoint:

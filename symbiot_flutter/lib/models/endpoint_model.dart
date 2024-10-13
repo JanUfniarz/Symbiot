@@ -15,17 +15,17 @@ class EndpointModel {
   static int _receiverToPort(Receiver receiver) {
     switch (receiver) {
       case Receiver.server: return 5000;
-      case Receiver.core: return 5001;
+      case Receiver.engine: return 5001;
     }
   }
 
   set receiver(Receiver value) => _port = _receiverToPort(value);
-  Receiver get receiver => _port == 5000 ? Receiver.server : Receiver.core;
+  Receiver get receiver => _port == 5000 ? Receiver.server : Receiver.engine;
 
   Uri uri(String? arg) =>
       Uri.parse("http://127.0.0.1:$_port/$path/${arg ?? ""}");
 }
 
 enum Receiver {
-  server, core
+  server, engine
 }

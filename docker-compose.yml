@@ -3,7 +3,7 @@ version: "3"
 services:
 
   database:
-    image: postgres:latest
+    image: postgres:16
     volumes:
       - ./data_volume:/var/lib/postgresql/data
     environment:
@@ -24,9 +24,9 @@ services:
     expose:
       - 5000
 
-  core:
+  engine:
     build:
       context:
-       ./symbiot_core
+       ./symbiot_engine
     ports:
       - "5001:5001"

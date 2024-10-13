@@ -2,56 +2,56 @@ import copy
 
 from injector import inject
 
-from symbiot_lib.objects.gpt_client import GPTClient
+from symbiot_lib.objects.gpt_agent import GPTAgent
 from symbiot_lib.objects.step_record import StepRecord
 from symbiot_lib.tool_kits.nord_star_extractor import NordStarExtractor
 from symbiot_lib.tool_kits.tool_kit import ToolKit
-from symbiot_server.control.client_factory import ClientFactory
+from symbiot_server.control.agent_factory import AgentFactory
 
 
-def client_required(method):
+def agent_required(method):
     def wrapper(self, *args, **kwargs):
-        if not self._client:
-            raise Exception("No client, "
+        if not self._agent:
+            raise Exception("No agent, "
                             "use new() or existing() first")
         return method(self, *args, **kwargs)
 
     return wrapper
 
 
-class ClientBuilder:
+class AgentBuilder:
 
     @inject
-    def __init__(self, factory: ClientFactory):
-        self._client = None
+    def __init__(self, factory: AgentFactory):
+        self._agent = None
         self._factory = factory
 
-    def existing(self, client: GPTClient):
-        self._client = client
+    def existing(self, agent: GPTAgent):
+        self._agent = agent
         return self
 
     # noinspection PyTypeChecker
     def new(self, type_: str, template: str = None):
         if type_ == "gpt":
             if template:
-                self._client = self._factory.gpt(template)
+                self._agent = self._factory.gpt(template)
                 match template:
 
                     case "calibrator":
-                        client_copy = copy.copy(self._client)
+                        agent = copy.copy(self._agent)
                         extractor = NordStarExtractor(self)
-                        self._client = client_copy
+                        self._agent = agent
                         self.add_access(extractor)
 
             else:
-                self._client = GPTClient()
+                self._agent = GPTAgent()
         return self
 
-    @client_required
-    def get(self) -> GPTClient:
-        return self._client
+    @agent_required
+    def get(self) -> GPTAgent:
+        return self._agent
 
-    @client_required
+    @agent_required
     def add_step(self, step: StepRecord):
         messages = []
         for el in list(map(lambda entry: entry.split(
@@ -63,37 +63,37 @@ class ClientBuilder:
             messages.append(dict(
                 role="assistant",
                 content=el.split("<@res>")[1]))
-        self._client.messages += messages
+        self._agent.messages += messages
         return self
 
-    @client_required
+    @agent_required
     def add_access(self, tool_kit: ToolKit):
-        self._client.functions = tool_kit.access
-        self._client.function_call = tool_kit.forced \
+        self._agent.functions = tool_kit.access
+        self._agent.function_call = tool_kit.forced \
             if tool_kit.forced == "auto" \
             or tool_kit.forced == "none" \
             else {"name": tool_kit.forced}
-        self._client.tool_kit = tool_kit
+        self._agent.tool_kit = tool_kit
         return self
 
-    @client_required
+    @agent_required
     def set_params(self, model: str = None,
                    temperature: float = None,
                    n: int = None,
                    max_tokens: int = None):
         if model is not None:
-            self._client.model = model
+            self._agent.model = model
         if temperature:
-            self._client.temperature = temperature
+            self._agent.temperature = temperature
         if n is not None:
-            self._client.n = n
+            self._agent.n = n
         if max_tokens is not None:
-            self._client.max_tokens = max_tokens
+            self._agent.max_tokens = max_tokens
         return self
 
-    @client_required
+    @agent_required
     def add_sys_prompt(self, prompt: str):
-        self._client.messages.append(dict(
+        self._agent.messages.append(dict(
             role="system",
             content=prompt))
         return self

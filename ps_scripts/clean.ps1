@@ -5,10 +5,10 @@ $all =  $params.Count -eq 0
 
 if ($params -contains "lib" -or $all) { docker rmi symbiot_lib_builder }
 
-if ($params -contains "core" -or $all) {
-    docker stop symbiot-core-1
-    docker rm symbiot-core-1
-    docker rmi symbiot-core
+if ($params -contains "engine" -or $all) {
+    docker stop symbiot-engine-1
+    docker rm symbiot-engine-1
+    docker rmi symbiot-engine
 }
 
 if ($params -contains "server" -or $all) {

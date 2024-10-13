@@ -3,7 +3,7 @@ import "http_facade.dart";
 
 class OperationConnector extends HTTPFacade {
 
-  final EndpointModel mainEndpoint = EndpointModel(Receiver.core, "main");
+  final EndpointModel mainEndpoint = EndpointModel(Receiver.engine, "main");
   final EndpointModel operationEndpoint = EndpointModel(Receiver.server, "operation");
 
   Future<List<dynamic>> getAllOperations() async => await get(operationEndpoint);

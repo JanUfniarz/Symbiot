@@ -1,5 +1,5 @@
-from symbiot_core.connection.connectors.pickle_connector import PickleConnector, endpoint
-from symbiot_lib.objects.gpt_client import GPTClient
+from symbiot_engine.connection.connectors.pickle_connector import PickleConnector, endpoint
+from symbiot_lib.objects.gpt_agent import GPTAgent
 from symbiot_lib.objects.operation import Operation
 from symbiot_lib.objects.record import Record
 
@@ -9,8 +9,8 @@ class ObjectConnector(PickleConnector):
     def __init__(self):
         super().__init__()
 
-    @endpoint("client")
-    def get_client_by_name(self, name: str) -> GPTClient:
+    @endpoint("agent")
+    def get_agent_by_name(self, name: str) -> GPTAgent:
         return self.get_pickle(dict(
             by="name",
             content=name))

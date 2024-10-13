@@ -1,8 +1,8 @@
 from injector import inject
 
-from symbiot_core.control.handler_interface import HandlerInterface
-from symbiot_core.control.handlers.calibration_handler import CalibrationHandler
-from symbiot_core.control.handlers.chat_handler import ChatHandler
+from symbiot_engine.control.handler_interface import HandlerInterface
+from symbiot_engine.control.handlers.calibration_handler import CalibrationHandler
+from symbiot_engine.control.handlers.chat_handler import ChatHandler
 from symbiot_lib.objects.step_record import StepRecord
 
 

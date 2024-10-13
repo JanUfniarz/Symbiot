@@ -15,11 +15,11 @@ Write-Host "   | help   |                    | Shows this                       
    | src    |                    | Moves you to the                   |
    |        |                    | source directory.                  |
    |________|____________________|____________________________________|
-   | clean  | lib, server, core, | Deletes the image or build dir.    |
-   |        | db, flutter        | Without args it cleens everything. |
+   | clean  | lib, server, db,   | Deletes the image or build dir.    |
+   |        | engine, flutter    | Without args it cleens everything. |
    |________|____________________|____________________________________|
-   | build  | lib, server, core, | Builds the image or build dir.     |
-   |        | flutter            | Without args it builds everything. |
+   | build  | lib, server, db,   | Builds the image or build dir.     |
+   |        | engine, flutter    | Without args it builds everything. |
    |________|____________________|____________________________________|
    | check  |                    | Checks the dependencies.           |
    |        |                    |                                    |

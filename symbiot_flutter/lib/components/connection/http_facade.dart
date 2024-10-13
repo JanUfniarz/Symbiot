@@ -27,6 +27,9 @@ class HTTPFacade {
   dynamic _manage(http.Response response) =>
       response.statusCode == 200
           ? jsonDecode(utf8.decode(response.bodyBytes))
-          : throw Exception('Connection error!!!\n'
-          'status code: ${response.statusCode}');
+          : throw Exception(
+            'Connection error!!!\n'
+            'status code: ${response.statusCode}\n'
+            'error message: ${response.body}'
+      );
 }

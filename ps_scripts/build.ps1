@@ -9,9 +9,9 @@ if ($params -contains "lib" -or $all) {
     Set-Location ..
 }
 
-if ($params -contains "core" -or $all) {
-    Set-Location symbiot_core
-    docker build -t symbiot-core .
+if ($params -contains "engine" -or $all) {
+    Set-Location symbiot_engine
+    docker build -t symbiot-engine .
     Set-Location ..
 }
 

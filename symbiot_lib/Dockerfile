@@ -1,4 +1,4 @@
-FROM python:3 AS symbiot_lib_builder
+FROM python:3.11 AS symbiot_lib_builder
 
 WORKDIR /usr/src/symbiot_lib
 

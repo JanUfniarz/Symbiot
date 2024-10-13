@@ -17,7 +17,7 @@ class RecordConverter:
         args.pop("inputs")
         args.pop("outputs")
 
-        args["client"] = pickle.loads(args["client"])
+        args["agent"] = pickle.loads(args["agent"])
 
         if entity.type_ == "step":
             return StepRecord(
@@ -44,7 +44,7 @@ class RecordConverter:
         args.pop("outputs")
         args["id_"] = args.pop("id")
 
-        args["client"] = pickle.dumps(args["client"])
+        args["agent"] = pickle.dumps(args["agent"])
 
         return RecordEntity(
             type_,

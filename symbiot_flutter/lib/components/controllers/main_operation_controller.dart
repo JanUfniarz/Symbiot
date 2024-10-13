@@ -6,8 +6,6 @@ import '../../models/record_model.dart';
 import '../../ui/symbiot_app.dart';
 import '../../ui/views/chat_view.dart';
 import '../../ui/views/operation_view.dart';
-import '../../ui/widgets/message_change_field.dart';
-import '../connection/chat_connector.dart';
 import '../connection/operation_connector.dart';
 import 'operation_controller.dart';
 
@@ -25,12 +23,6 @@ class MainOperationController extends OperationController {
 
   void openChat(RecordModel step, BuildContext context) =>
       SymbiotApp.push(context, ChatView(step.id));
-  /*
-  void openChat(RecordModel step, BuildContext context) =>
-      _chatConnector.manageChat("open", step: step)
-          .whenComplete(() => SymbiotApp.push(context, ChatView(step.id))
-            .whenComplete(() => _chatConnector.manageChat("close")));
-   */
 
   Future<OperationModel> newOperation(String wish) async {
     await operationConnector.createOperation(wish)

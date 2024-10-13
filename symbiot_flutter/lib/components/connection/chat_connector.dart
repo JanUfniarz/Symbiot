@@ -4,7 +4,7 @@ import '../../models/record_model.dart';
 import 'http_facade.dart';
 
 class ChatConnector extends HTTPFacade {
-  final EndpointModel chatEndpoint = EndpointModel(Receiver.core, "chat");
+  final EndpointModel chatEndpoint = EndpointModel(Receiver.engine, "chat");
 
   Future<dynamic> manageChat(
       String action, {RecordModel? step}

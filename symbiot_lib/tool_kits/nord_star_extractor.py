@@ -1,4 +1,4 @@
-from symbiot_lib.objects.gpt_client import GPTClient
+from symbiot_lib.objects.gpt_agent import GPTAgent
 from symbiot_lib.tool_kits.tool_kit import ToolKit
 
 
@@ -25,7 +25,7 @@ class NordStarExtractor(ToolKit):
         super().__init__()
         self.func = None
 
-        self.name_generator: GPTClient = builder.new("gpt", "one_value_generator") \
+        self.name_generator: GPTAgent = builder.new("gpt", "one_value_generator") \
             .add_sys_prompt(self.NAME_GENERATOR_PROMPT).get()
 
     @ToolKit.tool_function(EXTRACT_NORD_STAR_DESCRIPTION,
