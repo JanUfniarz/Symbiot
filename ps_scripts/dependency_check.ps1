@@ -7,7 +7,7 @@ if (Test-Path -Path (Get-Command flutter -ErrorAction SilentlyContinue).Source) 
     Write-Host "$good Flutter installed"
     flutter doctor | Select-String -SimpleMatch "Windows" | ForEach-Object {
         $sign = $_.Line.Substring(0, [Math]::Min(3, $_.Line.Length))
-        $sign = if ($sign -like "*√*") {
+        $sign = if ($sign -like "*√*" -or $sign -like "*✓*") {
             $good
         } elseif ($sign -like "*✗*") {
             $bad

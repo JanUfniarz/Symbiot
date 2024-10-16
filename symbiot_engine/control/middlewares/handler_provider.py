@@ -28,13 +28,12 @@ class HandlerProvider(HandlerInterface):
         return self._handler().set_body(new_body)
 
     def _handler(self, status: str = None) -> ChatHandler:
-        def set_handler(status_):
-            for tag in [tag for tag in status_.split("/") if tag.startswith("TO=")]:
+
+        if status is not None:
+            for tag in [tag for tag in status.split("/") if tag.startswith("TO=")]:
                 if tag.replace("TO=", "") in self._handlers:
                     self._active_handler = self._handlers[tag.replace("TO=", "")]
 
-        if status is not None:
-            set_handler(status)
         if self._active_handler is None:
             raise ValueError("No active handler, provide proper status")
         return self._active_handler
@@ -49,17 +48,3 @@ class HandlerProvider(HandlerInterface):
         new_handler = self._handler(status)
         new_handler.create(step)
         return body, True
-
-        #
-        # - sprawdzić czy ma przeładować
-        # - na podastawie statusu dobrać kolejny handler
-        #
-        # odpalić create i włożyć active_step
-        #
-        #
-        # ! tam utworzyć nowy step i zapisać do backendu
-        #
-        # zwrócić dane do response a w nich informację o potrzebnym switchu
-        #
-        # ! przetworzyć na frontendzie i backendzie
-        #

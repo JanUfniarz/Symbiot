@@ -6,7 +6,7 @@ from symbiot_server.control.services.symbiot_service import SymbiotService
 
 
 class AgentService(SymbiotService):
-    division_name = "client"
+    division_name = "agent"
 
     # noinspection PyTypeChecker
     @inject

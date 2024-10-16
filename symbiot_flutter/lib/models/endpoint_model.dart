@@ -20,10 +20,12 @@ class EndpointModel {
   }
 
   set receiver(Receiver value) => _port = _receiverToPort(value);
+
   Receiver get receiver => _port == 5000 ? Receiver.server : Receiver.engine;
 
-  Uri uri(String? arg) =>
-      Uri.parse("http://127.0.0.1:$_port/$path/${arg ?? ""}");
+  Uri uri(String? arg) => Uri.parse(
+      "http://127.0.0.1:$_port/$path/${arg ?? ""}"
+  );
 }
 
 enum Receiver {

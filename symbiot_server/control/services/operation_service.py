@@ -35,7 +35,7 @@ class OperationService(SymbiotService):
     def save_record(self, record: Record):
         if self._repository.is_available(record.id, "records"):
             operation = self.operation("record_id", record.id)
-            if record.in_status("calibration", "ns_generated") \
+            if record.in_status("TO=calibration", "ns_generated") \
                     and not record.in_status("done"):
 
                 operation.name = record.inputs[0]

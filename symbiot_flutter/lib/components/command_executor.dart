@@ -16,8 +16,7 @@ class CommandExecutor {
         _arguments = ["-c"];
 
 
-  Future<dynamic> run(String command,
-      {bool return_ = false}) async {
+  Future<dynamic> run(String command, {bool return_ = false}) async {
 
     final result = await Process.run(_executable, _arguments + [command]);
 

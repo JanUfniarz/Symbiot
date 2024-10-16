@@ -36,5 +36,5 @@ void main() {
         ChatConnector()
       )
     )
-]));
+  ]));
 }

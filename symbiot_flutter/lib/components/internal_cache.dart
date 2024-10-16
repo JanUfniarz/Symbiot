@@ -5,31 +5,27 @@ class InternalCache {
   Map<String, String> keys = {};
   List<OperationModel> _operations = [];
 
-  Map<String, List<String>> _newIds = {
-    "operations": [],
-    "records": []
-  };
+  final _IDStorage _newIds = _IDStorage();
 
   set operations(List<dynamic> value) {
     Iterable<OperationModel> models = value
         .map((el) => OperationModel(el));
 
-    _newIds = {
-      "operations": models
+    _newIds
+      ..operations = models
           .map((operation) => operation.id)
           .where((id) => !_operations
             .map((operation) => operation.id)
             .contains(id))
-          .toList(),
-      "records": models
+          .toList()
+      ..records = models
           .expand((el) => el.records)
           .map((record) => record.id)
           .where((id) => !_operations
             .expand((el) => el.records)
             .map((operation) => operation.id)
             .contains(id))
-          .toList()
-    };
+          .toList();
 
     _operations = models.toList();
   }
@@ -37,16 +33,21 @@ class InternalCache {
   List<OperationModel> get operations => _operations;
 
   List<RecordModel> get records => _operations
-      .expand((el) => el.records)
+      .expand((operation) => operation.records)
       .toList();
 
   List<OperationModel> get newOperations => _operations
-      .where((operation) => _newIds["operations"]!
+      .where((operation) => _newIds.operations
         .contains(operation.id))
       .toList();
 
   List<RecordModel> get newRecords => records
-      .where((record) => _newIds["records"]!
+      .where((record) => _newIds.records
         .contains(record.id))
       .toList();
+}
+
+class _IDStorage {
+  List<String> operations = [];
+  List<String> records = [];
 }

@@ -19,7 +19,7 @@ class ServerStarter(SymbiotStarter):
     def __call__(self, cls):  # * override
         if cls is Mediator:
             return self._mediator
-        return self._injector.get(cls)
+        return super().__call__(cls)
 
     def mediator(self):
         self._mediator = Mediator(self._injector)
