@@ -72,7 +72,7 @@ class ToolKit:
             raise Exception("Unknown function")
 
     @staticmethod
-    def tool_function(description, parameters=None):
+    def tool_function(description: str, parameters: list[dict[str, str]] | None = None):
         # parameters are (type, name, description, required, enum)
         def decorator(func):
             def param_format(param: dict) -> dict:

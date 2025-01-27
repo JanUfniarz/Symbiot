@@ -27,7 +27,7 @@ class AgentFactory:
     Forget about any introductions like: 'your name is:'.
     """
 
-    def gpt(self, template: str):
+    def gpt(self, template: str) -> GPTAgent:
         templates = dict(
 
             # not used yet
@@ -41,7 +41,7 @@ class AgentFactory:
         return GPTAgent(**templates[template])
 
     @staticmethod
-    def _sys_prompt(prompt):
+    def _sys_prompt(prompt: str) -> dict[str, str]:
         return dict(
             role="system",
             content=prompt)

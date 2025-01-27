@@ -20,10 +20,10 @@ class Record:
         return self.status.split("/")[-1]
 
     @abstractmethod
-    def type_str(self):
+    def type_str(self) -> str:
         pass
 
-    def add_to_status(self, value):
+    def add_to_status(self, value: str) -> None:
         self.status += "/" + value
 
     def in_status(self, *values) -> bool:

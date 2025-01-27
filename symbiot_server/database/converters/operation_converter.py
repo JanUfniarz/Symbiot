@@ -8,7 +8,7 @@ from symbiot_server.database.entities.operation_entity import OperationEntity
 class OperationConverter:
     @inject
     def __init__(self, record_converter: RecordConverter):
-        self.record_converter = record_converter
+        self.record_converter: RecordConverter = record_converter
 
     def to_entity(self, operation: Operation) -> OperationEntity:
         args = operation.__dict__.copy()

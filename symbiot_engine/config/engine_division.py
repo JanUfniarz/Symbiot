@@ -10,7 +10,7 @@ from symbiot_lib.components.symbiot_division import SymbiotDivision
 
 
 class EngineDivision(SymbiotDivision):
-    def configure(self, binder: Binder):
+    def configure(self, binder: Binder) -> None:
         binder.bind(Flask, self.app)
         binder.bind(MainEndpoint, scope=singleton)
         binder.bind(ChatEndpoint, scope=singleton)

@@ -18,7 +18,7 @@ class OperationRepository(SymbiotRepository):
         super().__init__(db, OperationEntity, operation_converter)
         self.record_converter = record_converter
 
-    def get_record_by_id(self, id_) -> Record:
+    def get_record_by_id(self, id_: str) -> Record:
         return self.record_converter.from_entity(
             self.db.session.query(RecordEntity).get(id_))
 

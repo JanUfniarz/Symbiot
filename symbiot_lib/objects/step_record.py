@@ -6,7 +6,7 @@ from symbiot_lib.objects.record import Record
 
 class StepRecord(Record):
     @property
-    def type_str(self):
+    def type_str(self) -> str:
         return "step"
 
     def __init__(self, inputs, **kwargs):

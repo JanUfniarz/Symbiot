@@ -14,7 +14,7 @@ class PickleConnector:
         self._docker_mode: bool = '--docker' in sys.argv
 
     @property
-    def url(self):
+    def url(self) -> str:
         server_host: str = "symbiot-server-1" \
             if self._docker_mode else "127.0.0.1"
         return f"http://{server_host}:5000/"
@@ -41,7 +41,7 @@ class PickleConnector:
                 pickle=(base64.b64encode(pickle.dumps(object_)).decode("utf-8")))))
 
 
-def endpoint(path):
+def endpoint(path: str):
     def decorator(func):
         def wrapper(self, *args, **kwargs):
             self.path = path

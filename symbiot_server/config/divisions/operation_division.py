@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from injector import singleton
+from injector import singleton, Binder
 
 # noinspection PyPackages
 from symbiot_lib.components.symbiot_division import SymbiotDivision
@@ -12,7 +12,7 @@ from symbiot_server.database.converters.record_converter import RecordConverter
 
 
 class OperationDivision(SymbiotDivision):
-    def configure(self, binder):
+    def configure(self, binder: Binder) -> None:
         binder.bind(OperationEndpoint, scope=singleton)
         binder.bind(Flask, to=self.app)
         binder.bind(OperationService, scope=singleton)

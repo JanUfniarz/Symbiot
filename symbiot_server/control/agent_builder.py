@@ -23,8 +23,8 @@ class AgentBuilder:
 
     @inject
     def __init__(self, factory: AgentFactory):
-        self._agent = None
-        self._factory = factory
+        self._agent: GPTAgent | None = None
+        self._factory: AgentFactory = factory
 
     def existing(self, agent: GPTAgent):
         self._agent = agent

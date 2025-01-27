@@ -15,13 +15,13 @@ class HandlerProvider(HandlerInterface):
         # noinspection PyTypeChecker
         self._active_handler: ChatHandler = None
 
-    def continue_chat(self, prompt: str):
+    def continue_chat(self, prompt: str) -> tuple[str, bool]:
         return self._check_and_reload(self._handler().continue_chat(prompt))
 
-    def open_chat(self, status, step_id):
+    def open_chat(self, status: str, step_id: str) -> None:
         return self._handler(status).open_chat(step_id)
 
-    def close_chat(self):
+    def close_chat(self) -> None:
         return self._handler().close_chat()
 
     def set_body(self, new_body: str) -> None:
@@ -38,7 +38,7 @@ class HandlerProvider(HandlerInterface):
             raise ValueError("No active handler, provide proper status")
         return self._active_handler
 
-    def _check_and_reload(self, body):
+    def _check_and_reload(self, body: str) -> tuple[str, bool]:
         step: StepRecord = self._active_handler.active_step
         status: str = step.current_status
 

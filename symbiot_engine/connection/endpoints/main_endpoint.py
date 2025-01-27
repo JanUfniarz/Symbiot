@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from injector import inject
 
 from symbiot_engine.control.handlers.calibration_handler import CalibrationHandler
@@ -12,9 +12,9 @@ class MainEndpoint:
         self.app = app
         self.calibration_handler = calibration_handler
 
-    def listen(self, path):
+    def listen(self, path: str) -> None:
         @self.app.route(path + "/", methods=["POST"])
-        def new_operation():
+        def new_operation() -> Response:
             wish = request.get_json()["wish"]
             self.calibration_handler.create(wish)
             return jsonify({"message": "added operation"})

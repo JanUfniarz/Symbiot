@@ -20,17 +20,17 @@ class Operation:
         self.id: str = str(uuid.uuid4()) if id_ is None else id_
 
     @property
-    def records(self):
+    def records(self) -> list[Record]:
         return self._records.copy()
 
-    def add_or_update_record(self, record: Record):
+    def add_or_update_record(self, record: Record) -> None:
         for it, record_ in enumerate(self._records):
             if record.id == record_.id:
                 self._records[it] = record
                 return
         self._records.append(record)
 
-    def remove_record(self, record: Record):
+    def remove_record(self, record: Record) -> None:
         if record in self._records:
             self._records.remove(record)
 

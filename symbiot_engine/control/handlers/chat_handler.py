@@ -12,15 +12,15 @@ class ChatHandler(HandlerInterface):
         self.active_step: StepRecord | None = None
 
     @abstractmethod
-    def create(self, *args, **kwargs):
+    def create(self, *args, **kwargs) -> None:
         # ! method should send data to server
         pass
 
     # noinspection PyMethodOverriding
-    def open_chat(self, step_id):
+    def open_chat(self, step_id: str) -> None:
         self.active_step = self.server.get_record_by_id(step_id)
 
-    def close_chat(self):
+    def close_chat(self) -> None:
         self.server.post_pickle(self.active_step,
                                 path="operation/record")
         self.active_step = None

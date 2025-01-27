@@ -26,13 +26,13 @@ class OperationService(SymbiotService):
             self,
             operation_repository: OperationRepository):
         super().__init__()
-        self._repository = operation_repository
+        self._repository: OperationRepository = operation_repository
 
     @property
     def operations(self) -> list[Operation]:
         return self._repository.get_all()
 
-    def save_record(self, record: Record):
+    def save_record(self, record: Record) -> None:
         if self._repository.is_available(record.id, "records"):
             operation = self.operation("record_id", record.id)
             if record.in_status("TO=calibration", "ns_generated") \
@@ -49,7 +49,7 @@ class OperationService(SymbiotService):
             operation.add_or_update_record(record)
             self.save_operation(operation)
 
-    def get_record(self, id_: int):
+    def get_record(self, id_: int) -> Record | None:
         return self._repository.get_record_by_id(id_)
 
     def operation(self, by: str, content) -> Operation | None:
@@ -83,6 +83,6 @@ class OperationService(SymbiotService):
         return "operation deleted"
 
     @operation_required()
-    def update_operation(self, id_, to_change, value):
+    def update_operation(self, id_: str, to_change: str, value) -> str:
         self._repository.update_value(id_, to_change, value)
         return f"operation {to_change} updated"

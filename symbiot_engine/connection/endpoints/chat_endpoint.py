@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from injector import inject
 
 from symbiot_engine.control.middlewares.handler_provider import HandlerProvider
@@ -11,9 +11,9 @@ class ChatEndpoint:
         self.app: Flask = app
         self.provider = handler_provider
 
-    def listen(self, path):
+    def listen(self, path: str) -> None:
         @self.app.route(path + "/prompt", methods=["PUT"])
-        def new_message():
+        def new_message() -> Response:
             body, must_reload = self.provider.continue_chat(
                 request.get_json()["prompt"])
             return jsonify({
@@ -21,12 +21,12 @@ class ChatEndpoint:
                 "must_reload": must_reload})
 
         @self.app.route(path + "/body", methods=["PUT"])
-        def set_body():
+        def set_body() -> Response:
             self.provider.set_body(request.get_json().get("new_body"))
             return jsonify(dict(message="body updated"))
 
         @self.app.route(path + "/", methods=["POST"])
-        def manage_chat():
+        def manage_chat() -> Response:
             data: dict = request.get_json()
             match data.get("command"):
                 case "open":

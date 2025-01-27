@@ -2,7 +2,7 @@ import base64
 import pickle
 from itertools import chain
 
-from flask import jsonify, Flask, request
+from flask import jsonify, Flask, request, Response
 from injector import inject
 
 from symbiot_server.control.services.operation_service import OperationService
@@ -39,9 +39,9 @@ class OperationEndpoint:
             args = dict()
         return args
 
-    def listen(self, path):
+    def listen(self, path: str) -> None:
         @self.app.route(path + "/", methods=["GET"])
-        def get_operations():
+        def get_operations() -> Response | dict:
             if "by" in self._data():
                 return self._format(
                     self.service.operation(self._data()["by"], self._data()["content"]),
@@ -51,26 +51,26 @@ class OperationEndpoint:
                 self.service.operations)))
 
         @self.app.route(path + '/', methods=["POST"])
-        def add_operation():
+        def add_operation() -> Response:
             self.service.save_operation(
                 self._pickle_decode(request.get_json()["pickle"]))
             return jsonify(dict(message="added operation"))
 
         @self.app.route(path + '/', methods=["DELETE"])
-        def delete_operation():
+        def delete_operation() -> Response:
             print(self._data(json=True))
             message = self.service.delete_operation(self._data(json=True)["id"])
             return jsonify(dict(
                 message=message))
 
         @self.app.route(path + '/', methods=["PUT"])
-        def update_operation():
+        def update_operation() -> Response:
             data = self._data(json=True)
             return jsonify(dict(message=self.service.update_operation(
                 data["id"], data["to_change"], data["value"])))
 
         @self.app.route(path + "/record/", methods=["GET"])
-        def get_records():
+        def get_records() -> dict | list[dict]:
             if "by" in self._data():
                 return self._format(
                     self.service.record(self._data()["by"], self._data()["content"]),
@@ -83,7 +83,7 @@ class OperationEndpoint:
                     self.service.operations)))))
 
         @self.app.route(path + "/record/", methods=["POST"])
-        def add_record():
+        def add_record() -> Response:
             if "pickle" in self._data(json=True):
                 self.service.save_record(
                     self._pickle_decode(self._data(json=True).get("pickle")))

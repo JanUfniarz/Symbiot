@@ -26,7 +26,7 @@ class GPTAgent:
         self.tool_kit = tool_kit
 
     @staticmethod
-    def set_api_key(api_key):
+    def set_api_key(api_key) -> None:
         openai.api_key = api_key
 
     def chat(self,

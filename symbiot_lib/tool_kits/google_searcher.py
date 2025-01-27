@@ -27,7 +27,7 @@ class GoogleSearcher(ToolKit):
                                name="query",
                                type="string",
                                description=PHRASE_DESCRIPTION)])
-    def get_query(self, phrase: str):
+    def get_query(self, query: str):
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
         driver.get("https://www.google.pl/?hl=pl")
@@ -36,7 +36,7 @@ class GoogleSearcher(ToolKit):
         accept.click()
 
         google_search_box = driver.find_element(By.ID, "APjFqb")
-        google_search_box.send_keys(phrase)
+        google_search_box.send_keys(query)
         google_search_box.send_keys(Keys.ENTER)
 
         time.sleep(10)

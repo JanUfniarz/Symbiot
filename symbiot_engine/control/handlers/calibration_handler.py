@@ -12,7 +12,7 @@ class CalibrationHandler(ChatHandler):
     def __init__(self, object_connector: ObjectConnector):
         super().__init__(object_connector)
 
-    def create(self, wish):
+    def create(self, wish: str) -> None:
         # noinspection PyTypeChecker
         operation = Operation(
             None, wish, wish,
@@ -37,7 +37,7 @@ class CalibrationHandler(ChatHandler):
         self.active_step.agent.tool_kit.func = None
         return res
 
-    def assign_nord_star(self, nord_star, name):  # * callback method
+    def assign_nord_star(self, nord_star: str, name: str) -> None:  # * callback method
         step = self.active_step
         step.inputs.append(name)
         step.outputs.append(nord_star)

@@ -35,5 +35,5 @@ class RecordEntity(Record, db.Model):
         self.big_o = big_o
 
     @property
-    def type_str(self):
+    def type_str(self) -> str:
         return "entity"

@@ -1,7 +1,7 @@
 import base64
 import pickle
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from injector import inject
 
 from symbiot_server.control.services.agent_service import AgentService
@@ -15,9 +15,9 @@ class AgentEndpoint:
         self.app = app
         self.service = service
 
-    def listen(self, path):
+    def listen(self, path: str) -> None:
         @self.app.route(path + "/", methods=["GET"])
-        def get_agent():
+        def get_agent() -> Response:
             params = request.args
 
             return jsonify(dict(

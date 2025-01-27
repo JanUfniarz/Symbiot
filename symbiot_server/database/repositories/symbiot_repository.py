@@ -24,7 +24,7 @@ class SymbiotRepository:
             WHERE id = '{id_}';
         """)).fetchone() is not None
 
-    def update_value(self, id_, to_change, value) -> None:
+    def update_value(self, id_: str, to_change: str, value) -> None:
         # language=POSTGRES-PSQL
         self.db.session.execute(text(f"""
             UPDATE {self._entity.__tablename__} 
