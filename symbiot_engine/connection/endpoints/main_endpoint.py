@@ -2,14 +2,15 @@ from flask import Flask, request, jsonify, Response
 from injector import inject
 
 from symbiot_engine.control.handlers.calibration_handler import CalibrationHandler
+from symbiot_lib.components.symbiot_endpoint import SymbiotEndpoint
 
 
-class MainEndpoint:
+class MainEndpoint(SymbiotEndpoint):
 
     @inject
     def __init__(self, app: Flask,
                  calibration_handler: CalibrationHandler):
-        self.app = app
+        super().__init__(app)
         self.calibration_handler = calibration_handler
 
     def listen(self, path: str) -> None:

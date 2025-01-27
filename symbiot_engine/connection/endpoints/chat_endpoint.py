@@ -2,13 +2,14 @@ from flask import Flask, jsonify, request, Response
 from injector import inject
 
 from symbiot_engine.control.middlewares.handler_provider import HandlerProvider
+from symbiot_lib.components.symbiot_endpoint import SymbiotEndpoint
 
 
-class ChatEndpoint:
+class ChatEndpoint(SymbiotEndpoint):
     @inject
     def __init__(self, app: Flask,
                  handler_provider: HandlerProvider):
-        self.app: Flask = app
+        super().__init__(app)
         self.provider = handler_provider
 
     def listen(self, path: str) -> None:

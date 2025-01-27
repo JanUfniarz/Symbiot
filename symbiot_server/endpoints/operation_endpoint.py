@@ -5,15 +5,16 @@ from itertools import chain
 from flask import jsonify, Flask, request, Response
 from injector import inject
 
+from symbiot_lib.components.symbiot_endpoint import SymbiotEndpoint
 from symbiot_server.control.services.operation_service import OperationService
 
 
-class OperationEndpoint:
+class OperationEndpoint(SymbiotEndpoint):
 
     @inject
     def __init__(self, app: Flask,
                  service: OperationService):
-        self.app = app
+        super().__init__(app)
         self.service = service
 
     @staticmethod
