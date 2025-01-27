@@ -5,14 +5,14 @@ class ToolKit:
 
     def __init__(self,
                  forced: str = "auto",
-                 excluded: list = None,
+                 excluded: list[str] = None,
                  child=None):
-        self._forced = forced
-        self.excluded = excluded if excluded is not None else []
+        self._forced: str = forced
+        self.excluded: list[str] = excluded if excluded is not None else []
         self.child = child
 
     @property
-    def forced(self):
+    def forced(self) -> str:
         if self.child is not None \
                 and self.child.forced != "auto" \
                 and self.child.forced != "none":
@@ -20,7 +20,7 @@ class ToolKit:
         return self._forced
 
     @forced.setter
-    def forced(self, value):
+    def forced(self, value: str) -> None:
         if hasattr(self, value):
             method = getattr(self, value)
             if callable(method) and getattr(method, 'accessible', False):
@@ -33,7 +33,7 @@ class ToolKit:
         return self._forced == "auto"
 
     @auto_call.setter
-    def auto_call(self, value: bool):
+    def auto_call(self, value: bool) -> None:
         if value:
             self._forced = "auto"
         else:
@@ -43,7 +43,7 @@ class ToolKit:
                 print("auto_call already off")
 
     @property
-    def access(self):
+    def access(self) -> list[dict]:
         access = [dict(
             name=name,
             description=method.__doc__,
@@ -59,7 +59,7 @@ class ToolKit:
                 case _: return self.child.access
         return access
 
-    def execute(self, call):
+    def execute(self, call: dict):
         name = call["name"]
         args = json.loads(call["arguments"])
         if hasattr(self, name) \
