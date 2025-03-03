@@ -12,4 +12,3 @@ class SymbiotDivision(Module):
     @abstractmethod
     def configure(self, binder: Binder) -> None:
         pass
-

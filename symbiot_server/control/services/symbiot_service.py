@@ -5,7 +5,7 @@ from symbiot_server.control.mediator import Mediator
 
 class SymbiotService(ABC):
     @abstractmethod
-    def division_name(self):
+    def division_name(self) -> str:
         pass
 
     def __init__(self):

@@ -49,7 +49,7 @@ class OperationService(SymbiotService):
             operation.add_or_update_record(record)
             self.save_operation(operation)
 
-    def get_record(self, id_: int) -> Record | None:
+    def get_record(self, id_: str) -> Record | None:
         return self._repository.get_record_by_id(id_)
 
     def operation(self, by: str, content) -> Operation | None:
