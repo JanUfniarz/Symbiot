@@ -3,9 +3,8 @@
 # Symbiot cli
 function symbiot {
     param([string]$command, [string[]]$params)
-    $symbiotPath = "set the path to Symbiot here"
     $originalPath = $PWD.Path
-    Set-Location "$symbiotPath/ps_scripts"
+    Set-Location $PSScriptRoot
 
     switch ($command) {
         help {& ./help.ps1}
